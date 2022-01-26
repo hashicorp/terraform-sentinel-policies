@@ -1,4 +1,4 @@
-# limit_proposed_monthly_cost
+# [limit_proposed_monthly_cost](../tfrun-functions.sentinel#L9)
 This function validates that the proposed monthly cost from the [cost estimates](https://www.terraform.io/docs/cloud/cost-estimation/index.html) of a plan done against a workspace is less than a given limit which is given in US dollars.
 
 ## Sentinel Module

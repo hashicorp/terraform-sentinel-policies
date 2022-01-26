@@ -1,4 +1,4 @@
-# limit_cost_and_percentage_increase
+# [limit_cost_and_percentage_increase](../tfrun-functions.sentinel#L37)
 This function validates that the proposed monthly cost from the [cost estimates](https://www.terraform.io/docs/cloud/cost-estimation/index.html) of a plan done against a workspace is less than a given limit which is given in US dollars and that the percentage increase of the monthly cost is less than a given maximum percentage.
 
 ## Sentinel Module

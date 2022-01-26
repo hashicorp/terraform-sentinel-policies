@@ -1,4 +1,4 @@
-# limit_cost_by_workspace_name
+# [limit_cost_by_workspace_name](../tfrun-functions.sentinel#L84)
 This function validates that the proposed monthly cost from the [cost estimates](https://www.terraform.io/docs/cloud/cost-estimation/index.html) of a plan done against a workspace is less than a given limit (given in US dollars). The limit is determined from a map that associates workspace names with different limits using regex matching.
 
 The idea is that you might set different limits for Dev, QA, and Production workspaces.
