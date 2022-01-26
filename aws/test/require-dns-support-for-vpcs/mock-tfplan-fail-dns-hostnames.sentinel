@@ -1,0 +1,62 @@
+terraform_version = "0.12.24"
+
+variables = {
+	"cidr_for_nested_module": {
+		"name":  "cidr_for_nested_module",
+		"value": "172.17.0.0/16",
+	},
+	"cidr_for_pmr_module": {
+		"name":  "cidr_for_pmr_module",
+		"value": "172.18.0.0/16",
+	},
+	"cidr_for_root": {
+		"name":  "cidr_for_root",
+		"value": "172.16.0.0/16",
+	},
+}
+
+resource_changes = {
+	"aws_vpc.vpc_from_root_module": {
+		"address": "aws_vpc.vpc_from_root_module",
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after": {
+				"assign_generated_ipv6_cidr_block": false,
+				"cidr_block":                       "172.16.0.0/16",
+				"enable_dns_support":               true,
+				"instance_tenancy":                 "default",
+				"tags": {
+					"Name": "vpc-from-root-module",
+				},
+			},
+			"after_unknown": {
+				"arn": true,
+				"default_network_acl_id":         true,
+				"default_route_table_id":         true,
+				"default_security_group_id":      true,
+				"dhcp_options_id":                true,
+				"enable_classiclink":             true,
+				"enable_classiclink_dns_support": true,
+				"enable_dns_hostnames":           true,
+				"id": true,
+				"ipv6_association_id": true,
+				"ipv6_cidr_block":     true,
+				"main_route_table_id": true,
+				"owner_id":            true,
+				"tags":                {},
+			},
+			"before": null,
+		},
+		"deposed":        "",
+		"index":          null,
+		"mode":           "managed",
+		"module_address": "",
+		"name":           "vpc_from_root_module",
+		"provider_name":  "aws",
+		"type":           "aws_vpc",
+	},
+}
+
+output_changes = {}

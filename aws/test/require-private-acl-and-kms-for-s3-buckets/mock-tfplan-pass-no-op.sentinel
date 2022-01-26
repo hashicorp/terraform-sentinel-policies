@@ -1,0 +1,51 @@
+terraform_version = "0.12.13"
+
+variables = {
+	"aws_region": {
+		"name":  "aws_region",
+		"value": "us-east-1",
+	},
+	"bucket_acl": {
+		"name":  "bucket_acl",
+		"value": "public-read",
+	},
+	"bucket_name": {
+		"name":  "bucket_name",
+		"value": "roger-012-test",
+	},
+}
+
+resource_changes = {
+	"aws_s3_bucket.bucket": {
+		"address": "aws_s3_bucket.bucket",
+		"change": {
+			"actions": [
+				"no-op",
+			],
+			"after": null,
+			"after_unknown": {},
+			"before": null,
+		},
+		"deposed":        "",
+		"index":          null,
+		"mode":           "managed",
+		"module_address": "",
+		"name":           "bucket",
+		"provider_name":  "aws",
+		"type":           "aws_s3_bucket",
+	},
+}
+
+output_changes = {
+	"sse": {
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after":         "AES256",
+			"after_unknown": false,
+			"before":        null,
+		},
+		"name": "sse",
+	},
+}

@@ -1,0 +1,152 @@
+terraform_version = "0.12.24"
+
+variables = {
+	"gcp_project": {
+		"name":  "gcp_project",
+		"value": "roger-berlind-gke-dev",
+	},
+	"gcp_region": {
+		"name":  "gcp_region",
+		"value": "us-east1",
+	},
+	"gcp_zone": {
+		"name":  "gcp_zone",
+		"value": "us-east1-b",
+	},
+	"image": {
+		"name":  "image",
+		"value": "debian-cloud/debian-9",
+	},
+	"instance_name": {
+		"name":  "instance_name",
+		"value": "demo",
+	},
+	"machine_type": {
+		"name":  "machine_type",
+		"value": "n1-standard-8",
+	},
+}
+
+resource_changes = {
+	"google_compute_instance.demo": {
+		"address": "google_compute_instance.demo",
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after": {
+				"allow_stopping_for_update": null,
+				"attached_disk":             [],
+				"boot_disk": [
+					{
+						"auto_delete":             true,
+						"disk_encryption_key_raw": null,
+						"initialize_params": [
+							{
+								"image": "debian-cloud/debian-9",
+							},
+						],
+						"mode": "READ_WRITE",
+					},
+				],
+				"can_ip_forward":          false,
+				"deletion_protection":     false,
+				"description":             null,
+				"desired_status":          null,
+				"enable_display":          null,
+				"hostname":                null,
+				"labels":                  null,
+				"machine_type":            "n1-standard-8",
+				"metadata":                null,
+				"metadata_startup_script": null,
+				"name": "demo",
+				"network_interface": [
+					{
+						"access_config": [
+							{
+								"public_ptr_domain_name": null,
+							},
+						],
+						"alias_ip_range": [],
+						"network":        "default",
+					},
+				],
+				"scratch_disk":             [],
+				"service_account":          [],
+				"shielded_instance_config": [],
+				"tags":     null,
+				"timeouts": null,
+				"zone":     "us-east1-b",
+			},
+			"after_unknown": {
+				"attached_disk": [],
+				"boot_disk": [
+					{
+						"device_name":                true,
+						"disk_encryption_key_sha256": true,
+						"initialize_params": [
+							{
+								"labels": true,
+								"size":   true,
+								"type":   true,
+							},
+						],
+						"kms_key_self_link": true,
+						"source":            true,
+					},
+				],
+				"cpu_platform":         true,
+				"guest_accelerator":    true,
+				"id":                   true,
+				"instance_id":          true,
+				"label_fingerprint":    true,
+				"metadata_fingerprint": true,
+				"min_cpu_platform":     true,
+				"network_interface": [
+					{
+						"access_config": [
+							{
+								"nat_ip":       true,
+								"network_tier": true,
+							},
+						],
+						"alias_ip_range":     [],
+						"name":               true,
+						"network_ip":         true,
+						"subnetwork":         true,
+						"subnetwork_project": true,
+					},
+				],
+				"project":                  true,
+				"scheduling":               true,
+				"scratch_disk":             [],
+				"self_link":                true,
+				"service_account":          [],
+				"shielded_instance_config": [],
+				"tags_fingerprint":         true,
+			},
+			"before": null,
+		},
+		"deposed":        "",
+		"index":          null,
+		"mode":           "managed",
+		"module_address": "",
+		"name":           "demo",
+		"provider_name":  "google",
+		"type":           "google_compute_instance",
+	},
+}
+
+output_changes = {
+	"external_ip": {
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after":         undefined,
+			"after_unknown": true,
+			"before":        null,
+		},
+		"name": "external_ip",
+	},
+}
