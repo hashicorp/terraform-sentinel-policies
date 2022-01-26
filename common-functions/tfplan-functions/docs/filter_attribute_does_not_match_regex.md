@@ -1,4 +1,4 @@
-# filter_attribute_does_not_match_regex
+# [filter_attribute_does_not_match_regex](../tfplan-functions.sentinel#L816)
 This function filters a collection of resources, data sources, or blocks to those with an attribute that does not match a given regular expression (regex). A policy would call it when it wants the attribute to match that regex.
 
 It uses the Sentinel [matches](https://docs.hashicorp.com/sentinel/language/spec/#matches-operator) operator which uses [RE2](https://github.com/google/re2/wiki/Syntax) regex.

@@ -1,4 +1,4 @@
-# filter_attribute_has_prefix
+# [filter_attribute_has_prefix](../tfplan-functions.sentinel#L906)
 This function filters a collection of resources, data sources, or blocks to those with an attribute that has a specified prefix. A policy would call it when it wants the attribute to not start with that prefix.
 
 It uses Sentinel's standard [strings](https://docs.hashicorp.com/sentinel/imports/strings/) import.

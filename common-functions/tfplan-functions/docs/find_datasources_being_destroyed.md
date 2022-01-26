@@ -1,4 +1,4 @@
-# find_datasources_being_destroyed
+# [find_datasources_being_destroyed](../tfplan-functions.sentinel#L169)
 This function finds all data source instances being destroyed but not re-created in the current plan using the [tfplan/v2](https://www.terraform.io/docs/cloud/sentinel/import/tfplan-v2.html) import.
 
 ## Sentinel Module

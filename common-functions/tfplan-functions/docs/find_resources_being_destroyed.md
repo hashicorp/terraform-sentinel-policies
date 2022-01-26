@@ -1,4 +1,4 @@
-# find_resources_being_destroyed
+# [find_resources_being_destroyed](../tfplan-functions.sentinel#L156)
 This function finds all resource instances being destroyed but not re-created in the current plan using the [tfplan/v2](https://www.terraform.io/docs/cloud/sentinel/import/tfplan-v2.html) import.
 
 ## Sentinel Module

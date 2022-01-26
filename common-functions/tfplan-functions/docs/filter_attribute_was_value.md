@@ -1,4 +1,4 @@
-# filter_attribute_was_value
+# [filter_attribute_was_value](../tfplan-functions.sentinel#L650)
 This function filters a collection of resources, data sources, or blocks to those with an attribute that was equal to a given value. A policy would call it when it wants the attribute to not equal the given value, especially when trying to delete a resource. Note that this function passes `rc.change.before` instead of `rc` to the `evaluate_attribute()` function which converts `rc` to `rc.change.after`.
 
 ## Sentinel Module

@@ -1,4 +1,4 @@
-# filter_attribute_not_in_list
+# [filter_attribute_not_in_list](../tfplan-functions.sentinel#L320)
 This function filters a collection of resources, data sources, or blocks to those with an attribute that is not contained in a provided list. A policy would call it when it wants the attribute to have a value from the list.
 
 ## Sentinel Module

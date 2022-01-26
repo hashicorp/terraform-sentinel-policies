@@ -43,7 +43,7 @@ All of the common functions that use any of the 4 Terraform Sentinel imports (tf
 ```
 Test cases that use the other modules would either change all three occurrences of "tfplan" in that stanza to "tfstate", "tfconfig", "tfrun", "aws", or "azure" or would add additional stanzas with those changes.
 
-We have put each Sentinel module in its own directory which also contains Markdown files for each of the module's functions under a docs directory. Each of these Markdown files describes the function, its declaration, its arguments, other common functions it uses, what it returns, and what it prints. It also gives examples of calling the function and sometimes lists some policies that call it.
+We have put each Sentinel module in its own directory which also contains Markdown files for each of the module's functions under a docs directory. The names of the functions at the top of these Markdown documentation files have hyperlinks that will take you directly to the function definition in the module itself. Each of these Markdown files describes the function, its declaration, its arguments, other common functions it uses, what it returns, and what it prints. It also gives examples of calling the function and sometimes lists some policies that call it.
 
 While having multiple Sentinel functions in a single file does make examining the function code a bit harder, we think the reduced work associated with referencing the functions in the test cases and policy sets justifies this.
 

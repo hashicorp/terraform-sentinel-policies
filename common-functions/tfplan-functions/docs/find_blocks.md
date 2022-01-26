@@ -1,4 +1,4 @@
-# find_blocks
+# [find_blocks](../tfplan-functions.sentinel#L183)
 This function finds all blocks of a specific type under a single resource or block in the current plan using the [tfplan/v2](https://www.terraform.io/docs/cloud/sentinel/import/tfplan-v2.html) import.
 
 ## Sentinel Module

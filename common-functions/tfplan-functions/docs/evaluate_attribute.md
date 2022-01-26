@@ -1,4 +1,4 @@
-# evaluate_attribute
+# [evaluate_attribute](../tfplan-functions.sentinel#L254)
 This function evaluates the value of an attribute within a resource, data source, or block. The attribute can be deeply nested.
 
 ## Sentinel Module

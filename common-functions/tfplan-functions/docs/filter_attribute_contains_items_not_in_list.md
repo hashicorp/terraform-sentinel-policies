@@ -1,4 +1,4 @@
-# filter_attribute_contains_items_not_in_list
+# [filter_attribute_contains_items_not_in_list](../tfplan-functions.sentinel#L491)
 This function filters a collection of resources, data sources, or blocks to those with an attribute that contains any items that are not in a given list. A policy would call it when it wants the attribute to only contain members of the list (but not necessarily all of them).
 
 ## Sentinel Module

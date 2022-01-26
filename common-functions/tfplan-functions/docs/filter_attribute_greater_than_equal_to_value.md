@@ -1,4 +1,4 @@
-# filter_attribute_greater_than_equal_to_value
+# [filter_attribute_greater_than_equal_to_value](../tfplan-functions.sentinel#L714)
 This function filters a collection of resources, data sources, or blocks to those with an attribute that is greater than or equal to a given numeric value. A policy would call it when it wants the attribute to be less than the given value.
 
 ## Sentinel Module

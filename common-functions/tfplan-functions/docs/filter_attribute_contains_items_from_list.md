@@ -1,4 +1,4 @@
-# filter_attribute_contains_items_from_list
+# [filter_attribute_contains_items_from_list](../tfplan-functions.sentinel#L431)
 This function filters a collection of resources, data sources, or blocks to those with an attribute that contains any members of a given list. A policy would call it when it does not want the attribute to contain any members of the list.
 
 ## Sentinel Module
