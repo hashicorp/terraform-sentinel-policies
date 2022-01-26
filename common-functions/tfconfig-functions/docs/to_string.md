@@ -1,4 +1,4 @@
-# [to_string](./tfconfig-functions.sentinel#L245)
+# [to_string](../tfconfig-functions.sentinel#L245)
 This function converts any Sentinel object including complex compositions of primitive types (string, int, float, and bool), null, undefined, lists, and maps to a string.
 
 ## Sentinel Module

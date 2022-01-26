@@ -1,4 +1,4 @@
-# [find_resources_by_type](./tfconfig-functions.sentinel#L20)
+# [find_resources_by_type](../tfconfig-functions.sentinel#L20)
 This function finds all managed resources of a specific type in the Terraform configuration of the current plan's workspace using the [tfconfig/v2](https://www.terraform.io/docs/cloud/sentinel/import/tfconfig-v2.html) import.
 
 ## Sentinel Module

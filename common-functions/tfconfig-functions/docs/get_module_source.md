@@ -1,4 +1,4 @@
-# [get_module_source](./tfconfig-functions.sentinel#L547)
+# [get_module_source](../tfconfig-functions.sentinel#L547)
 This function finds the source of the module containing an item from its `module_address` using the [tfconfig/v2](https://www.terraform.io/docs/cloud/sentinel/import/tfconfig-v2.html) import.
 
 It does this by parsing `module_address` which will look like "module.A.module.B" if the item is not in the root module or "" if it is in the root module. It then finds the `module_call` in the parent module that calls the original module and then gets `source` from that module call.

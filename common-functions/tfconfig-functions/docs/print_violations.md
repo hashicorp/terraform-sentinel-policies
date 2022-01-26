@@ -1,4 +1,4 @@
-# [print_violations](./tfconfig-functions.sentinel#L230)
+# [print_violations](../tfconfig-functions.sentinel#L230)
 This function prints the violation messages that were previously returned by one of the filter functions of the tfconfig-functions.sentinel module. While those filter functions can print the violations messages themselves (if their `prtmsg` parameter is set to `true`), it is sometimes preferable to delay printing of the messages until later in the policy, typically after printing one or more messages giving the address of the resource that violated it.
 
 ## Sentinel Module

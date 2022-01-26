@@ -1,4 +1,4 @@
-# [find_datasources_in_module](./tfconfig-functions.sentinel#L77)
+# [find_datasources_in_module](../tfconfig-functions.sentinel#L77)
 This function finds all data sources in a specific module in the Terraform configuration of the current plan's workspace using the [tfconfig/v2](https://www.terraform.io/docs/cloud/sentinel/import/tfconfig-v2.html) import.
 
 ## Sentinel Module

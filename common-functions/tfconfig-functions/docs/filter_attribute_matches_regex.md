@@ -1,4 +1,4 @@
-# [filter_attribute_matches_regex](./tfconfig-functions.sentinel#L494)
+# [filter_attribute_matches_regex](../tfconfig-functions.sentinel#L494)
 This function filters a collection of items such as resources, data sources, or blocks to those with an attribute that matches a given regular expression (regex). A policy would call it when it wants the attribute to not match that regex. The attribute must either be a top-level attribute or an attribute directly under "config".
 
 It uses the Sentinel [matches](https://docs.hashicorp.com/sentinel/language/spec/#matches-operator) operator which uses [RE2](https://github.com/google/re2/wiki/Syntax) regex.

@@ -1,4 +1,4 @@
-# [get_parent_module_address](./tfconfig-functions.sentinel#L627)
+# [get_parent_module_address](../tfconfig-functions.sentinel#L627)
 This function finds the address of the parent module of the module containing an item from its `module_address` using the [tfconfig/v2](https://www.terraform.io/docs/cloud/sentinel/import/tfconfig-v2.html) import.
 
 It does this by parsing `module_address` which will look like "module.A.module.B" if the item is not in the root module or "" if it is in the root module.

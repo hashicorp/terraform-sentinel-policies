@@ -1,4 +1,4 @@
-# [evaluate_attribute](./tfconfig-functions.sentinel#L289)
+# [evaluate_attribute](../tfconfig-functions.sentinel#L289)
 This function evaluates an attribute within an item in the Terraform configuration. The attribute must either be a top-level attribute or an attribute directly under "config".
 
 ## Sentinel Module

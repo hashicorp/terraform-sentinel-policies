@@ -1,4 +1,4 @@
-# [filter_attribute_in_list](./tfconfig-functions.sentinel#L376)
+# [filter_attribute_in_list](../tfconfig-functions.sentinel#L376)
 This function filters a collection of items such as providers, provisioners, resources, data sources, variables, outputs, or module calls to those with a top-level attribute that is contained in a provided list. A policy would call it when it wants the attribute to not have a value from the list.
 
 This function is intended to examine metadata of various Terraform objects within a Terraform configuration. It cannot be used to examine the values of attributes of resources or data sources. Use the filter functions of the tfplan-functions or tfstate-functions modules for that.

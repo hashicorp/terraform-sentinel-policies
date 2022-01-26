@@ -1,4 +1,4 @@
-# [find_descendant_modules](./tfconfig-functions.sentinel#L208)
+# [find_descendant_modules](../tfconfig-functions.sentinel#L208)
 This function finds the addresses of all modules called directly or indirectly by a module in the Terraform configuration of the current plan's workspace using the [tfconfig/v2](https://www.terraform.io/docs/cloud/sentinel/import/tfconfig-v2.html) import.
 
 It does this by calling itself recursively.

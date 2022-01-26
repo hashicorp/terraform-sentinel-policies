@@ -1,4 +1,4 @@
-# [get_ancestor_module_source](./tfconfig-functions.sentinel#L583)
+# [get_ancestor_module_source](../tfconfig-functions.sentinel#L583)
 This function finds the source of the first ancestor module that is not a local module of the module containing an item from its `module_address` using the [tfconfig/v2](https://www.terraform.io/docs/cloud/sentinel/import/tfconfig-v2.html) import. (A local module is indicated by use of a source starting with "./" or "../".)
 
 It does this by parsing `module_address` which will look like "module.A.module.B" if the item is not in the root module or "" if it is in the root module. It then finds the `module_call` in the parent module that calls the original module and then gets `source` from that module call.

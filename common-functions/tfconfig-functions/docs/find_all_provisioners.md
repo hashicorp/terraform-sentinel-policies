@@ -1,4 +1,4 @@
-# [find_all_provisioners](./tfconfig-functions.sentinel#L100)
+# [find_all_provisioners](../tfconfig-functions.sentinel#L100)
 This function finds all provisioners in all modules in the Terraform configuration of the current plan's workspace using the [tfconfig/v2](https://www.terraform.io/docs/cloud/sentinel/import/tfconfig-v2.html) import.
 
 Calling it is equivalent to referencing `tfconfig.provisioners`. It is included so that policies that use the tfconfig-functions.sentinel module do not need to import both it and the tfconfig/v2 module.

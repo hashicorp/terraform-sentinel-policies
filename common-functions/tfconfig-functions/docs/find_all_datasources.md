@@ -1,4 +1,4 @@
-# [find_all_datasources](./tfconfig-functions.sentinel#L55)
+# [find_all_datasources](../tfconfig-functions.sentinel#L55)
 This function finds all data sources in all modules in the Terraform configuration of the current plan's workspace using the [tfconfig/v2](https://www.terraform.io/docs/cloud/sentinel/import/tfconfig-v2.html) import.
 
 Calling it is equivalent to filtering `tfconfig.resources` to those with `mode` equal to `data`, which indicates that they are data sources rather than managed resources.

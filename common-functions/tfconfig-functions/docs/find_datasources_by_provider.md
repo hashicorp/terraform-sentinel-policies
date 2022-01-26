@@ -1,4 +1,4 @@
-# [find_datasources_by_provider](./tfconfig-functions.sentinel#L88)
+# [find_datasources_by_provider](../tfconfig-functions.sentinel#L88)
 This function finds all data sources created by a specific provider in the Terraform configuration of the current plan's workspace using the [tfconfig/v2](https://www.terraform.io/docs/cloud/sentinel/import/tfconfig-v2.html) import.
 
 ## Sentinel Module

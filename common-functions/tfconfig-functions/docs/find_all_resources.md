@@ -1,4 +1,4 @@
-# [find_all_resources](./tfconfig-functions.sentinel#L10)
+# [find_all_resources](../tfconfig-functions.sentinel#L10)
 This function finds all managed resources in all modules in the Terraform configuration of the current plan's workspace using the [tfconfig/v2](https://www.terraform.io/docs/cloud/sentinel/import/tfconfig-v2.html) import.
 
 Calling it is equivalent to filtering `tfconfig.resources` to those with `mode` equal to `managed`, which indicates that they are managed resources rather than data sources.

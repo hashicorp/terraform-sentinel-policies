@@ -1,4 +1,4 @@
-# [find_outputs_by_sensitivity](./tfconfig-functions.sentinel#L176)
+# [find_outputs_by_sensitivity](../tfconfig-functions.sentinel#L176)
 This function finds all outputs of a specific sensitivity (`true` or `false`) in the Terraform configuration of the current plan's workspace using the [tfconfig/v2](https://www.terraform.io/docs/cloud/sentinel/import/tfconfig-v2.html) import.
 
 ## Sentinel Module

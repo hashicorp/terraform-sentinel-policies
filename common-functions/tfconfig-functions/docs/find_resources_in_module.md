@@ -1,4 +1,4 @@
-# [find_resources_in_module](./tfconfig-functions.sentinel#L32)
+# [find_resources_in_module](../tfconfig-functions.sentinel#L32)
 This function finds all managed resources in a specific module in the Terraform configuration of the current plan's workspace using the [tfconfig/v2](https://www.terraform.io/docs/cloud/sentinel/import/tfconfig-v2.html) import.
 
 ## Sentinel Module
