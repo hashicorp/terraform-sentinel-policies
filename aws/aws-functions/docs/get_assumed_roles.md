@@ -1,4 +1,4 @@
-# get_assumed_roles
+# [get_assumed_roles](../aws-functions.sentinel#L80)
 This function gets all roles assumed by any instances of the AWS provider in the current Terraform configuration using the [tfconfig/v2](https://www.terraform.io/docs/cloud/sentinel/import/tfconfig-v2.html) and [tfplan/v2](https://www.terraform.io/docs/cloud/sentinel/import/tfplan-v2.html) imports.
 
 The tfplan/v2 import is used by the `determine_role_arn` function that this function calls.

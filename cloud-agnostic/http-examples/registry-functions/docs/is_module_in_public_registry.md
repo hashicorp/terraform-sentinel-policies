@@ -1,4 +1,4 @@
-# is_module_in_public_registry
+# [is_module_in_public_registry](../registry-functions.sentinel#L122)
 This function determines if a module is in the public registry.
 
 ## Sentinel Module
@@ -31,4 +31,4 @@ if uncurated_public_module {
 }
 ```
 
-This function is called by the [use-recent-versions-from-pmr.sentinel](../../use-recent-versions-from-pmr.sentinel) policy. In fact, the above code is based on code from that policy. 
+This function is called by the [use-recent-versions-from-pmr.sentinel](../../use-recent-versions-from-pmr.sentinel) policy. In fact, the above code is based on code from that policy.

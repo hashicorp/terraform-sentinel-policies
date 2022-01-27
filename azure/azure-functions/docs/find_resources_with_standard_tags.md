@@ -1,4 +1,4 @@
-# find_resources_with_standard_tags
+# [find_resources_with_standard_tags](../azure-functions.sentinel#L8)
 This function finds all Azure resource instances of specified types in the current plan that are not being permanently deleted using the [tfplan/v2](https://www.terraform.io/docs/cloud/sentinel/import/tfplan-v2.html) import.
 
 This function works with both the short name of the Azure provider, "azurerm", and fully-qualfied provider names that match the regex, `(.*)azurerm$`. The latter is required because Terraform 0.13 and above returns the fully-qualified names of providers such as "registry.terraform.io/hashicorp/azurerm" to Sentinel. Older versions of Terraform only return the short-form such as "azurerm".

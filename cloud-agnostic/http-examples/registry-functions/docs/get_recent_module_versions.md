@@ -1,4 +1,4 @@
-# get_recent_module_versions
+# [get_recent_module_versions](../registry-functions.sentinel#L11)
 This function gets recent versions for private or public modules from a private module registry (PMR). It calls the `get_recent_module_versions_by_page` function which gets those versions one page at a time. It has the same arguments as that function except for the `page` argument.
 
 ## Sentinel Module

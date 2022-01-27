@@ -1,4 +1,4 @@
-# find_most_recent_version
+# [find_most_recent_version](../registry-functions.sentinel#L98)
 This function finds the most recent version from a map of version strings. The `versions` parameter should contain strings, not actual versions from the version import. The keys of the map should be integers ranging from 0 to N-1 where the map has N versions.
 
 It is needed since lists of versions returned by the [Registry Modules API](https://www.terraform.io/docs/cloud/api/modules.html) endpoints are not ordered.

@@ -1,4 +1,4 @@
-# find_resources_with_standard_tags
+# [find_resources_with_standard_tags](../aws-functions.sentinel#L12)
 This function finds all AWS resource instances of specified types in the current plan that are not being permanently deleted using the [tfplan/v2](https://www.terraform.io/docs/cloud/sentinel/import/tfplan-v2.html) import.
 
 It was updated on 9/29/2020 to work with both the short name of the AWS provider, "aws", and fully-qualfied provider names that match the regex, `(.*)aws$`. This was required because Terraform 0.13 and above returns the fully-qualified names of providers such as "registry.terraform.io/hashicorp/aws" to Sentinel. Older versions of Terraform only return the short-form such as "aws".

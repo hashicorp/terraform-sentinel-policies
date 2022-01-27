@@ -1,4 +1,4 @@
-# validate_assumed_roles_with_list
+# [validate_assumed_roles_with_list](../aws-functions.sentinel#L101)
 This function checks whether all roles assumed by all instances of the AWS provider in the current Terraform configuration are in a specified list.
 
 ## Sentinel Module

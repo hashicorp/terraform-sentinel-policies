@@ -1,4 +1,4 @@
-# validate_assumed_roles_with_map
+# [validate_assumed_roles_with_map](../aws-functions.sentinel#L123)
 This function validates whether all roles assumed by instances of the AWS provider are allowed for the current workspace based on a map that maps AWS IAM roles to regular expressions (regex) that are compared to the name of the workspace.
 
 ## Sentinel Module

@@ -1,4 +1,4 @@
-# determine_role_arn
+# [determine_role_arn](../aws-functions.sentinel#L25)
 This function determines the ARN of an AWS IAM role assumed by the Terraform AWS provider using the [tfconfig/v2](https://www.terraform.io/docs/cloud/sentinel/import/tfconfig-v2.html) and [tfplan/v2](https://www.terraform.io/docs/cloud/sentinel/import/tfplan-v2.html) imports.
 
 It can only do this when the `role_arn` of the AWS provider is set to a hard-coded string or to a variable within the Terraform configuration. In the second case, the function cross-references the name of the variable in the tfconfig/v2 import with the actual value assigned to it in the tfplan/v2 import.

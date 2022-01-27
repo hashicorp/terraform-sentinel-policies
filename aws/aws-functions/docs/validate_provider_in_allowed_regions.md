@@ -1,4 +1,4 @@
-# validate_provider_in_allowed_regions
+# [validate_provider_in_allowed_regions](../aws-functions.sentinel#L218)
 This function validates whether a specific instance of the AWS provider is in a list of regions. The provider instance should be derived from `tfconfig.providers` or from the `provider_config_key` of a resource derived from `tfconfig.resources`.
 
 It attempts to identify the region of the provider aliases in several ways including constant values assigned to their `region` argument and resolution of references to variables. It first tries to process references to variables as strings, then as maps with a key called "region". It handles references to variables in the root module by using tfplan.variables. It handles references to variables in non-root modules by examining the module call from the current module's parent.
