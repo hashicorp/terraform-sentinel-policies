@@ -1,4 +1,4 @@
-# filter_attribute_does_not_have_suffix
+# [filter_attribute_does_not_have_suffix](../tfstate-functions.sentinel#L753)
 This function filters a collection of resources, data sources, or blocks to those with an attribute that does have a specified suffix. A policy would call it when it wants the attribute to end with that suffix.
 
 It uses Sentinel's standard [strings](https://docs.hashicorp.com/sentinel/imports/strings/) import.

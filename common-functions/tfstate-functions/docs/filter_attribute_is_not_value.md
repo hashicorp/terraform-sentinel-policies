@@ -1,4 +1,4 @@
-# filter_attribute_is_not_value
+# [filter_attribute_is_not_value](../tfstate-functions.sentinel#L499)
 This function filters a collection of resources, data sources, or blocks to those with an attribute that is not equal to a given value. A policy would call it when it wants the attribute to equal the given value.
 
 ## Sentinel Module

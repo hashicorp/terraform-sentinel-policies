@@ -1,4 +1,4 @@
-# find_datasources
+# [find_datasources](../tfstate-functions.sentinel#L72)
 This function finds all data source instances of a specific type in the state of the current workspace using the [tfstate/v2](https://www.terraform.io/docs/cloud/sentinel/import/tfstate-v2.html) import.
 
 ## Sentinel Module

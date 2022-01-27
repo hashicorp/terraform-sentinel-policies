@@ -1,4 +1,4 @@
-# find_resources
+# [find_resources](../tfstate-functions.sentinel#L21)
 This function finds all resource instances of a specific type in the state of the current workspace using the [tfstate/v2](https://www.terraform.io/docs/cloud/sentinel/import/tfstate-v2.html) import.
 
 ## Sentinel Module

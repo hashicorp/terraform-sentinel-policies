@@ -1,4 +1,4 @@
-# filter_attribute_less_than_value
+# [filter_attribute_less_than_value](../tfstate-functions.sentinel#L595)
 This function filters a collection of resources, data sources, or blocks to those with an attribute that is less than a given numeric value. A policy would call it when it wants the attribute to be greater than or equal to the given value.
 
 ## Sentinel Module

@@ -1,4 +1,4 @@
-# find_blocks
+# [find_blocks](../tfstate-functions.sentinel#L123)
 This function finds all blocks of a specific type under a single resource or block in the state of the current workspace using the [tfstate/v2](https://www.terraform.io/docs/cloud/sentinel/import/tfstate-v2.html) import.
 
 ## Sentinel Module

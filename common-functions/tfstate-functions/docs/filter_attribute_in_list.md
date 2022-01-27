@@ -1,4 +1,4 @@
-# filter_attribute_in_list
+# [filter_attribute_in_list](../tfstate-functions.sentinel#L301)
 This function filters a collection of resources, data sources, or blocks to those with an attribute contained in a provided list. A policy would call it when it does not want the attribute set to any member of the list.
 
 ## Sentinel Module
