@@ -31,7 +31,7 @@ You can find most of the common functions used in the third-generation policies 
   * [tfconfig-functions](./common-functions/tfconfig-functions)
   * [tfrun-functions](./common-functions/tfrun-functions)
 
-There are also some functions that can be used with the AWS and Azure providers in [aws-functions](./aws/aws-functions) and [azure-functions](./azure/azure-functions) and some functions that can be used when talking to module registries in [registry-functions](./cloud-agnostic/http-examples/registry-functions).
+There are also some functions that can be used with the AWS, Azure, and GGP providers in [aws-functions](./aws/aws-functions), [azure-functions](./azure/azure-functions), and [gcp-functions](.gcp/gcp-functions) and some functions that can be used when talking to module registries in [registry-functions](./cloud-agnostic/http-examples/registry-functions).
 
 All of the common functions that use any of the 4 Terraform Sentinel imports (tfplan/v2, tfstate/v2, tfconfig/v2, and tfrun) are defined in a single file. This makes it easier to import all of the functions that use one of those imports into the Sentinel CLI test cases and Terraform Cloud policy sets, since those only need a single stanza such as this one for each module:
 ```
@@ -60,7 +60,7 @@ import "registry-functions" as registry
 In this case, we are using `plan`, `state`, `config`, `run`, `aws`, `azure`, and `registry` as aliases for the seven imports to keep lines that use their functions shorter. Of course, you only need to import the modules that contain functions that your policy actually calls.
 
 ### The Functions of the tfplan-functions and tfstate-functions Modules
-We discuss these two modules together because they are essentially identical except for their use of the tfplan/v2 and tfstate/v2 imports.
+We discuss these two modules together because they are essentially identical except for their use of the tfplan/v2 and tfstate/v2 imports. (But note that the tfplan-functions module has some filter functions that the tfstate-functions module does not.)
 
 Each of these modules has several types of functions:
   * `find_resources` and `find_datasources` functions that find resources or data sources of a specific type. Note that the tfplan versions of these functions only find resources that are being created or changed and data sources that are being created, changed, or read.

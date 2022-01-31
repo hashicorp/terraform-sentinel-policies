@@ -412,7 +412,7 @@ filter_attribute_not_contains_list = func(resources, attr, required, prtmsg) {
       } // end for required
       if length(missing_values) > 0 {
         # Build warning message when v is a map
-        message = to_string(address) + " has " + to_string(attr) + " " +
+        message = to_string(address) + " has " + to_string(attr) + " with value " +
                   to_string(v) + " that is missing the required items " +
                   to_string(missing_values) + " from the list: " +
                   to_string(required)
@@ -445,7 +445,7 @@ filter_attribute_contains_items_from_list = func(resources, attr, forbidden, prt
     if not (types.type_of(v) is "list" or types.type_of(v) is "map" or
             types.type_of(v) is "null") {
       # Add the resource and a warning message to the violators list
-      message = to_string(address) + " has " + to_string(attr) + " " +
+      message = to_string(address) + " has " + to_string(attr) + " with value " +
                 to_string(v) + " that is not a map, a list, or null"
       violators[address] = rc
 			messages[address] = message
@@ -473,7 +473,7 @@ filter_attribute_contains_items_from_list = func(resources, attr, forbidden, prt
       } // end for forbidden
       if length(forbidden_values) > 0 {
         # Build warning message when v is a list
-        message = to_string(address) + " has " + to_string(attr) + " " +
+        message = to_string(address) + " has " + to_string(attr) + " with value " +
                   to_string(v) + " that has items " + to_string(forbidden_values) +
                   " from the forbidden list: " + to_string(forbidden)
         # Add the resource and a warning message to the violators list
@@ -504,7 +504,7 @@ filter_attribute_contains_items_not_in_list = func(resources, attr, allowed, prt
     if not (types.type_of(vals) is "list" or types.type_of(vals) is "map" or
             types.type_of(vals) is "null") {
         # Add the resource and a warning message to the violators list
-        message = to_string(address) + " has " + to_string(attr) + " " +
+        message = to_string(address) + " has " + to_string(attr) + " with value " +
                   to_string(vals) + " that is not a map, a list, or null"
         violators[address] = rc
         messages[address] = message
@@ -515,7 +515,7 @@ filter_attribute_contains_items_not_in_list = func(resources, attr, allowed, prt
       if "null" not in allowed {
         # Add the resource and a warning message to the violators list
         message = to_string(address) + " has " + to_string(attr) +
-                  " with value null " + "that is not in the allowed list: " +
+                  " with value null that is not in the allowed list: " +
                   to_string(allowed)
         violators[address] = rc
         messages[address] = message
@@ -532,7 +532,7 @@ filter_attribute_contains_items_not_in_list = func(resources, attr, allowed, prt
       } // end for vals
       if length(forbidden_values) > 0 {
         # Build warning message when vals is a map
-        message = to_string(address) + " has " + to_string(attr) + " " +
+        message = to_string(address) + " has " + to_string(attr) + " with value " +
                   to_string(vals) + " with items " + to_string(forbidden_values) +
                   " that are not in the allowed list: " + to_string(allowed)
         # Add the resource and a warning message to the violators list
@@ -1003,4 +1003,133 @@ filter_attribute_has_suffix = func(resources, attr, suffix, prtmsg) {
     }
   }
   return {"resources":violators,"messages":messages}
+}
+
+### filter_attribute_map_key_contains_items_in_list ###
+# Filter a list of resources to those with a specified map
+# attribute (attr) with key (key) that contains items in a given list of forbidden values (forbidden). This list should have strings, numbers, or booleans.
+# The key should either be a simple type like a string or number or a list.
+# Resources should be derived by applying filters to tfplan.resource_changes.
+# Set prtmsg to `true` (without quotes) if you want to print violation messages.
+# If the attribute is null or does not contain the key, no violation is generated.
+filter_attribute_map_key_contains_items_in_list = func(resources, attr, key, forbidden, prtmsg) {
+	violators = {}
+	messages = {}
+	for resources as address, rc {
+		# Evaluate the value (vals) of the attribute
+		vals = evaluate_attribute(rc, attr) else null
+
+		# Check if the attribute value is a map or is null.
+		if not (types.type_of(vals) is "map" or types.type_of(vals) is "null") {
+			# Add the resource and a warning message to the violators list
+			message = to_string(address) + " has " + to_string(attr) + " with value " +
+				to_string(vals) + " that is not a map or null"
+			violators[address] = rc
+			messages[address] = message
+			if prtmsg {
+				print(message)
+			}
+		} else if vals is not null {
+			# Check if vals contains the desired key
+      if key in keys(vals) {
+        # Get the value of the key
+			  key_value = vals[key]
+
+				forbidden_values = []
+				if types.type_of(key_value) not in ["list", "map"] {
+					if key_value in forbidden {
+						append(forbidden_values, key_value)
+					}
+				} else if types.type_of(key_value) is "list" {
+					for key_value as v {
+						if v in forbidden {
+							append(forbidden_values, v)
+						} // end if v forbidden
+					} // end for key_value
+        } else if types.type_of(key_value) is "map" {
+          # Ignore maps
+				} // end key_value type
+
+				if length(forbidden_values) > 0 {
+					# Build warning message when vals is a map
+					message = to_string(address) + " has " + to_string(attr) +
+            "with value " + to_string(vals) + " with key " + to_string(key) +
+            " containing items " + to_string(forbidden_values) +
+            " that are in the forbidden list: " + to_string(forbidden)
+					# Add the resource and a warning message to the violators list
+					violators[address] = rc
+					messages[address] = message
+					if prtmsg {
+						print(message)
+					}
+				} // end length(forbidden_values)
+			}
+
+		} // end if not null
+	} // end for
+	return {"resources": violators, "messages": messages}
+}
+
+### filter_attribute_map_key_contains_items_not_in_list ###
+# Filter a list of resources to those with a specified map
+# attribute (attr) key (key) that contains items not in a given list of allowed values (allowed).
+# Resources should be derived by applying filters to tfplan.resource_changes.
+# Set prtmsg to `true` (without quotes) if you want to print violation messages.
+# If the attribute is null or does not contain the key, no violation is generated.
+filter_attribute_map_key_contains_items_not_in_list = func(resources, attr, key, allowed, prtmsg) {
+	violators = {}
+	messages = {}
+	for resources as address, rc {
+		# Evaluate the value (vals) of the attribute
+		vals = evaluate_attribute(rc, attr) else null
+
+		# Check if the attribute value is a map or is null.
+		if not (types.type_of(vals) is "map" or types.type_of(vals) is "null") {
+			# Add the resource and a warning message to the violators list
+			message = to_string(address) + " has attribute " + to_string(attr) +
+        " with value " + to_string(vals) + " that is not a map or null"
+			violators[address] = rc
+			messages[address] = message
+			if prtmsg {
+				print(message)
+			}
+		} else if vals is not null {
+      # Check if vals contains the desired key
+      if key in keys(vals) {
+        # Get the value of the key
+			  key_value = vals[key]
+
+				forbidden_values = []
+				if types.type_of(key_value) not in ["list", "map"] {
+					if key_value not in allowed {
+						append(forbidden_values, key_value)
+					}
+				} else if types.type_of(key_value) is "list" {
+					for key_value as v {
+						if v not in allowed {
+							append(forbidden_values, v)
+						} // end if v not allowed
+					} // end for key_value
+        } else if types.type_of(key_value) is "map" {
+            # Ignore maps
+				} // end key_value type
+
+				if length(forbidden_values) > 0 {
+					# Build warning message when vals is a map
+					message = to_string(address) + " has attribute " + to_string(attr) +
+            " with key " + to_string(key) + " containing items " +
+						to_string(forbidden_values) + " that are not in the allowed list: " +
+						to_string(allowed)
+					# Add the resource and a warning message to the violators list
+					violators[address] = rc
+					messages[address] = message
+					if prtmsg {
+						print(message)
+					}
+				} // end length(forbidden_values)
+			}
+
+		} // end if not null
+	} // end for
+	return {"resources": violators, "messages": messages}
 }

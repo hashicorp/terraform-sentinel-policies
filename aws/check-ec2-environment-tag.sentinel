@@ -1,0 +1,36 @@
+# This policy uses the Sentinel tfplan/v2 import to require that
+# all EC2 instances have the Environment key in the tags attribute
+# and that it has a value from an allowed list
+
+# Import common-functions/tfplan-functions/tfplan-functions.sentinel
+# with alias "plan"
+import "tfplan-functions" as plan
+
+# Mandatory tags
+mandatory_tags = ["Environment"]
+
+# Allowed Environments
+# Include "null" to allow missing or computed values
+allowed_environments = ["dev", "qa", "prod"]
+
+# Get all EC2 instances
+allEC2Instances = plan.find_resources("aws_instance")
+
+# Filter to EC2 instances that are missing the environment tag
+# Warnings will be printed for all violations since the last parameter is true
+EC2InstancesWithoutEnvironmentTag =
+        plan.filter_attribute_not_contains_list(allEC2Instances,
+                        "tags", mandatory_tags, true)
+
+# Filter to EC2 instances that have the environment tag with an invalid value
+# Warnings will be printed for all violations since the last parameter is true
+EC2InstancesWithInvalidEnvironmentTag = plan.filter_attribute_map_key_contains_items_not_in_list(allEC2Instances,
+                        "tags", "Environment", allowed_environments, true)
+
+# Count violations
+violations = length(EC2InstancesWithoutEnvironmentTag["messages"]) + length(EC2InstancesWithInvalidEnvironmentTag["messages"])
+
+# Main rule
+main = rule {
+  violations is 0
+}
