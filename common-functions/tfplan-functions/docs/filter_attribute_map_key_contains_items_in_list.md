@@ -1,5 +1,5 @@
 # [filter_attribute_map_key_contains_items_in_list](../tfplan-functions.sentinel#L1015)
-This function filters a collection of resources, data sources, or blocks to those with an attribute of type map with a specific key that contains any members of a given list. A policy would call it when it does not want the key of the attribute to contain any members of the list.
+This function filters a collection of resources, data sources, or blocks to those with an attribute of type map with a specific key that contains any members of a given list. A policy would call it when it does not want the key of the attribute to contain any members of the list. It is based on a function written by [pshamus](https://discuss.hashicorp.com/u/pshamus/summary) [here](https://discuss.hashicorp.com/t/sentinel-checking-nested-tagging-values/21668/4?u=rberlind).
 
 ## Sentinel Module
 This function is contained in the [tfplan-functions.sentinel](../tfplan-functions.sentinel) module.
