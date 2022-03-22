@@ -1,0 +1,178 @@
+terraform_version = "1.1.7"
+
+planned_values = {
+	"outputs":   {},
+	"resources": {},
+}
+
+variables = {}
+
+resource_changes = {
+	"tfe_workspace.production": {
+		"address": "tfe_workspace.production",
+		"change": {
+			"actions": [
+				"delete",
+			],
+			"after":         null,
+			"after_unknown": {},
+			"before": {
+				"agent_pool_id":         "",
+				"allow_destroy_plan":    true,
+				"auto_apply":            false,
+				"description":           "",
+				"execution_mode":        "remote",
+				"file_triggers_enabled": true,
+				"global_remote_state":   false,
+				"id":                            "ws-Xr62gkMwt9fuzBP8",
+				"name":                          "production",
+				"operations":                    true,
+				"organization":                  "hashidemos",
+				"queue_all_runs":                true,
+				"remote_state_consumer_ids":     [],
+				"speculative_enabled":           true,
+				"ssh_key_id":                    "",
+				"structured_run_output_enabled": true,
+				"tag_names":                     [],
+				"terraform_version":             "latest",
+				"trigger_prefixes":              [],
+				"vcs_repo":                      [],
+				"working_directory":             "",
+			},
+		},
+		"deposed":        "",
+		"index":          null,
+		"mode":           "managed",
+		"module_address": "",
+		"name":           "production",
+		"provider_name":  "registry.terraform.io/hashicorp/tfe",
+		"type":           "tfe_workspace",
+	},
+}
+
+output_changes = {}
+
+raw = {
+	"configuration": {
+		"root_module": {
+			"resources": [
+				{
+					"address": "tfe_workspace.production",
+					"expressions": {
+						"name": {
+							"constant_value": "production",
+						},
+						"organization": {
+							"constant_value": "hashidemos",
+						},
+						"terraform_version": {
+							"constant_value": "latest",
+						},
+					},
+					"mode":                "managed",
+					"name":                "production",
+					"provider_config_key": "tfe",
+					"schema_version":      1,
+					"type":                "tfe_workspace",
+				},
+			],
+		},
+	},
+	"format_version": "1.0",
+	"planned_values": {
+		"root_module": {},
+	},
+	"prior_state": {
+		"format_version":    "1.0",
+		"terraform_version": "1.1.7",
+		"values": {
+			"root_module": {
+				"resources": [
+					{
+						"address":        "tfe_workspace.production",
+						"mode":           "managed",
+						"name":           "production",
+						"provider_name":  "registry.terraform.io/hashicorp/tfe",
+						"schema_version": 1,
+						"sensitive_values": {
+							"remote_state_consumer_ids": [],
+							"tag_names":                 [],
+							"trigger_prefixes":          [],
+							"vcs_repo":                  [],
+						},
+						"type": "tfe_workspace",
+						"values": {
+							"agent_pool_id":         "",
+							"allow_destroy_plan":    true,
+							"auto_apply":            false,
+							"description":           "",
+							"execution_mode":        "remote",
+							"file_triggers_enabled": true,
+							"global_remote_state":   false,
+							"id":                            "ws-Xr62gkMwt9fuzBP8",
+							"name":                          "production",
+							"operations":                    true,
+							"organization":                  "hashidemos",
+							"queue_all_runs":                true,
+							"remote_state_consumer_ids":     [],
+							"speculative_enabled":           true,
+							"ssh_key_id":                    "",
+							"structured_run_output_enabled": true,
+							"tag_names":                     [],
+							"terraform_version":             "latest",
+							"trigger_prefixes":              [],
+							"vcs_repo":                      [],
+							"working_directory":             "",
+						},
+					},
+				],
+			},
+		},
+	},
+	"resource_changes": [
+		{
+			"address": "tfe_workspace.production",
+			"change": {
+				"actions": [
+					"delete",
+				],
+				"after_sensitive": false,
+				"after_unknown":   {},
+				"before": {
+					"agent_pool_id":         "",
+					"allow_destroy_plan":    true,
+					"auto_apply":            false,
+					"description":           "",
+					"execution_mode":        "remote",
+					"file_triggers_enabled": true,
+					"global_remote_state":   false,
+					"id":                            "ws-Xr62gkMwt9fuzBP8",
+					"name":                          "production",
+					"operations":                    true,
+					"organization":                  "hashidemos",
+					"queue_all_runs":                true,
+					"remote_state_consumer_ids":     [],
+					"speculative_enabled":           true,
+					"ssh_key_id":                    "",
+					"structured_run_output_enabled": true,
+					"tag_names":                     [],
+					"terraform_version":             "latest",
+					"trigger_prefixes":              [],
+					"vcs_repo":                      [],
+					"working_directory":             "",
+				},
+				"before_sensitive": {
+					"remote_state_consumer_ids": [],
+					"tag_names":                 [],
+					"trigger_prefixes":          [],
+					"vcs_repo":                  [],
+				},
+			},
+			"mode":          "managed",
+			"name":          "production",
+			"provider_name": "registry.terraform.io/hashicorp/tfe",
+			"type":          "tfe_workspace",
+		},
+	],
+	"terraform_version": "1.1.7",
+}

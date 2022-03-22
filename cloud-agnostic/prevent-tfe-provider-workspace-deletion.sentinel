@@ -1,0 +1,17 @@
+# This policy uses the Sentinel tfplan/v2 import to validate that no terraform
+# cloud/enterprise workspaces are deleted with the tfe provider.
+
+# Import the tfplan/v2 import, but use the alias "tfplan"
+import "tfplan/v2" as tfplan
+
+# Get all Workspaces
+workspaces = filter tfplan.resource_changes as address, rc {
+  rc.type is "tfe_workspace"
+}
+
+# Main rule
+main = rule {
+  all workspaces as address, ws {
+    ws.change.actions is not ["delete"]
+  }
+}
