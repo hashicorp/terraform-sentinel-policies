@@ -23,7 +23,7 @@ import "strings"
 import "aws-functions" as aws
 
 # Allowed AWS regions
-allowed_regions = ["us-east-1", "us-west-1"]
+param allowed_regions default ["us-east-1", "us-west-1"]
 
 # Get all AWS providers
 all_aws_providers = config.find_providers_by_type("aws")
