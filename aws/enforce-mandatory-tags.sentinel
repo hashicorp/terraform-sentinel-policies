@@ -19,7 +19,7 @@ param resource_types default [
 # Note that the tags here are for internal HashiCorp usage
 # You should assign your own tags in a "mandatory_tags" parameter in your policy set
 # Or change the tags here in the policy.
-param mandatory_tags default ["Name", "ttl", "owner", "se-region", "purpose", "terraform"]
+param mandatory_tags default ["name", "region", "Account_Name", "owner", "Environment", "Cost_Center", "ProjectID", "Tenant", "Application Name", "Provisioned_by_iaac", "Stagging"]
 
 # Get all AWS Resources with standard tags
 allAWSResourcesWithStandardTags =
