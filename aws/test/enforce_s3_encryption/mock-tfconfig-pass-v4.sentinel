@@ -1,0 +1,113 @@
+import "strings"
+
+providers = {
+	"aws": {
+		"alias": "",
+		"config": {
+			"region": {
+				"constant_value": "us-east-2",
+			},
+		},
+		"module_address":      "",
+		"name":                "aws",
+		"provider_config_key": "aws",
+		"version_constraint":  "",
+	},
+}
+
+resources = {
+	"aws_s3_bucket.ak-test-s3": {
+		"address": "aws_s3_bucket.ak-test-s3",
+		"config": {
+			"bucket": {
+				"constant_value": "ak-test-s3",
+			},
+			"tags": {
+				"constant_value": {
+					"Environment": "Test",
+					"owner":       "Adam Kardell",
+				},
+			},
+		},
+		"count":               {},
+		"depends_on":          [],
+		"for_each":            {},
+		"mode":                "managed",
+		"module_address":      "",
+		"name":                "ak-test-s3",
+		"provider_config_key": "aws",
+		"provisioners":        [],
+		"type":                "aws_s3_bucket",
+	},
+	"aws_s3_bucket_acl.example_bucket_acl": {
+		"address": "aws_s3_bucket_acl.example_bucket_acl",
+		"config": {
+			"acl": {
+				"constant_value": "public-read",
+			},
+			"bucket": {
+				"references": [
+					"aws_s3_bucket.ak-test-s3.id",
+					"aws_s3_bucket.ak-test-s3",
+				],
+			},
+		},
+		"count":               {},
+		"depends_on":          [],
+		"for_each":            {},
+		"mode":                "managed",
+		"module_address":      "",
+		"name":                "example_bucket_acl",
+		"provider_config_key": "aws",
+		"provisioners":        [],
+		"type":                "aws_s3_bucket_acl",
+	},
+	"aws_s3_bucket_server_side_encryption_configuration.example": {
+		"address": "aws_s3_bucket_server_side_encryption_configuration.example",
+		"config": {
+			"bucket": {
+				"references": [
+					"aws_s3_bucket.ak-test-s3.bucket",
+					"aws_s3_bucket.ak-test-s3",
+				],
+			},
+			"rule": [
+				{
+					"apply_server_side_encryption_by_default": [
+						{
+							"sse_algorithm": {
+								"constant_value": "AES256",
+							},
+						},
+					],
+				},
+			],
+		},
+		"count":               {},
+		"depends_on":          [],
+		"for_each":            {},
+		"mode":                "managed",
+		"module_address":      "",
+		"name":                "example",
+		"provider_config_key": "aws",
+		"provisioners":        [],
+		"type":                "aws_s3_bucket_server_side_encryption_configuration",
+	},
+}
+
+provisioners = {}
+
+variables = {}
+
+outputs = {}
+
+module_calls = {}
+
+strip_index = func(addr) {
+	s = strings.split(addr, ".")
+	for s as i, v {
+		s[i] = strings.split(v, "[")[0]
+	}
+
+	return strings.join(s, ".")
+}

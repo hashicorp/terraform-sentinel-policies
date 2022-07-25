@@ -1,0 +1,497 @@
+terraform_version = "1.1.6"
+
+planned_values = {
+	"outputs": {},
+	"resources": {
+		"aws_kms_key.mykey": {
+			"address":        "aws_kms_key.mykey",
+			"depends_on":     [],
+			"deposed_key":    "",
+			"index":          null,
+			"mode":           "managed",
+			"module_address": "",
+			"name":           "mykey",
+			"provider_name":  "registry.terraform.io/hashicorp/aws",
+			"tainted":        false,
+			"type":           "aws_kms_key",
+			"values": {
+				"bypass_policy_lockout_safety_check": false,
+				"customer_master_key_spec":           "SYMMETRIC_DEFAULT",
+				"deletion_window_in_days":            10,
+				"description":                        "This key is used to encrypt bucket objects",
+				"enable_key_rotation":                false,
+				"is_enabled":                         true,
+				"key_usage":                          "ENCRYPT_DECRYPT",
+				"tags":                               null,
+			},
+		},
+		"aws_s3_bucket.ak-test-s3": {
+			"address":        "aws_s3_bucket.ak-test-s3",
+			"depends_on":     [],
+			"deposed_key":    "",
+			"index":          null,
+			"mode":           "managed",
+			"module_address": "",
+			"name":           "ak-test-s3",
+			"provider_name":  "registry.terraform.io/hashicorp/aws",
+			"tainted":        false,
+			"type":           "aws_s3_bucket",
+			"values": {
+				"acl":           "private",
+				"bucket":        "ak-test-s3",
+				"bucket_prefix": null,
+				"force_destroy": false,
+				"server_side_encryption_configuration": [
+					{
+						"rule": [
+							{
+								"apply_server_side_encryption_by_default": [
+									{
+										"sse_algorithm": "aws:kms",
+									},
+								],
+								"bucket_key_enabled": null,
+							},
+						],
+					},
+				],
+				"tags": {
+					"Environment": "Test",
+					"owner":       "Adam Kardell",
+				},
+				"tags_all": {
+					"Environment": "Test",
+					"owner":       "Adam Kardell",
+				},
+			},
+		},
+	},
+}
+
+variables = {}
+
+resource_changes = {
+	"aws_kms_key.mykey": {
+		"address": "aws_kms_key.mykey",
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after": {
+				"bypass_policy_lockout_safety_check": false,
+				"customer_master_key_spec":           "SYMMETRIC_DEFAULT",
+				"deletion_window_in_days":            10,
+				"description":                        "This key is used to encrypt bucket objects",
+				"enable_key_rotation":                false,
+				"is_enabled":                         true,
+				"key_usage":                          "ENCRYPT_DECRYPT",
+				"tags":                               null,
+			},
+			"after_unknown": {
+				"arn":          true,
+				"id":           true,
+				"key_id":       true,
+				"multi_region": true,
+				"policy":       true,
+				"tags_all":     true,
+			},
+			"before": null,
+		},
+		"deposed":        "",
+		"index":          null,
+		"mode":           "managed",
+		"module_address": "",
+		"name":           "mykey",
+		"provider_name":  "registry.terraform.io/hashicorp/aws",
+		"type":           "aws_kms_key",
+	},
+	"aws_s3_bucket.ak-test-s3": {
+		"address": "aws_s3_bucket.ak-test-s3",
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after": {
+				"acl":           "private",
+				"bucket":        "ak-test-s3",
+				"bucket_prefix": null,
+				"force_destroy": false,
+				"server_side_encryption_configuration": [
+					{
+						"rule": [
+							{
+								"apply_server_side_encryption_by_default": [
+									{
+										"sse_algorithm": "aws:kms",
+									},
+								],
+								"bucket_key_enabled": null,
+							},
+						],
+					},
+				],
+				"tags": {
+					"Environment": "Test",
+					"owner":       "Adam Kardell",
+				},
+				"tags_all": {
+					"Environment": "Test",
+					"owner":       "Adam Kardell",
+				},
+			},
+			"after_unknown": {
+				"acceleration_status": true,
+				"arn":                         true,
+				"bucket_domain_name":          true,
+				"bucket_regional_domain_name": true,
+				"cors_rule":                   true,
+				"grant":                       true,
+				"hosted_zone_id":              true,
+				"id":                          true,
+				"lifecycle_rule":              true,
+				"logging":                     true,
+				"object_lock_configuration":   true,
+				"object_lock_enabled":         true,
+				"policy":                      true,
+				"region":                      true,
+				"replication_configuration":   true,
+				"request_payer":               true,
+				"server_side_encryption_configuration": [
+					{
+						"rule": [
+							{
+								"apply_server_side_encryption_by_default": [
+									{
+										"kms_master_key_id": true,
+									},
+								],
+							},
+						],
+					},
+				],
+				"tags":             {},
+				"tags_all":         {},
+				"versioning":       true,
+				"website":          true,
+				"website_domain":   true,
+				"website_endpoint": true,
+			},
+			"before": null,
+		},
+		"deposed":        "",
+		"index":          null,
+		"mode":           "managed",
+		"module_address": "",
+		"name":           "ak-test-s3",
+		"provider_name":  "registry.terraform.io/hashicorp/aws",
+		"type":           "aws_s3_bucket",
+	},
+}
+
+output_changes = {}
+
+raw = {
+	"configuration": {
+		"provider_config": {
+			"aws": {
+				"expressions": {
+					"region": {
+						"constant_value": "us-east-2",
+					},
+				},
+				"name":               "aws",
+				"version_constraint": "~> 4.15.0",
+			},
+		},
+		"root_module": {
+			"resources": [
+				{
+					"address": "aws_kms_key.mykey",
+					"expressions": {
+						"deletion_window_in_days": {
+							"constant_value": 10,
+						},
+						"description": {
+							"constant_value": "This key is used to encrypt bucket objects",
+						},
+					},
+					"mode":                "managed",
+					"name":                "mykey",
+					"provider_config_key": "aws",
+					"schema_version":      0,
+					"type":                "aws_kms_key",
+				},
+				{
+					"address": "aws_s3_bucket.ak-test-s3",
+					"expressions": {
+						"acl": {
+							"constant_value": "private",
+						},
+						"bucket": {
+							"constant_value": "ak-test-s3",
+						},
+						"server_side_encryption_configuration": [
+							{
+								"rule": [
+									{
+										"apply_server_side_encryption_by_default": [
+											{
+												"kms_master_key_id": {
+													"references": [
+														"aws_kms_key.mykey.arn",
+														"aws_kms_key.mykey",
+													],
+												},
+												"sse_algorithm": {
+													"constant_value": "aws:kms",
+												},
+											},
+										],
+									},
+								],
+							},
+						],
+						"tags": {
+							"constant_value": {
+								"Environment": "Test",
+								"owner":       "Adam Kardell",
+							},
+						},
+					},
+					"mode":                "managed",
+					"name":                "ak-test-s3",
+					"provider_config_key": "aws",
+					"schema_version":      0,
+					"type":                "aws_s3_bucket",
+				},
+			],
+		},
+	},
+	"format_version": "1.0",
+	"planned_values": {
+		"root_module": {
+			"resources": [
+				{
+					"address":        "aws_kms_key.mykey",
+					"mode":           "managed",
+					"name":           "mykey",
+					"provider_name":  "registry.terraform.io/hashicorp/aws",
+					"schema_version": 0,
+					"sensitive_values": {
+						"tags_all": {},
+					},
+					"type": "aws_kms_key",
+					"values": {
+						"bypass_policy_lockout_safety_check": false,
+						"customer_master_key_spec":           "SYMMETRIC_DEFAULT",
+						"deletion_window_in_days":            10,
+						"description":                        "This key is used to encrypt bucket objects",
+						"enable_key_rotation":                false,
+						"is_enabled":                         true,
+						"key_usage":                          "ENCRYPT_DECRYPT",
+						"tags":                               null,
+					},
+				},
+				{
+					"address":        "aws_s3_bucket.ak-test-s3",
+					"mode":           "managed",
+					"name":           "ak-test-s3",
+					"provider_name":  "registry.terraform.io/hashicorp/aws",
+					"schema_version": 0,
+					"sensitive_values": {
+						"cors_rule":                 [],
+						"grant":                     [],
+						"lifecycle_rule":            [],
+						"logging":                   [],
+						"object_lock_configuration": [],
+						"replication_configuration": [],
+						"server_side_encryption_configuration": [
+							{
+								"rule": [
+									{
+										"apply_server_side_encryption_by_default": [
+											{},
+										],
+									},
+								],
+							},
+						],
+						"tags":       {},
+						"tags_all":   {},
+						"versioning": [],
+						"website":    [],
+					},
+					"type": "aws_s3_bucket",
+					"values": {
+						"acl":           "private",
+						"bucket":        "ak-test-s3",
+						"bucket_prefix": null,
+						"force_destroy": false,
+						"server_side_encryption_configuration": [
+							{
+								"rule": [
+									{
+										"apply_server_side_encryption_by_default": [
+											{
+												"sse_algorithm": "aws:kms",
+											},
+										],
+										"bucket_key_enabled": null,
+									},
+								],
+							},
+						],
+						"tags": {
+							"Environment": "Test",
+							"owner":       "Adam Kardell",
+						},
+						"tags_all": {
+							"Environment": "Test",
+							"owner":       "Adam Kardell",
+						},
+					},
+				},
+			],
+		},
+	},
+	"resource_changes": [
+		{
+			"address": "aws_kms_key.mykey",
+			"change": {
+				"actions": [
+					"create",
+				],
+				"after": {
+					"bypass_policy_lockout_safety_check": false,
+					"customer_master_key_spec":           "SYMMETRIC_DEFAULT",
+					"deletion_window_in_days":            10,
+					"description":                        "This key is used to encrypt bucket objects",
+					"enable_key_rotation":                false,
+					"is_enabled":                         true,
+					"key_usage":                          "ENCRYPT_DECRYPT",
+					"tags":                               null,
+				},
+				"after_sensitive": {
+					"tags_all": {},
+				},
+				"after_unknown": {
+					"arn":          true,
+					"id":           true,
+					"key_id":       true,
+					"multi_region": true,
+					"policy":       true,
+					"tags_all":     true,
+				},
+				"before":           null,
+				"before_sensitive": false,
+			},
+			"mode":          "managed",
+			"name":          "mykey",
+			"provider_name": "registry.terraform.io/hashicorp/aws",
+			"type":          "aws_kms_key",
+		},
+		{
+			"address": "aws_s3_bucket.ak-test-s3",
+			"change": {
+				"actions": [
+					"create",
+				],
+				"after": {
+					"acl":           "private",
+					"bucket":        "ak-test-s3",
+					"bucket_prefix": null,
+					"force_destroy": false,
+					"server_side_encryption_configuration": [
+						{
+							"rule": [
+								{
+									"apply_server_side_encryption_by_default": [
+										{
+											"sse_algorithm": "aws:kms",
+										},
+									],
+									"bucket_key_enabled": null,
+								},
+							],
+						},
+					],
+					"tags": {
+						"Environment": "Test",
+						"owner":       "Adam Kardell",
+					},
+					"tags_all": {
+						"Environment": "Test",
+						"owner":       "Adam Kardell",
+					},
+				},
+				"after_sensitive": {
+					"cors_rule":                 [],
+					"grant":                     [],
+					"lifecycle_rule":            [],
+					"logging":                   [],
+					"object_lock_configuration": [],
+					"replication_configuration": [],
+					"server_side_encryption_configuration": [
+						{
+							"rule": [
+								{
+									"apply_server_side_encryption_by_default": [
+										{},
+									],
+								},
+							],
+						},
+					],
+					"tags":       {},
+					"tags_all":   {},
+					"versioning": [],
+					"website":    [],
+				},
+				"after_unknown": {
+					"acceleration_status": true,
+					"arn":                         true,
+					"bucket_domain_name":          true,
+					"bucket_regional_domain_name": true,
+					"cors_rule":                   true,
+					"grant":                       true,
+					"hosted_zone_id":              true,
+					"id":                          true,
+					"lifecycle_rule":              true,
+					"logging":                     true,
+					"object_lock_configuration":   true,
+					"object_lock_enabled":         true,
+					"policy":                      true,
+					"region":                      true,
+					"replication_configuration":   true,
+					"request_payer":               true,
+					"server_side_encryption_configuration": [
+						{
+							"rule": [
+								{
+									"apply_server_side_encryption_by_default": [
+										{
+											"kms_master_key_id": true,
+										},
+									],
+								},
+							],
+						},
+					],
+					"tags":             {},
+					"tags_all":         {},
+					"versioning":       true,
+					"website":          true,
+					"website_domain":   true,
+					"website_endpoint": true,
+				},
+				"before":           null,
+				"before_sensitive": false,
+			},
+			"mode":          "managed",
+			"name":          "ak-test-s3",
+			"provider_name": "registry.terraform.io/hashicorp/aws",
+			"type":          "aws_s3_bucket",
+		},
+	],
+	"terraform_version": "1.1.6",
+}
