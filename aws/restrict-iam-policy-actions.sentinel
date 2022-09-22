@@ -6,9 +6,7 @@
 import "tfstate-functions" as state
 
 # Forbidden IAM actions
-param forbidden_actions default ["iam:Create*",  "iam:Delete*"]
-
-// param forbidden_actions default ["iam:create*", "*iam:delete*"]
+param forbidden_actions default ["iam:Create*", "iam:Delete*"]
 
 # Get all IAM policy document data sources
 allIAMPolicyDocs = state.find_datasources("aws_iam_policy_document")
@@ -17,22 +15,23 @@ allIAMPolicyDocs = state.find_datasources("aws_iam_policy_document")
 validated = true
 for allIAMPolicyDocs as address, d {
 
-  # Find the statements of the current policy doc
-  statements = state.find_blocks(d, "statement")
+	# Find the statements of the current policy doc
+	statements = state.find_blocks(d, "statement")
 
-  # Filter to violating statements of current policy doc
-  violatingStatements = state.case_insensitive_filter_attribute_contains_items_from_list(statements, "actions", forbidden_actions, false)
+	# Filter to violating statements of current policy doc
+	violatingStatements = state.case_insensitive_filter_attribute_contains_items_from_list(
+		statements, "actions", forbidden_actions, false)
 
-  # Print warnings if any violating statements
-  if length(violatingStatements["messages"]) > 0 {
-    validated = false
-    print(address, "has at least one statement with forbidden actions:")
-    state.print_violations(violatingStatements["messages"], "Statement")
-  } // end if
+	# Print warnings if any violating statements
+	if length(violatingStatements["messages"]) > 0 {
+		validated = false
+		print(address, "has at least one statement with forbidden actions:")
+		state.print_violations(violatingStatements["messages"], "Statement")
+	} // end if
 
 } // end for
 
 # Main rule
 main = rule {
-  validated
+	validated
 }
