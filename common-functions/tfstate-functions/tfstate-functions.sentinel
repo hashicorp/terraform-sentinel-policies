@@ -437,6 +437,76 @@ filter_attribute_contains_items_from_list = func(resources, attr, forbidden, prt
   return {"items":violators,"messages":messages}
 }
 
+
+lowercase_list_contents = func(items) {
+  result = []
+  for items as item {
+    append(result, strings.to_lower(item))
+  }
+  return result
+}
+
+### case_insensitive_filter_attribute_contains_items_from_list ###
+# Filter a list of resources to those with a specified
+# attribute (attr) that contains any items from a given case-insensitive list of
+# forbidden values (forbidden).
+# Resources should be derived by applying filters to tfstate.resources.
+# Set prtmsg to `true` (without quotes) if you want to print violation messages.
+# If you want to disallow null, include "null" in the list (forbidden).
+case_insensitive_filter_attribute_contains_items_from_list = func(resources, attr, forbidden, prtmsg) {
+  violators = {}
+	messages = {}
+  for resources as address, r {
+    # Evaluate the value (v) of the attribute
+    v = evaluate_attribute(r, attr) else null
+    # Check if the value contains the desired allowed list
+    if not (types.type_of(v) is "list" or types.type_of(v) is "map" or
+            types.type_of(v) is "null") {
+      # Add the resource and a warning message to the violators list
+      message = to_string(address) + " has " + to_string(attr) + " " +
+                to_string(v) + " that is not a map, a list, or null"
+      violators[address] = r
+			messages[address] = message
+      if prtmsg {
+        print(message)
+      }
+    } else if v is null {
+      if "null" in forbidden {
+        # Add the resource and a warning message to the violators list
+        message = to_string(address) + " has " + to_string(attr) +
+                  " with value null from the forbidden list: " +
+                  to_string(forbidden)
+        violators[address] = r
+				messages[address] = message
+        if prtmsg {
+          print(message)
+        }
+      }
+    } else {
+      forbidden_values = []
+      lc_v = lowercase_list_contents(v)
+      for forbidden as fv {
+        if lc_v contains strings.to_lower(fv) {
+          append(forbidden_values, fv)
+        } // end if
+      } // end for forbidden
+      if length(forbidden_values) > 0 {
+        # Build warning message when v is a list
+        message = to_string(address) + " has " + to_string(attr) + " " +
+                  to_string(v) + " that has items " + to_string(forbidden_values) +
+                  " from the forbidden list: " + to_string(forbidden)
+        # Add the resource and a warning message to the violators list
+        violators[address] = r
+				messages[address] = message
+        if prtmsg {
+          print(message)
+        }
+      } // end length(forbidden_values)
+    } // end v not null
+  } // end for
+  return {"items":violators,"messages":messages}
+}
+
 ### filter_attribute_contains_items_not_in_list ###
 # Filter a list of resources to those with a specified
 # attribute (attr) that contains items not in a given list of allowed values.
