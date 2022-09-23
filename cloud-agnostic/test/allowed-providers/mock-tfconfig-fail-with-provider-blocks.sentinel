@@ -2,8 +2,8 @@ import "strings"
 
 providers = {
 	"google": {
-		"alias": "",
-		"config": {},
+		"alias":               "",
+		"config":              {},
 		"module_address":      "",
 		"name":                "google",
 		"provider_config_key": "google",

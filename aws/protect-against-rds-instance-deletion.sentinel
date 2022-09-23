@@ -13,20 +13,20 @@ resourcesBeingDestroyed = plan.find_resources_being_destroyed()
 
 # Filter to RDS instances being destroyed
 RDSInstancesBeingDestroyed = filter resourcesBeingDestroyed as address, rc {
-  rc.type is "aws_db_instance"
+	rc.type is "aws_db_instance"
 }
 
 # Filter to RDS instances with violations
 # Warnings will be printed for all violations since the last parameter is true
 violatingRDSInstances = plan.filter_attribute_was_value(RDSInstancesBeingDestroyed,
-                        "deletion_protection", true, false)
+	"deletion_protection", true, false)
 
 if length(violatingRDSInstances["messages"]) > 0 {
-  print("RDS instances with deletion_protection set to true cannot be destroyed.")
-  plan.print_violations(violatingRDSInstances["messages"], "")
+	print("RDS instances with deletion_protection set to true cannot be destroyed.")
+	plan.print_violations(violatingRDSInstances["messages"], "")
 }
 
 # Main rule
 main = rule {
-  length(violatingRDSInstances["messages"]) is 0
+	length(violatingRDSInstances["messages"]) is 0
 }

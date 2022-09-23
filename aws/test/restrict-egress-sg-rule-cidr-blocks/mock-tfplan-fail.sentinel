@@ -46,9 +46,9 @@ resource_changes = {
 				"timeouts": null,
 			},
 			"after_unknown": {
-				"arn":    true,
+				"arn":     true,
 				"ingress": true,
-				"id":     true,
+				"id":      true,
 				"egress": [
 					{
 						"cidr_blocks": [

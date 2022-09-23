@@ -53,11 +53,11 @@ resources = {
 			},
 			"tags": {
 				"constant_value": {
-					"owner": "roger@hashicorp.com",
-					"Name":  "Roger Test Bucket",
-					"ttl":   "24",
+					"owner":     "roger@hashicorp.com",
+					"Name":      "Roger Test Bucket",
+					"ttl":       "24",
 					"se-region": "globals",
-					"purpose": "demo",
+					"purpose":   "demo",
 					"terraform": "true",
 				},
 			},

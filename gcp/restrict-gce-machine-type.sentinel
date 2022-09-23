@@ -15,12 +15,12 @@ allGCEInstances = plan.find_resources("google_compute_instance")
 # Filter to GCE instances with violations
 # Warnings will be printed for all violations since the last parameter is true
 violatingGCEInstances = plan.filter_attribute_not_in_list(allGCEInstances,
-                        "machine_type", allowed_types, true)
+	"machine_type", allowed_types, true)
 
 # Count violations
 violations = length(violatingGCEInstances["messages"])
 
 # Main rule
 main = rule {
-  violations is 0
+	violations is 0
 }

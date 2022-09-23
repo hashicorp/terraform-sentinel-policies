@@ -501,7 +501,7 @@ resource_changes = {
 				"secret":                       [],
 				"size":                         "Standard_F2",
 				"source_image_id":              "/subscriptions/00000000-5555-0000-8888-000000000000/resourceGroups/my-rg/providers/Microsoft.Compute/images/azure-consul-server",
-				"source_image_reference": [],
+				"source_image_reference":       [],
 				"tags":                         null,
 				"timeouts":                     null,
 				"timezone":                     null,

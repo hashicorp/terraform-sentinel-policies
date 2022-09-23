@@ -23,12 +23,12 @@ allProviders = config.find_all_providers()
 # Filter to providers with violations
 # Warnings will not be printed for violations since the last parameter is false
 violatingProviders = config.filter_attribute_not_in_list(allProviders,
-                     "name", allowed_list, false)
+	"name", allowed_list, false)
 
 # Print any violations
 prohibitedProvidersCount = length(violatingProviders["messages"])
 if prohibitedProvidersCount > 0 {
-  config.print_violations(violatingProviders["messages"], "Provider")
+	config.print_violations(violatingProviders["messages"], "Provider")
 }
 
 # Initialize resource and data source counts
@@ -40,41 +40,40 @@ allResources = config.find_all_resources()
 
 # Filter to disallowed resources
 prohibitedResources = filter allResources as address, r {
-  strings.split(r.type, "_")[0] not in allowed_list
+	strings.split(r.type, "_")[0] not in allowed_list
 }
 
 # Print violations and increment counts for resources
 if length(prohibitedResources) > 0 {
-  print("Resources from providers are not allowed unless they are in", allowed_list)
-  prohibitedResourcesCount += length(prohibitedResources)
-  for prohibitedResources as address, r {
-    print("Resource", address, "from provider", strings.split(r.type, "_")[0],
-          "is not allowed.")
-  } // end for prohibitedResources
+	print("Resources from providers are not allowed unless they are in", allowed_list)
+	prohibitedResourcesCount += length(prohibitedResources)
+	for prohibitedResources as address, r {
+		print("Resource", address, "from provider", strings.split(r.type, "_")[0],
+			"is not allowed.")
+	} // end for prohibitedResources
 } // end if
-
 
 # Find all data sources
 allDataSources = config.find_all_datasources()
 
 # Filter to disallowed data sources
 prohibitedDataSources = filter allDataSources as address, r {
-  strings.split(r.type, "_")[0] not in allowed_list
+	strings.split(r.type, "_")[0] not in allowed_list
 }
 
 # Print violations and increment counts for data sources
 if length(prohibitedDataSources) > 0 {
-  print("Data sources from providers are not allowed unless they are in", allowed_list)
-  prohibitedDataSourcesCount += length(prohibitedDataSources)
-  for prohibitedDataSources as address, r {
-    print("Data source", address, "from provider", strings.split(r.type, "_")[0],
-          "is not allowed.")
-  } // end for prohibitedDataSources
+	print("Data sources from providers are not allowed unless they are in", allowed_list)
+	prohibitedDataSourcesCount += length(prohibitedDataSources)
+	for prohibitedDataSources as address, r {
+		print("Data source", address, "from provider", strings.split(r.type, "_")[0],
+			"is not allowed.")
+	} // end for prohibitedDataSources
 } // end if
 
 # Main rule
 violations = prohibitedProvidersCount + prohibitedResourcesCount +
-             prohibitedDataSourcesCount
+	prohibitedDataSourcesCount
 main = rule {
-  violations is 0
+	violations is 0
 }

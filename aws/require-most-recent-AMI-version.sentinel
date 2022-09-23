@@ -19,7 +19,7 @@ allEC2Instances = config.find_resources_by_type("aws_instance")
 # While the actual reference might be "data.aws_ami.ubuntu.id", Terraform only
 # gives Sentinel references to resources and data sources, not to their attributes.
 violatingEC2Instances = config.filter_attribute_does_not_match_regex(allEC2Instances,
-                        "config.ami", "^data\\.aws_ami\\.(.*)$", true)
+	"config.ami", "^data\\.aws_ami\\.(.*)$", true)
 
 # Count EC2 instance violations
 EC2InstanceViolations = length(violatingEC2Instances["messages"])
@@ -38,5 +38,5 @@ violations = EC2InstanceViolations + AMIViolations
 
 # Main rule
 main = rule {
-  violations is 0
+	violations is 0
 }

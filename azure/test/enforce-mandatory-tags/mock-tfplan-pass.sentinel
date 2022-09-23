@@ -134,7 +134,7 @@ resource_changes = {
 				"tags": {
 					"environment": "staging",
 				},
-				"timeouts":            null,
+				"timeouts": null,
 			},
 			"after_unknown": {
 				"applied_dns_servers": true,
@@ -187,7 +187,7 @@ resource_changes = {
 				"tags": {
 					"environment": "staging",
 				},
-				"timeouts":            null,
+				"timeouts": null,
 			},
 			"after_unknown": {
 				"applied_dns_servers": true,
@@ -240,7 +240,7 @@ resource_changes = {
 				"tags": {
 					"environment": "staging",
 				},
-				"timeouts":            null,
+				"timeouts": null,
 			},
 			"after_unknown": {
 				"applied_dns_servers": true,
@@ -449,12 +449,12 @@ resource_changes = {
 				"address_space": [
 					"10.0.0.0/16",
 				],
-				"bgp_community":         null,
-				"ddos_protection_plan":  [],
-				"dns_servers":           null,
-				"location":              "eastus",
-				"name":                  "rogerberlind-network",
-				"resource_group_name":   "rogerberlind-resources",
+				"bgp_community":        null,
+				"ddos_protection_plan": [],
+				"dns_servers":          null,
+				"location":             "eastus",
+				"name":                 "rogerberlind-network",
+				"resource_group_name":  "rogerberlind-resources",
 				"tags": {
 					"environment": "staging",
 				},

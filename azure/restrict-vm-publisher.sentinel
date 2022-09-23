@@ -15,7 +15,7 @@ allAzureVMs = plan.find_resources("azurerm_virtual_machine")
 # Filter to Azure VMs with violations that use azurerm_virtual_machine
 # Warnings will be printed for all violations since the last parameter is true
 violatingAzureVMs = plan.filter_attribute_not_in_list(allAzureVMs,
-  "storage_image_reference.0.publisher", allowed_publishers, true)
+	"storage_image_reference.0.publisher", allowed_publishers, true)
 
 # Get all Azure Windows VMs using azurerm_windows_virtual_machine
 allAzureWindowsVMs = plan.find_resources("azurerm_windows_virtual_machine")
@@ -23,7 +23,7 @@ allAzureWindowsVMs = plan.find_resources("azurerm_windows_virtual_machine")
 # Filter to Azure Windows VMs with violations that use azurerm_windows_virtual_machine
 # Warnings will be printed for all violations since the last parameter is true
 violatingAzureWindowsVMs = plan.filter_attribute_not_in_list(allAzureWindowsVMs,
-  "source_image_reference.0.publisher", allowed_publishers, true)
+	"source_image_reference.0.publisher", allowed_publishers, true)
 
 # Get all Azure Linux VMs using azurerm_linux_virtual_machine
 allAzureLinuxVMs = plan.find_resources("azurerm_linux_virtual_machine")
@@ -31,13 +31,13 @@ allAzureLinuxVMs = plan.find_resources("azurerm_linux_virtual_machine")
 # Filter to Azure Linux VMs with violations that use azurerm_linux_virtual_machine
 # Warnings will be printed for all violations since the last parameter is true
 violatingAzureLinuxVMs = plan.filter_attribute_not_in_list(allAzureLinuxVMs,
-  "source_image_reference.0.publisher", allowed_publishers, true)
+	"source_image_reference.0.publisher", allowed_publishers, true)
 
 # Main rule
 violations = length(violatingAzureVMs["messages"]) +
-             length(violatingAzureWindowsVMs["messages"]) +
-             length(violatingAzureLinuxVMs["messages"])
+	length(violatingAzureWindowsVMs["messages"]) +
+	length(violatingAzureLinuxVMs["messages"])
 
 main = rule {
-  violations is 0
+	violations is 0
 }

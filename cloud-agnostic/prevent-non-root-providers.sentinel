@@ -7,32 +7,32 @@ import "tfconfig/v2" as tfconfig
 
 # Indicate that providers are only allowed in the root module
 print("Providers that are not proxy configuration blocks " +
-      "are only allowed in the root module.")
+	"are only allowed in the root module.")
 
 # Filter to providers not in root module
 nonRootProviders = filter tfconfig.providers as address, p {
-  p.module_address is not ""
+	p.module_address is not ""
 }
 
 # Filter to non-root providers with config
 nonRootProvidersWithConfig = filter nonRootProviders as address, p {
-  length(p.config) is not 0 and
-  print("non-proxy provider", address, "was defined in module", p.module_address,
-        "and has a non-empty config with these keys:", keys(p.config))
+	length(p.config) is not 0 and
+		print("non-proxy provider", address, "was defined in module", p.module_address,
+			"and has a non-empty config with these keys:", keys(p.config))
 }
 
 # Filter to non-root providers with version
 nonRootProvidersWithVersion = filter nonRootProviders as address, p {
-  p.version_constraint is not "" and
-  print("non-proxy provider", address, "was defined in module", p.module_address,
-        "and has a version constraint")
+	p.version_constraint is not "" and
+		print("non-proxy provider", address, "was defined in module", p.module_address,
+			"and has a version constraint")
 }
 
 # Determine if there were any violations
 violations = length(nonRootProvidersWithConfig) +
-             length(nonRootProvidersWithVersion)
+	length(nonRootProvidersWithVersion)
 
 # Main rule
 main = rule {
- violations is 0
+	violations is 0
 }

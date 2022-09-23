@@ -74,9 +74,9 @@ resources = {
 			"source_dest_check": true,
 			"subnet_id":         "subnet-8b15efec",
 			"tags": {
-				"Name": "roger-ec2-demo",
+				"Name":  "roger-ec2-demo",
 				"Owner": "rberlind",
-				"ttl":	 "24",
+				"ttl":   "24",
 			},
 			"tenancy":          "default",
 			"timeouts":         null,

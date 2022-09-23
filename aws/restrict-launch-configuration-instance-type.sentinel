@@ -15,9 +15,9 @@ allEC2LaunchConfigs = plan.find_resources("aws_launch_configuration")
 # Filter to EC2 launch configurations with violations
 # Warnings will be printed for all violations since the last parameter is true
 violatingEC2LaunchConfigs = plan.filter_attribute_not_in_list(allEC2LaunchConfigs,
-                            "instance_type", allowed_types, true)
+	"instance_type", allowed_types, true)
 
 # Main rule
 main = rule {
-  length(violatingEC2LaunchConfigs["messages"]) is 0
+	length(violatingEC2LaunchConfigs["messages"]) is 0
 }

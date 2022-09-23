@@ -83,7 +83,7 @@ resource_changes = {
 				"tags": null,
 			},
 			"after_unknown": {
-				"id": true,
+				"id":           true,
 				"sdrs_enabled": true,
 			},
 			"before": null,

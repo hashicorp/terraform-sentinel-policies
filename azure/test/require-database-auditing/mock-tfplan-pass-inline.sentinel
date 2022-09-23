@@ -10,9 +10,9 @@ resource_changes = {
 				"create",
 			],
 			"after": {
-				"collation":                   "SQL_Latin1_General_CP1_CI_AS",
-				"create_mode":                 "Default",
-				"elastic_pool_id":             null,
+				"collation":       "SQL_Latin1_General_CP1_CI_AS",
+				"create_mode":     "Default",
+				"elastic_pool_id": null,
 				"extended_auditing_policy": [
 					{
 						"log_monitoring_enabled":                  true,

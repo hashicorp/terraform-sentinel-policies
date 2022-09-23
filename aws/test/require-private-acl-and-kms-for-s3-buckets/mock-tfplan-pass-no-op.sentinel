@@ -22,9 +22,9 @@ resource_changes = {
 			"actions": [
 				"no-op",
 			],
-			"after": null,
+			"after":         null,
 			"after_unknown": {},
-			"before": null,
+			"before":        null,
 		},
 		"deposed":        "",
 		"index":          null,

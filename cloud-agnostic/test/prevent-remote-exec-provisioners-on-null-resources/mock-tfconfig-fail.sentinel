@@ -3,30 +3,29 @@ import "strings"
 provisioners = {
 	"null_resource.test": {
 		"resource_address": "null_resource.test",
-		"type": "remote-exec",
-		"index": "0",
-		"config": {},
+		"type":             "remote-exec",
+		"index":            "0",
+		"config":           {},
 	},
 }
 
 resources = {
 	"null_resource.test": {
-		"address": "null_resource.test",
-		"config": {
-		},
-		"count": {},
+		"address":             "null_resource.test",
+		"config":              {},
+		"count":               {},
 		"depends_on":          [],
 		"for_each":            {},
 		"mode":                "managed",
 		"module_address":      "",
 		"name":                "test",
 		"provider_config_key": "null",
-		"provisioners":        [
+		"provisioners": [
 			{
 				"resource_address": "null_resource.test",
-				"type": "remote-exec",
-				"index": "0",
-				"config": {},
+				"type":             "remote-exec",
+				"index":            "0",
+				"config":           {},
 			},
 		],
 		"type": "null_resource",

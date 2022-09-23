@@ -70,21 +70,21 @@ resources = {
 		"module_address":      "",
 		"name":                "ubuntu",
 		"provider_config_key": "aws",
-		"provisioners":        [
+		"provisioners": [
 			{
 				"resource_address": "aws_instance.ubuntu",
-				"type": "file",
-				"index": "0",
-				"config": {},
+				"type":             "file",
+				"index":            "0",
+				"config":           {},
 			},
 			{
 				"resource_address": "aws_instance.ubuntu",
-				"type": "chef",
-				"index": "1",
-				"config": {},
+				"type":             "chef",
+				"index":            "1",
+				"config":           {},
 			},
 		],
-		"type":                "aws_instance",
+		"type": "aws_instance",
 	},
 	"module.nested.aws_instance.ubuntu": {
 		"address": "module.nested.aws_instance.ubuntu",
@@ -130,15 +130,15 @@ resources = {
 provisioners = {
 	"aws_instance.ubuntu:0": {
 		"resource_address": "aws_instance.ubuntu",
-		"type": "file",
-		"index": "0",
-		"config": {},
+		"type":             "file",
+		"index":            "0",
+		"config":           {},
 	},
 	"aws_instance.ubuntu:1": {
 		"resource_address": "aws_instance.ubuntu",
-		"type": "chef",
-		"index": "1",
-		"config": {},
+		"type":             "chef",
+		"index":            "1",
+		"config":           {},
 	},
 }
 

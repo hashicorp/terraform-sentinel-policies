@@ -45,8 +45,8 @@ resource_changes = {
 				"monitoring":                           null,
 				"source_dest_check":                    true,
 				"tags": {
-					"Name":  "roger-demo",
-					"Owner": "rberlind",
+					"Name":        "roger-demo",
+					"Owner":       "rberlind",
 					"Environment": "dev",
 				},
 				"timeouts":         null,
@@ -114,8 +114,8 @@ resource_changes = {
 				"monitoring":                           null,
 				"source_dest_check":                    true,
 				"tags": {
-					"Name":  "roger-demo",
-					"Owner": "rberlind",
+					"Name":        "roger-demo",
+					"Owner":       "rberlind",
 					"Environment": "qa",
 				},
 				"timeouts":         null,
@@ -183,8 +183,8 @@ resource_changes = {
 				"monitoring":                           null,
 				"source_dest_check":                    true,
 				"tags": {
-					"Name":  "roger-demo-nested",
-					"Owner": "rberlind",
+					"Name":        "roger-demo-nested",
+					"Owner":       "rberlind",
 					"Environment": "prod",
 				},
 				"timeouts":         null,

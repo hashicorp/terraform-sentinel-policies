@@ -6,6 +6,7 @@
 # Import common-functions/tfrun-functions/tfrun-functions.sentinel
 # with alias "run"
 import "tfrun-functions" as run
+
 # The standard decimal import
 import "decimal"
 
@@ -19,5 +20,5 @@ cost_validated = run.limit_cost_and_percentage_increase(limit, max_percent)
 
 # Main rule
 main = rule {
-  cost_validated
+	cost_validated
 }

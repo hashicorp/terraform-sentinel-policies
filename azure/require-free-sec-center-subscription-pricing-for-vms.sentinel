@@ -13,8 +13,8 @@ allAzureSecCenterSubPricings = plan.find_resources("azurerm_security_center_subs
 # Filter to Azure Security Center Pricings for Virtual Machines
 # Warnings will not be printed for violations since the last parameter is false
 azureSecCenterSubPricingsForVMs = plan.filter_attribute_is_value(
-                             allAzureSecCenterSubPricings,
-                             "resource_type", "VirtualMachines", false)
+	allAzureSecCenterSubPricings,
+	"resource_type", "VirtualMachines", false)
 
 # Filter to Azure Security Center Pricings for Virtual Machines with pricing
 # tier set to Standard.
@@ -22,10 +22,10 @@ azureSecCenterSubPricingsForVMs = plan.filter_attribute_is_value(
 # the first filter.
 # Warnings will be printed for all violations since the last parameter is true
 violatingAzureSecCenterSubPricingsForVMs = plan.filter_attribute_is_value(
-                                           azureSecCenterSubPricingsForVMs["resources"],
-                                           "tier", "Standard", true)
+	azureSecCenterSubPricingsForVMs["resources"],
+	"tier", "Standard", true)
 
 # Main rule
 main = rule {
-  length(violatingAzureSecCenterSubPricingsForVMs["messages"]) is 0
+	length(violatingAzureSecCenterSubPricingsForVMs["messages"]) is 0
 }

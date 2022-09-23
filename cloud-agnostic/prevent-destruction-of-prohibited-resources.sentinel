@@ -13,12 +13,12 @@ resourcesBeingDestroyed = plan.find_resources_being_destroyed()
 
 # Filter to resources with types in prohibited_list and Print violation messages
 violatingResources = filter resourcesBeingDestroyed as address, rc {
-  rc.type in prohibited_list and
-  print(address, "is not allowed to be destroyed because its type", rc.type,
-        "is in the prohibited_list:", prohibited_list)
+	rc.type in prohibited_list and
+		print(address, "is not allowed to be destroyed because its type", rc.type,
+			"is in the prohibited_list:", prohibited_list)
 }
 
 # Main rule
 main = rule {
- length(violatingResources) is 0
+	length(violatingResources) is 0
 }

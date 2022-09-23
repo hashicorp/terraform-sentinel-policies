@@ -64,7 +64,7 @@ resource_changes = {
 				"tags": {
 					"owner": "roger@hashicorp.com",
 					"Name":  "Roger Test Bucket",
-					"ttl": "24",
+					"ttl":   "24",
 				},
 				"website": [
 					{
@@ -142,7 +142,7 @@ resource_changes = {
 				"monitoring":                           null,
 				"source_dest_check":                    true,
 				"tags": {
-					"Name":  "roger-demo",
+					"Name": "roger-demo",
 				},
 				"timeouts":         null,
 				"user_data":        null,
@@ -211,7 +211,7 @@ resource_changes = {
 				"tags": {
 					"Name":  "roger-demo",
 					"owner": "rberlind",
-					"ttl": "24",
+					"ttl":   "24",
 				},
 				"timeouts":         null,
 				"user_data":        null,
@@ -280,7 +280,7 @@ resource_changes = {
 				"tags": {
 					"Name":  "roger-demo-nested",
 					"owner": "rberlind",
-					"ttl": "24",
+					"ttl":   "24",
 				},
 				"timeouts":         null,
 				"user_data":        null,
