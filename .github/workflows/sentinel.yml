@@ -1,0 +1,64 @@
+name: sentinel
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+jobs:
+  sentinel-format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Sentinel
+        uses: bloominlabs/setup-hashicorp-releases@v1
+        with:
+          package: sentinel
+          version: ^0.18.11
+
+      - name: Sentinel Format
+        id: format
+        run: sentinel fmt -check=true $(find . -name "*.sentinel" -type f)
+  sentinel-test:
+    needs: sentinel-format
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Sentinel
+        uses: bloominlabs/setup-hashicorp-releases@v1
+        with:
+          package: sentinel
+          version: ^0.18.11
+
+      - name: Sentinel Test
+        id: test 
+        run: sentinel test $(find . -name "*.sentinel" -type f ! -path "*/mocks/*" ! -path "*/test/*" ! -path "*/common-functions/*" ! -path "*/http-examples/*" ! -path "*/*-functions/*")
+        
+      - uses: actions/github-script@v6
+        if: github.event_name == 'pull_request'
+        env:
+          TEST: "${{ steps.test.outputs.stdout }}"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const output = `#### Sentinel Format and Style 🖌\`${{ steps.format.outcome }}\`
+            #### Sentinel Test 📖\`${{ steps.test.outcome }}\`
+            
+            <details><summary>Sentinel Test Results</summary>
+            
+            \`\`\`\n
+            ${process.env.TEST}
+            \`\`\`
+                  
+            </details>
+            
+            *Pushed by: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
+              github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            })
