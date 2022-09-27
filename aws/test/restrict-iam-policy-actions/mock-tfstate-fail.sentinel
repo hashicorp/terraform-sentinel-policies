@@ -23,8 +23,8 @@ resources = {
 			"statement": [
 				{
 					"actions": [
-						"iam:Create*",
-						"iam:Delete*",
+						"iam:cReate*",
+						"iam:deLEte*",
 					],
 					"condition":      [],
 					"effect":         "Allow",
@@ -39,7 +39,7 @@ resources = {
 				},
 				{
 					"actions": [
-						"iam:Create*",
+						"iam:creatE*",
 						"ec2:*",
 					],
 					"condition":      [],
