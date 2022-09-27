@@ -1,0 +1,80 @@
+# This policy uses the Sentinel tfplan/v2, tfconfig/v2, and strings import
+# to require that all S3 buckets have sse_algorithm configured (forces encryption)
+# Written to support AWS Provider 4.x where S3 Bucket and S3 Server_side_encryption_configuration are seperate resources
+# Note: it is possible to use the legacy S3 bucket attributes using version 4.x provider therefore refer to that syntax as "legacy"
+
+# Import Functions used below
+import "tfplan-functions" as plan
+import "tfconfig-functions" as config
+import "strings"
+
+# Get all S3 buckets resources
+allS3BucketsEncryptionConfig = config.find_resources_by_type("aws_s3_bucket_server_side_encryption_configuration")
+allS3Buckets = plan.find_resources("aws_s3_bucket")
+
+#Variables to support check of legacy S3 syntax vs new Seperate S3 Resources being used
+legacy = false
+match = false
+validated = false
+allowed_acls = ["private", "public-read", "public-read-write", "aws-exec-read", "authenticated-read", "log-delivery-write"]
+
+#Check if the legacy ACL attribute exists to determine which method to use
+for allS3Buckets as address, S3Buckets {
+	old = plan.evaluate_attribute(S3Buckets, "acl")
+	if old in allowed_acls {
+		legacy = true
+	}
+
+	# Filter S3 buckets that do not have private ACL attribute (legacy syntax)
+	# Warnings will be printed for all violations since the last parameter is true
+	if legacy is true {
+		# Legacy check of S3 buckets to validate they are protected my KMS
+		# Warnings will be printed for all violations since the last parameter is true
+		nonEncryptedS3Buckets = plan.filter_attribute_is_not_value(allS3Buckets, "server_side_encryption_configuration.0.rule.0.apply_server_side_encryption_by_default.0.sse_algorithm", "aws:kms", true)
+		match = true
+		# Main rule
+		validated = length(nonEncryptedS3Buckets["messages"]) is 0 and match is true
+	}
+
+	# Loop through all S3 buckets and server_side_encryption_configuration resources to see if the bucket resource is assigned to an server_side_encryption_configuration resource (new syntax)
+	# Warnings will be printed for all violations since the last parameter is true
+	if legacy is false {
+
+		algs = ""
+
+		for allS3Buckets as address, buckets {
+			bucket = buckets.name
+			for allS3BucketsEncryptionConfig as address, encrypted {
+				encrypt = encrypted.config.bucket.references[1]
+				test = strings.split(encrypt, ".")[1]
+				encrypt_name = encrypted.name
+				print("s3 encryption object NAME is: " + encrypt_name)
+
+				# Check if the bucket name matches the bucket attribute on the server_side_encryption_configuration resource, else there is not an server_side_encryption_configuration assigned
+				if bucket matches test {
+					allS3BucketsEncryptedplan = plan.find_resources_with_name("aws_s3_bucket_server_side_encryption_configuration", encrypt_name)
+					for allS3BucketsEncryptedplan as address, algos {
+						algs = algos.change.after.rule[0].apply_server_side_encryption_by_default[0].sse_algorithm
+						print(algs)
+						match = true
+					}
+				}
+				if bucket not matches test {
+					match = true
+				}
+				# This is validating the server_side_encryption_configuration are either "AES256 or aws:kms"
+				validated = algs is "AES256" or algs is "aws:kms" and match is true
+				if validated is false {
+					failed = "The sse_algorithm value is: " + algs + " expected value is either AES256 or aws:kms"
+					print(failed)
+				}
+			}
+		}
+	}
+
+}
+
+# Control 1.2.3 - Validates that an encryption configuration(server_side_encryption_configuration) is assigned to the S3 bucket.
+main = rule {
+	validated is true
+}

@@ -1,0 +1,73 @@
+# This policy uses the Sentinel tfplan/v2, tfconfig/v2, and strings import
+# to require that all S3 buckets have acl set to "private"
+# Written to support AWS Provider 4.x where S3 Bucket and S3 Bucket_acl are seperate resources
+# Note: it is possible to use the legacy S3 bucket attributes using version 4.x provider therefore refer to that syntax as "legacy"
+
+# Import Functions used below
+import "tfplan-functions" as plan
+import "tfconfig-functions" as config
+import "strings"
+
+# Get all S3 buckets resources
+allS3BucketsACL = config.find_resources_by_type("aws_s3_bucket_acl")
+allS3Buckets = plan.find_resources("aws_s3_bucket")
+
+#Variables to support check of legacy S3 syntax vs new Seperate S3 Resources being used
+legacy = false
+match = false
+validated = false
+allowed_acls = ["private", "public-read", "public-read-write", "aws-exec-read", "authenticated-read", "log-delivery-write"]
+
+#Check if the legacy ACL attribute exists to determine which method to use
+for allS3Buckets as address, S3Buckets {
+	old = plan.evaluate_attribute(S3Buckets, "acl")
+	if old in allowed_acls {
+		legacy = true
+	}
+
+	# Filter S3 buckets that do not have private ACL attribute (legacy syntax)
+	# Warnings will be printed for all violations since the last parameter is true
+	if legacy is true {
+		nonPrivateS3Buckets = plan.filter_attribute_is_not_value(allS3Buckets, "acl", "private", true)
+		# Mailn rule - Checks if any legacy S3 buckets have ACL not set to private.
+		validated = length(nonPrivateS3Buckets["messages"]) is 0
+	}
+
+	# Loop through all buckets and ACLS to see if the bucket resource is assigned to an ACL (version 4)
+	# Warnings will be printed for all violations since the last parameter is true
+	if legacy is false {
+
+		#Flag to ensure the for loops executed below
+		nomatch = false
+		validated = false
+
+		for allS3Buckets as address, buckets {
+			bucket = buckets.name
+
+			for allS3BucketsACL as address, ACLS {
+				ACL = ACLS.config.bucket.references[1]
+				test = strings.split(ACL, ".")[1]
+				acl_name = ACLS.name
+				print("ACL Name is: " + acl_name)
+
+				# Check if the bucket name matches the bucket attribute on the ACL resource, else there is not an ACL assigned
+				if bucket matches test {
+					allS3BucketsACLplan = plan.find_resources_with_name("aws_s3_bucket_acl", acl_name)
+					nonPrivateS3Buckets = plan.filter_attribute_is_not_value(allS3BucketsACLplan, "acl", "private", true)
+					nomatch = true
+				}
+
+				if bucket not matches test {
+					nomatch = true
+				}
+				# This is validating all ACLs are either "Private or the ACL isn't assigned to the created S3 bucket"
+				validated = length(nonPrivateS3Buckets["messages"]) is 0 and nomatch is true
+			}
+		}
+	}
+}
+
+# Control 101 - ACL set to "Private" on S3 bucket
+main = rule {
+	validated is true
+}

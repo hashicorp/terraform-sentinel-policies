@@ -19,8 +19,7 @@ for allIAMPolicyDocs as address, d {
 	statements = state.find_blocks(d, "statement")
 
 	# Filter to violating statements of current policy doc
-	violatingStatements = state.filter_attribute_contains_items_from_list(
-		statements, "actions", forbidden_actions, false)
+	violatingStatements = state.case_insensitive_filter_attribute_contains_items_from_list(statements, "actions", forbidden_actions, false)
 
 	# Print warnings if any violating statements
 	if length(violatingStatements["messages"]) > 0 {
