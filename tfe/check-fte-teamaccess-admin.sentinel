@@ -1,0 +1,28 @@
+# This policy uses the Sentinel tfplan/v2 import to require that
+# all EC2 instances have the Environment key in the tags attribute
+# and that it has a value from an allowed list
+
+# Import common-functions/tfplan-functions/tfplan-functions.sentinel
+# with alias "plan"
+import "tfplan-functions" as plan
+
+# Allowed Environments
+# Include "null" to allow missing or computed values
+allowed_team_access_levels = ["read", "plan", "write", "custom"]
+
+# Get all EC2 instances
+all_team_access = plan.find_resources("tfe_team_access")
+
+#
+# Filter to EC2 instances that have the environment tag with an invalid value
+# Warnings will be printed for all violations since the last parameter is true
+team_access_with_disallowed = plan.filter_attribute_map_key_contains_items_not_in_list(all_team_access,
+                        "access", allowed_team_access_levels, true)
+
+# Count violations
+violations = length(team_access_with_disallowed["messages"]) + length(team_access_with_disallowed["messages"])
+
+# Main rule
+main = rule {
+  violations is 0
+}
