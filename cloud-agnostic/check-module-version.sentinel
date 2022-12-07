@@ -6,7 +6,7 @@ import "tfconfig-functions" as config
 import "version" as ver
 
 allowed_module = "s3_buckets"
-s3_bucket_ver = "3.6.0"
+s3_bucket_ver = "3.18.1"
 
 # Get all modules
 allModuleCalls = config.find_all_module_calls()
