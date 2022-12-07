@@ -1,0 +1,28 @@
+# This policy uses the tfconfig/v2 import to require modules to have
+# version constraint, this is a good practise.
+
+
+import "tfconfig-functions" as config
+import "version" as ver
+
+allowed_module = "s3_buckets"
+s3_bucket_ver = "3.6.0"
+
+# Get all modules
+allModuleCalls = config.find_all_module_calls()
+
+# Get all module calls that has a version_constraint.
+# Compare version to make sure it's not less then our set version.
+violatingModuleCalls = filter allModuleCalls as address, mc {
+    ver.new(mc.version_constraint).less_than(s3_bucket_ver) and mc.name != allowed_module
+}
+
+#Print any violations
+for violatingModuleCalls as address, mc {
+    print("Module", address +":v"+ mc.version_constraint, "does not have the minimum allowed version")
+}
+
+# Main rule
+main = rule {
+    length(violatingModuleCalls) is 0
+}

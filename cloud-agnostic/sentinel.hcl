@@ -123,3 +123,8 @@ policy "validate-variables-have-descriptions" {
     source = "./validate-variables-have-descriptions.sentinel"
     enforcement_level = "advisory"
 }
+
+policy "check-module-version" {
+    source = "./check-module-version.sentinel"
+    enforcement_level = "hard-mandatory"
+}
