@@ -1,4 +1,6 @@
 # This policy uses the tfconfig/v2 import to require approved module versions
+# Note: There are more advanced versions of this in http-examples
+# that allow you to query versions from the PMR
 
 # Import common-functions/tfconfig-functions/tfconfig-functions.sentinel
 # with alias "config" and version with alias "ver"

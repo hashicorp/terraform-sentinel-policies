@@ -208,6 +208,8 @@ find_module_calls_in_module = func(module_address) {
 
 # Function to compare module versions between what was pulled from
 # the configuration with an allowed map of modules : versions.
+# Note: There are more advanced versions of this in http-examples
+# that allow you to query versions from the PMR
 get_module_violations = func(modules, allowed) {
     violators = {}
     for modules as k, v {
