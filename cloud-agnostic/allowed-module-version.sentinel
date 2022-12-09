@@ -16,27 +16,9 @@ allowed_modules = {
 # Get all modules from our configuration
 allModuleCalls = config.find_all_module_calls()
 
-# Function to compare module versions between what was pulled from
-# the configuration with the defined allowed_modules map above
-get_module_violations = func(modules, allowed) {
-    violators = {}
-    for modules as k, v {
-        for allowed as module, version {
-           if module == k {
-                if {module:version} is not {k:v.version_constraint} {
-                    if ver.new(v.version_constraint).lt(version) {
-                       violators[module] = {k:v.version_constraint}
-                    }
-                }
-            }
-        }
-    }
-    return violators
-}
-
 # Call function passing in our configuration module map and our 
 # allowed_modules map from above
-violatingModuleCalls = get_module_violations(allModuleCalls, allowed_modules)
+violatingModuleCalls = config.get_module_violations(allModuleCalls, allowed_modules)
 
 # Violation message output
 for violatingModuleCalls as k, v {

@@ -205,6 +205,24 @@ find_module_calls_in_module = func(module_address) {
   return module_calls
 }
 
+# Function to compare module versions between what was pulled from
+# the configuration with an allowed map of modules : versions.
+get_module_violations = func(modules, allowed) {
+    violators = {}
+    for modules as k, v {
+        for allowed as module, version {
+           if module == k {
+                if {module:version} is not {k:v.version_constraint} {
+                    if ver.new(v.version_constraint).lt(version) {
+                       violators[module] = {k:v.version_constraint}
+                    }
+                }
+            }
+        }
+    }
+    return violators
+}
+
 ### find_descendant_modules ###
 # Find addresses of all modules called directly or indirectly by a module.
 # The provided module address is included.
