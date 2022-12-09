@@ -124,7 +124,7 @@ policy "validate-variables-have-descriptions" {
     enforcement_level = "advisory"
 }
 
-policy "check-module-version" {
+policy "allowed-module-version" {
     source = "./allowed-module-version.sentinel"
     enforcement_level = "hard-mandatory"
 }
