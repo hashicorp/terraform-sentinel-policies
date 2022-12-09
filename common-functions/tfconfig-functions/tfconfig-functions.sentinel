@@ -4,6 +4,7 @@
 import "tfconfig/v2" as tfconfig
 import "strings"
 import "types"
+import "version"
 
 ##### Functions #####
 
@@ -213,7 +214,7 @@ get_module_violations = func(modules, allowed) {
         for allowed as module, version {
            if module == k {
                 if {module:version} is not {k:v.version_constraint} {
-                    if ver.new(v.version_constraint).lt(version) {
+                    if version.new(v.version_constraint).lt(version) {
                        violators[module] = {k:v.version_constraint}
                     }
                 }

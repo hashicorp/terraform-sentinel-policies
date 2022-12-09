@@ -3,7 +3,6 @@
 # Import common-functions/tfconfig-functions/tfconfig-functions.sentinel
 # with alias "config" and version with alias "ver"
 import "tfconfig-functions" as config
-import "version" as ver
 
 # Allowed list of modules and minimum required version
 # AWS examples used but will work with any module
