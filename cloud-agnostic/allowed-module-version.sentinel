@@ -1,20 +1,22 @@
 # This policy uses the tfconfig/v2 import to require approved module versions
 
+# Import common-functions/tfconfig-functions/tfconfig-functions.sentinel
+# with alias "config" and version with alias "ver"
 import "tfconfig-functions" as config
 import "version" as ver
-import "strings"
 
+# Allowed list of modules and minimum required version
 allowed_modules = { 
     "vpc": "3.18.1",
     "s3_bucket": "3.6.0",
     "security-group": "4.16.2",
 }
 
-# Get all modules
+# Get all modules from our configuration
 allModuleCalls = config.find_all_module_calls()
 
-# Get all module calls that has a version_constraint.
-# Compare version to make sure it's not less then our set version.
+# Function to compare module versions between what was pulled from
+# the configuration with the defined allowed_modules map above
 get_module_violations = func(modules, allowed) {
     violators = {}
     for modules as k, v {
@@ -31,9 +33,11 @@ get_module_violations = func(modules, allowed) {
     return violators
 }
 
-# Function call to compare modules in template to allowed map
+# Call function passing in our configuration module map and our 
+# allowed_modules map from above
 violatingModuleCalls = get_module_violations(allModuleCalls, allowed_modules)
 
+# Violation message output
 for violatingModuleCalls as k, v {
  print("Module", k+":v"+ v[k], "does not have the minimum allowed version")
 }
