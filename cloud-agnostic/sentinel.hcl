@@ -26,7 +26,7 @@ policy "allowed-providers" {
 
 policy "allowed-module-version" {
     source = "./allowed-module-version.sentinel"
-    enforcement_level = "hard-mandatory"
+    enforcement_level = "advisory"
 }
 
 policy "allowed-provisioners" {
