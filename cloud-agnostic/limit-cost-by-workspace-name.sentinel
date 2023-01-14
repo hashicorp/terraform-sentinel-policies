@@ -6,14 +6,15 @@
 # Import common-functions/tfrun-functions/tfrun-functions.sentinel
 # with alias "run"
 import "tfrun-functions" as run
+
 # The standard decimal import
 import "decimal"
 
 # Monthly Limits
 limits = {
-  "dev": decimal.new(200),
-  "qa": decimal.new(500),
-  "prod": decimal.new(1000),
+	"dev":  decimal.new(200),
+	"qa":   decimal.new(500),
+	"prod": decimal.new(1000),
 }
 
 # Call the validation function
@@ -22,5 +23,5 @@ cost_validated = run.limit_cost_by_workspace_name(limits)
 
 # Main rule
 main = rule {
-  cost_validated
+	cost_validated
 }

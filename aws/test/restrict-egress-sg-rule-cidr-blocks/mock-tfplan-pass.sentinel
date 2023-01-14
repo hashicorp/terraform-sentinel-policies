@@ -26,7 +26,7 @@ resource_changes = {
 						"to_port":          444,
 					},
 					{
-						"cidr_blocks":      [
+						"cidr_blocks": [
 							"10.100.0.0/16",
 						],
 						"description":      "",
@@ -48,12 +48,12 @@ resource_changes = {
 				"timeouts": null,
 			},
 			"after_unknown": {
-				"arn":    true,
+				"arn":     true,
 				"ingress": true,
-				"id":     true,
+				"id":      true,
 				"egress": [
 					{
-						"cidr_blocks": [],
+						"cidr_blocks":      [],
 						"ipv6_cidr_blocks": [],
 						"prefix_list_ids":  [],
 						"security_groups":  [],
@@ -86,7 +86,7 @@ resource_changes = {
 				"create",
 			],
 			"after": {
-				"cidr_blocks":       [
+				"cidr_blocks": [
 					"10.100.0.0/16",
 				],
 				"description":       null,
@@ -120,7 +120,7 @@ resource_changes = {
 				"create",
 			],
 			"after": {
-				"cidr_blocks":       [
+				"cidr_blocks": [
 					"10.100.0.0/16",
 				],
 				"description":       null,

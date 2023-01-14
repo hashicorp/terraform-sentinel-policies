@@ -4,6 +4,7 @@
 # Import common-functions/tfconfig-functions/tfconfig-functions.sentinel
 # with alias "config"
 import "tfconfig-functions" as config
+
 # Standard strings import
 import "strings"
 
@@ -16,11 +17,11 @@ print("remote-exec provisioners are not allowed on null resources.")
 # Filter to provisioners with violations
 # Warnings will not be printed for violations since the last parameter is false
 violatingProvisioners = filter remoteExecProvisioners as address, p {
-  strings.has_prefix(p.resource_address, "null_resource.") and
-  print("Provisioner", address, "of type", p.type, "is not allowed.")
+	strings.has_prefix(p.resource_address, "null_resource.") and
+		print("Provisioner", address, "of type", p.type, "is not allowed.")
 }
 
 # Main rule
 main = rule {
- length(violatingProvisioners) is 0
+	length(violatingProvisioners) is 0
 }

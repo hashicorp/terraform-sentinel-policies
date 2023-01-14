@@ -7,7 +7,7 @@ import "tfconfig-functions" as config
 
 # List of allowed resources
 allowed_list = ["aws_instance", "azurerm_virtualmachine",
-            "google_compute_instance"]
+	"google_compute_instance"]
 
 # Get all Resources
 allResources = config.find_all_resources()
@@ -15,9 +15,9 @@ allResources = config.find_all_resources()
 # Filter to resources with violations
 # Warnings will be printed for all violations since the last parameter is true
 violatingResources = config.filter_attribute_not_in_list(allResources,
-                     "type", allowed_list, true)
+	"type", allowed_list, true)
 
 # Main rule
 main = rule {
- length(violatingResources["messages"]) is 0
+	length(violatingResources["messages"]) is 0
 }

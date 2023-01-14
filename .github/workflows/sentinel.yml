@@ -1,0 +1,38 @@
+name: sentinel
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+jobs:
+  sentinel-format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Sentinel
+        uses: bloominlabs/setup-hashicorp-releases@v1
+        with:
+          package: sentinel
+          version: ^0.18.11
+
+      - name: Sentinel Format
+        id: format
+        run: sentinel fmt -check=true $(find . -name "*.sentinel" -type f)
+  sentinel-test:
+    needs: sentinel-format
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Sentinel
+        uses: bloominlabs/setup-hashicorp-releases@v1
+        with:
+          package: sentinel
+          version: ^0.18.11
+
+      - name: Sentinel Test
+        id: test 
+        run: sentinel test $(find . -name "*.sentinel" -type f ! -path "*/mocks/*" ! -path "*/test/*" ! -path "*/common-functions/*" ! -path "*/http-examples/*" ! -path "*/*-functions/*")

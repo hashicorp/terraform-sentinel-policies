@@ -22,14 +22,14 @@ import "strings"
 
 # Resources that should be restricted
 param restricted_resources default [
-  "aws_s3_bucket",
-  "aws_s3_bucket_object",
-  "aws_s3_bucket_notification",
-  "azurerm_storage_account",
-  "azurerm_storage_container",
-  "azurerm_storage_blob",
-  "google_storage_bucket",
-  "google_storage_bucket_object",
+	"aws_s3_bucket",
+	"aws_s3_bucket_object",
+	"aws_s3_bucket_notification",
+	"azurerm_storage_account",
+	"azurerm_storage_container",
+	"azurerm_storage_blob",
+	"google_storage_bucket",
+	"google_storage_bucket_object",
 ]
 
 # Allowed Public and Private Module Registry Modules
@@ -47,14 +47,14 @@ param restricted_resources default [
 #   The third segment should be the provider of the module.
 # Do not add module sub-directories prefaced with "//" after the above segments.
 param allowed_module_sources default [
-  "terraform-aws-modules/s3-bucket/aws",
-  "app.terraform.io/Cloud-Operations/s3-bucket/aws",
-  "localterraform.com/*/s3-bucket/aws",
-  "tfe.acme.com/*/s3-bucket/aws",
-  "app.terraform.io/Cloud-Operations/caf/azurerm",
-  "localterraform.com/*/caf/azurerm",
-  "app.terraform.io/Cloud-Operations/cloud-storage/google",
-  "localterraform.com/*/cloud-storage/google",
+	"terraform-aws-modules/s3-bucket/aws",
+	"app.terraform.io/Cloud-Operations/s3-bucket/aws",
+	"localterraform.com/*/s3-bucket/aws",
+	"tfe.acme.com/*/s3-bucket/aws",
+	"app.terraform.io/Cloud-Operations/caf/azurerm",
+	"localterraform.com/*/caf/azurerm",
+	"app.terraform.io/Cloud-Operations/cloud-storage/google",
+	"localterraform.com/*/cloud-storage/google",
 ]
 
 # Initialize validated. We'll flip to false if we find a violation.
@@ -62,84 +62,88 @@ validated = true
 
 # Iterate over restricted resource types
 for restricted_resources as _, type {
-  # Find all resources of the given type
-  all_resources = config.find_resources_by_type(type)
+	# Find all resources of the given type
+	all_resources = config.find_resources_by_type(type)
 
-  # Iterate over the resources to find module source
-  for all_resources as address, r {
+	# Iterate over the resources to find module source
+	for all_resources as address, r {
 
-    # Get module source
-    module_address = r.module_address
-    module_source = config.get_ancestor_module_source(module_address)
-    #module_source = config.get_module_source(module_address)
+		# Get module source
+		module_address = r.module_address
+		module_source = config.get_ancestor_module_source(module_address)
+		#module_source = config.get_module_source(module_address)
 
-    # Initialize found_match to false. We'll flip to true if we find a match.
-    found_match = false
+		# Initialize found_match to false. We'll flip to true if we find a match.
+		found_match = false
 
-    # Iterate over allowed sources
-    for allowed_module_sources as ams {
+		# Iterate over allowed sources
+		for allowed_module_sources as ams {
 
-      # Parse the allowed module source
-      ams_segments= strings.split(ams, "/")
-      num_ams_segments = length(ams_segments)
-      if num_ams_segments is 4 {
-        ams_host = ams_segments[0]
-        ams_org = ams_segments[1]
-        ams_name = ams_segments[2]
-        ams_provider = ams_segments[3]
-      } else if num_ams_segments is 3 {
-        ams_host = ""
-        ams_org = ams_segments[0]
-        ams_name = ams_segments[1]
-        ams_provider = ams_segments[2]
-      } else {
-        print("Module sources listed in the list allowed_module_sources should",
-              "only have 3 or 4 segments delimited by `/`, representing modules",
-              "from the public Terraform Registry in the first case or a Private",
-              "Module Registry in a Terraform Cloud or Terraform Enterprise",
-              "organization in the second case.")
-        print("Ignoring module source", ams)
-        continue
-      }
+			# Parse the allowed module source
+			ams_segments = strings.split(ams, "/")
+			num_ams_segments = length(ams_segments)
+			if num_ams_segments is 4 {
+				ams_host = ams_segments[0]
+				ams_org = ams_segments[1]
+				ams_name = ams_segments[2]
+				ams_provider = ams_segments[3]
+			} else if num_ams_segments is 3 {
+				ams_host = ""
+				ams_org = ams_segments[0]
+				ams_name = ams_segments[1]
+				ams_provider = ams_segments[2]
+			} else {
+				print("Module sources listed in the list allowed_module_sources should",
+					"only have 3 or 4 segments delimited by `/`, representing modules",
+					"from the public Terraform Registry in the first case or a Private",
+					"Module Registry in a Terraform Cloud or Terraform Enterprise",
+					"organization in the second case.")
+				print("Ignoring module source", ams)
+				continue
+			}
 
-      # Derive regex from the allowed module source
-      h_segments = strings.split(ams_host, ".")
-      if num_ams_segments is 4 {
-        h_reg = "^" + strings.join(h_segments, "\\.") + "/"
-      } else {
-        h_reg = "^" + strings.join(h_segments, "\\.")
-      }
-      if ams_org is "*" {
-        o_reg = "[A-Za-z0-9_-]+" + "/"
-      } else {
-        o_reg = ams_org + "/"
-      }
-      n_reg = ams_name + "/"
-      p_reg = ams_provider
-      # This regex allows module sources like "app.terraform.io/*/s3-bucket/aws"
-      # as well as "app.terraform.io/*/s3-bucket/aws//extra/path" so that nested
-      # modules of allowed modules can also be used.
-      ams_reg = "(" + h_reg + o_reg + n_reg + p_reg + "$|" +
-                  h_reg + o_reg + n_reg + p_reg + "//(.*)$)"
-      #print("ams_reg:", ams_reg)
+			# Derive regex from the allowed module source
+			h_segments = strings.split(ams_host, ".")
+			if num_ams_segments is 4 {
+				h_reg = "^" + strings.join(h_segments, "\\.") + "/"
+			} else {
+				h_reg = "^" + strings.join(h_segments, "\\.")
+			}
+			if ams_org is "*" {
+				o_reg = "[A-Za-z0-9_-]+" + "/"
+			} else {
+				o_reg = ams_org + "/"
+			}
+			n_reg = ams_name + "/"
+			p_reg = ams_provider
+			# This regex allows module sources like "app.terraform.io/*/s3-bucket/aws"
+			# as well as "app.terraform.io/*/s3-bucket/aws//extra/path" so that nested
+			# modules of allowed modules can also be used.
+			ams_reg = "(" + h_reg + o_reg + n_reg + p_reg + "$|" +
+				h_reg +
+				o_reg +
+				n_reg +
+				p_reg +
+				"//(.*)$)"
+			#print("ams_reg:", ams_reg)
 
-      # Test module_source against the regex
-      if module_source matches ams_reg {
-        #print("module_source:", module_source)
-        #print("matched regex:", ams_reg)
-        found_match = true
-        break
-      } // end if module source match
-    } // end for allowed_module_sources
-    if not found_match {
-      print("resource", address, "has module source", module_source, "that is",
-      "not in the allowed list of modules:", allowed_module_sources)
-      validated = false
-    } // end if module_source in allowed_module_sources
-  } // end for all_resources
+			# Test module_source against the regex
+			if module_source matches ams_reg {
+				#print("module_source:", module_source)
+				#print("matched regex:", ams_reg)
+				found_match = true
+				break
+			} // end if module source match
+		} // end for allowed_module_sources
+		if not found_match {
+			print("resource", address, "has module source", module_source, "that is",
+				"not in the allowed list of modules:", allowed_module_sources)
+			validated = false
+		} // end if module_source in allowed_module_sources
+	} // end for all_resources
 } // end restricted_resources
 
 # Main rule
 main = rule {
-  validated
+	validated
 }

@@ -11,23 +11,23 @@ import "tfconfig-functions" as config
 rootModuleCalls = config.find_module_calls_in_module("")
 
 evaluate_variables = func() {
-  for rootModuleCalls as address, m {
-    for m.config else {} as key, value {
-      if "constant_value" in keys(value) {
-        print("module", address, "has variable", key,
-              "with value", value.constant_value)
-      } else if "references" in keys(value) {
-        print("module", address, "has variable", key,
-              "with references:", value.references)
-      } // end constant_value check
-    } //end keys loop
-  } // end modules loop
+	for rootModuleCalls as address, m {
+		for m.config else {} as key, value {
+			if "constant_value" in keys(value) {
+				print("module", address, "has variable", key,
+					"with value", value.constant_value)
+			} else if "references" in keys(value) {
+				print("module", address, "has variable", key,
+					"with references:", value.references)
+			} // end constant_value check
+		} //end keys loop
+	} // end modules loop
 
-  return true
+	return true
 }
 
 # Main Rule
 validated = evaluate_variables()
 main = rule {
-  validated
+	validated
 }

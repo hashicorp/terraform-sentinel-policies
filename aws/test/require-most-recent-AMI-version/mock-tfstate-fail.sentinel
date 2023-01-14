@@ -11,5 +11,4 @@ outputs = {
 	},
 }
 
-resources = {
-}
+resources = {}

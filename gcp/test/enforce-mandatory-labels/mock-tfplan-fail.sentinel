@@ -231,8 +231,8 @@ resource_changes = {
 				"enable_display":      null,
 				"hostname":            null,
 				"labels": {
-					"name":  "roger-demo",
-					"ttl":   "24",
+					"name": "roger-demo",
+					"ttl":  "24",
 				},
 				"machine_type":            "n1-standard-2",
 				"metadata":                null,

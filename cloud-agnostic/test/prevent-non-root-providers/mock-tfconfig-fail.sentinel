@@ -16,8 +16,8 @@ providers = {
 		"version_constraint":  "",
 	},
 	"external": {
-		"alias": "",
-		"config": {},
+		"alias":               "",
+		"config":              {},
 		"module_address":      "",
 		"name":                "external",
 		"provider_config_key": "external",
@@ -38,8 +38,8 @@ providers = {
 		"version_constraint":  "2.0.0",
 	},
 	"module.nested:http.east": {
-		"alias": "east",
-		"config": {},
+		"alias":               "east",
+		"config":              {},
 		"module_address":      "module.nested",
 		"name":                "http",
 		"provider_config_key": "module.nested:http.east",

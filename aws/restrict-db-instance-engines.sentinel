@@ -15,9 +15,9 @@ allRDSInstances = plan.find_resources("aws_db_instance")
 # Filter to RDS instances with violations
 # Warnings will be printed for all violations since the last parameter is true
 violatingRDSInstances = plan.filter_attribute_not_in_list(allRDSInstances,
-                        "engine", allowed_engines, true)
+	"engine", allowed_engines, true)
 
 # Main rule
 main = rule {
-  length(violatingRDSInstances["messages"]) is 0
+	length(violatingRDSInstances["messages"]) is 0
 }

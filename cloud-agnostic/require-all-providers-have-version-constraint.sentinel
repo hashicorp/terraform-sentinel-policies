@@ -11,18 +11,15 @@ allProviders = config.find_all_providers()
 #Get all providers tht has version_constraint as undefined or empty.
 #think it as : (mc.version_constrain else "") is ""
 violatingProviders = filter allProviders as address, mc {
-    mc.version_constraint else "" is ""
+	mc.version_constraint else "" is ""
 }
 
 # Print any violations
 for violatingProviders as address, mc {
-    print("Provider", address, "does not have version_constraint set")
+	print("Provider", address, "does not have version_constraint set")
 }
 
 # Main rule
 main = rule {
-  length(violatingProviders) is 0
+	length(violatingProviders) is 0
 }
-
-
-                            

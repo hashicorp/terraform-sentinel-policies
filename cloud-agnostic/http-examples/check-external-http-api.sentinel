@@ -14,7 +14,6 @@
 # fail the other times depending on the value returned by the API.  To see the
 # answer that was returned, run `sentinel test -run=check -verbose`
 
-
 ##### Imports #####
 import "http"
 import "json"
@@ -23,20 +22,20 @@ import "json"
 
 # Validate that the external system returns yes or maybe
 check_external_approval_system = func() {
-  req = http.request("https://yesno.wtf/api")
-  res = json.unmarshal(http.get(req).body)
-  answer = res.answer
-  print("answer:", answer)
+	req = http.request("https://yesno.wtf/api")
+	res = json.unmarshal(http.get(req).body)
+	answer = res.answer
+	print("answer:", answer)
 
-  case answer {
-    # https://yesno.wtf/api returns "maybe" every 10,000th time
-    when "yes", "maybe":
-      return true
-    when "no":
-      return false
-    else:
-      return false
-  }
+	case answer {
+		# https://yesno.wtf/api returns "maybe" every 10,000th time
+		when "yes", "maybe":
+			return true
+		when "no":
+			return false
+		else:
+			return false
+	}
 
 }
 
@@ -47,5 +46,5 @@ approved = check_external_approval_system()
 
 # Main rule
 main = rule {
-  approved
+	approved
 }

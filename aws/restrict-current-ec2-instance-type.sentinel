@@ -15,9 +15,9 @@ allEC2Instances = state.find_resources("aws_instance")
 # Filter to EC2 instances with violations
 # Warnings will be printed for all violations since the last parameter is true
 violatingEC2Instances = state.filter_attribute_not_in_list(allEC2Instances,
-                        "instance_type", allowed_types, true)
+	"instance_type", allowed_types, true)
 
 # Main rule
 main = rule {
-  length(violatingEC2Instances["messages"]) is 0
+	length(violatingEC2Instances["messages"]) is 0
 }
