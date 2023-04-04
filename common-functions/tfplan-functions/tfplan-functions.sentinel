@@ -1029,6 +1029,77 @@ filter_attribute_map_key_contains_items_in_list = func(resources, attr, key, for
 			if prtmsg {
 				print(message)
 			}
+		# Check if the attribute value is a map or is null.
+		if not (types.type_of(vals) is "map" or types.type_of(vals) is "null") {
+			# Check if value is a list(map)
+			if not (types.type_of(vals) is "list") {
+				# Add the resource and a warning message to the violators list
+				message = to_string(address) + " has attribute " + to_string(attr) +
+					" with value " +
+					to_string(vals) +
+					" that is not a map or null"
+				violators[address] = rc
+				messages[address] = message
+				if prtmsg {
+					print(message)
+				}	
+			}else if vals is not null{
+				# flatten the list 
+				vals=vals[0]
+				# Check if the attribute value is a map or is null.
+				if not (types.type_of(vals) is "map" or types.type_of(vals) is "null") {
+						# Add the resource and a warning message to the violators list
+						message = to_string(address) + " has attribute " + to_string(attr) +
+							" with value " +
+							to_string(vals) +
+							" that is not a map or null"
+						violators[address] = rc
+						messages[address] = message
+						if prtmsg {
+							print(message)
+						}
+				}else if vals is not null{
+						# Check if vals contains the desired key
+						if key in keys(vals) {
+							# Get the value of the key
+							key_value = vals[key]
+
+							forbidden_values = []
+							if types.type_of(key_value) not in ["list", "map"] {
+								if key_value not in allowed {
+									append(forbidden_values, key_value)
+								}
+							} else if types.type_of(key_value) is "list" {
+								for key_value as v {
+									if v not in allowed {
+										append(forbidden_values, v)
+									} // end if v not allowed
+								} // end for key_value
+							} else if types.type_of(key_value) is "map" {
+								# Ignore maps
+							} // end key_value type
+
+							if length(forbidden_values) > 0 {
+								# Build warning message when vals is a map
+								message = to_string(address) + " has attribute " + to_string(attr) +
+									" with key " +
+									to_string(key) +
+									" containing items " +
+									to_string(forbidden_values) +
+									" that are not in the allowed list: " +
+									to_string(allowed)
+								# Add the resource and a warning message to the violators list
+								violators[address] = rc
+								messages[address] = message
+								if prtmsg {
+									print(message)
+								}
+							} // end length(forbidden_values)
+						}
+					}
+				}
+			
+			
 		} else if vals is not null {
 			# Check if vals contains the desired key
       if key in keys(vals) {
