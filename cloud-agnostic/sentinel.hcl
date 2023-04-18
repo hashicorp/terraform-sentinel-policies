@@ -24,6 +24,11 @@ policy "allowed-providers" {
     enforcement_level = "advisory"
 }
 
+policy "allowed-module-version" {
+    source = "./allowed-module-version.sentinel"
+    enforcement_level = "advisory"
+}
+
 policy "allowed-provisioners" {
     source = "./allowed-provisioners.sentinel"
     enforcement_level = "advisory"
