@@ -9,9 +9,9 @@ import "tfconfig-functions" as config
 # Allowed list of modules and minimum required version
 # AWS examples used but will work with any module
 allowed_modules = { 
-    "vpc": "3.18.1",
+    "vpc": "3.14.1",
     "s3_bucket": "3.6.0",
-    "security-group": "4.16.2",
+    "security-group": "4.14.2",
 }
 
 # Get all modules from our configuration
