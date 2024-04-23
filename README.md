@@ -33,6 +33,7 @@ You can find most of the common functions used in the third-generation policies 
   * [tfstate-functions](./common-functions/tfstate-functions)
   * [tfconfig-functions](./common-functions/tfconfig-functions)
   * [tfrun-functions](./common-functions/tfrun-functions)
+  * [report](./common-functions/report)
 
 There are also some functions that can be used with the AWS, Azure, and GGP providers in [aws-functions](./aws/aws-functions), [azure-functions](./azure/azure-functions), and [gcp-functions](.gcp/gcp-functions) and some functions that can be used when talking to module registries in [registry-functions](./cloud-agnostic/http-examples/registry-functions).
 
@@ -61,6 +62,8 @@ import "azure-functions" as azure
 import "registry-functions" as registry
 ```
 In this case, we are using `plan`, `state`, `config`, `run`, `aws`, `azure`, and `registry` as aliases for the seven imports to keep lines that use their functions shorter. Of course, you only need to import the modules that contain functions that your policy actually calls.
+
+The `report` module contains necessary logic to pretty print policy evaluation results.
 
 ### The Functions of the tfplan-functions and tfstate-functions Modules
 We discuss these two modules together because they are essentially identical except for their use of the tfplan/v2 and tfstate/v2 imports. (But note that the tfplan-functions module has some filter functions that the tfstate-functions module does not.)
@@ -109,6 +112,10 @@ The `tfrun-functions` module has the following functions:
 
 Documentation for each individual function can be found in this directory:
   * [tfrun-functions](./common-functions/tfrun-functions/docs)
+
+### The Functions of the report Module
+The `report` module has the following functions:
+  * The `generate_policy_report` function accepts a `summary` object and pretty prints the policy evaluation results. More information about this function can be found [here](./common-functions/report/docs)
 
 ### The Functions of the aws-functions Module
 The `aws-functions` module (which is located in the aws/aws-functions directory) has the following functions:

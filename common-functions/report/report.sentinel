@@ -1,0 +1,96 @@
+// This module exposes a single function named - "generate_policy_report"
+// Other functions were introduced to make code modular are scoped within this
+// function to avoid getting invoked from outside
+
+// Colors
+green = "\033[32m"
+red = "\033[31m"
+reset = "\033[0m"
+
+// spaces
+new_line = "\n"
+tab = "  " // using two space for tab
+space = " "
+pipe = "\u007C"
+dot = "."
+
+// Icons
+arrow_icon = "\u2192"
+check_icon = "\u2713"
+cross_icon = "\u2717"
+down_arrow = "\u21b3"
+
+// Strings
+root_module = "root"
+overall_result = arrow_icon + space + arrow_icon + space + "Overall Result: "
+success_message = "This result means that all resources have passed the policy check for the policy "
+failure_message = "This result means that not all resources passed the policy check and the protected behavior is not allowed for the policy "
+found_zero_resource_violations = "Found 0 resource violations"
+resource_violations = "resource violations"
+module_header = "Module name: "
+resource_address = "Resource Address: "
+failed = "failed"
+
+generate_policy_report = func(summary) {
+
+	generate_success_summary_string = func(summary) {
+		report = green + overall_result + "true" + reset
+		report += new_line
+		report += new_line
+		report += success_message + summary.policy_name + dot
+		report += new_line
+		report += new_line
+		report += check_icon + space + found_zero_resource_violations
+		return report
+	}
+
+	generate_failure_summary_string = func(summary) {
+		report = red + overall_result + "false" + reset
+		report += new_line
+		report += new_line
+		report += failure_message + summary.policy_name + dot
+		report += new_line
+		report += new_line
+		report += "Found " + string(length(summary.violations)) + space + resource_violations
+		report += new_line
+
+		module_map = get_module_violations_map(summary)
+		module_map_keys = keys(module_map)
+		for module_map_keys as _, module {
+			violations = module_map[module]
+			report += new_line
+			report += arrow_icon + space + module_header + module
+			report += new_line
+			for violations as _, v {
+				report += tab + space + down_arrow + space + resource_address + v.address
+				report += new_line
+				report += tab + tab + space + pipe + space + cross_icon + space + failed
+				report += new_line
+				report += tab + tab + space + pipe + space + v.message
+				report += new_line
+			}
+		}
+		return report
+	}
+
+	get_module_violations_map = func(summary) {
+		module_map = {}
+		for summary.violations as _, v {
+			module_addr = v.module_address
+			if module_addr is "" {
+				module_addr = root_module
+			}
+			if keys(module_map) not contains module_addr {
+				module_map[module_addr] = []
+			}
+			append(module_map[module_addr], v)
+		}
+		return module_map
+	}
+
+	if length(summary.violations) == 0 {
+		return generate_success_summary_string(summary)
+	} else {
+		return generate_failure_summary_string(summary)
+	}
+}
