@@ -4,6 +4,7 @@
 import "tfconfig/v2" as tfconfig
 import "strings"
 import "types"
+import "version"
 
 ##### Functions #####
 
@@ -203,6 +204,26 @@ find_module_calls_in_module = func(module_address) {
   }
 
   return module_calls
+}
+
+# Function to compare module versions between what was pulled from
+# the configuration with an allowed map of modules : versions.
+# Note: There are more advanced versions of this in http-examples
+# that allow you to query versions from the PMR
+get_module_violations = func(modules, allowed) {
+    violators = {}
+    for modules as k, v {
+        for allowed as module, ver {
+           if module == k {
+                if {module:ver} is not {k:v.version_constraint} {
+                    if version.new(v.version_constraint).lt(ver) {
+                       violators[module] = {k:v.version_constraint}
+                    }
+                }
+            }
+        }
+    }
+    return violators
 }
 
 ### find_descendant_modules ###
