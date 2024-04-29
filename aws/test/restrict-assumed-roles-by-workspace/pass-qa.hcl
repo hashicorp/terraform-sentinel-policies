@@ -1,3 +1,6 @@
+# Copyright (c) HashiCorp, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 module "aws-functions" {
   source = "../../aws-functions/aws-functions.sentinel"
 }
