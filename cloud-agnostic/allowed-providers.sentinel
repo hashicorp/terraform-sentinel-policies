@@ -18,11 +18,11 @@ import "strings"
 allowed_list = ["aws", "local", "null", "random", "terraform", "tfe"]
 
 # Get all providers
-allProviders = config.find_all_providers()
+allProviders = config.all_providers()
 
 # Filter to providers with violations
 # Warnings will not be printed for violations since the last parameter is false
-violatingProviders = config.filter_attribute_not_in_list(allProviders,
+violatingProviders = config.attribute_not_in_list(allProviders,
                      "name", allowed_list, false)
 
 # Print any violations
@@ -36,7 +36,7 @@ prohibitedResourcesCount = 0
 prohibitedDataSourcesCount = 0
 
 # Find all resources
-allResources = config.find_all_resources()
+allResources = config.all_resources()
 
 # Filter to disallowed resources
 prohibitedResources = filter allResources as address, r {
@@ -55,7 +55,7 @@ if length(prohibitedResources) > 0 {
 
 
 # Find all data sources
-allDataSources = config.find_all_datasources()
+allDataSources = config.all_datasources()
 
 # Filter to disallowed data sources
 prohibitedDataSources = filter allDataSources as address, r {

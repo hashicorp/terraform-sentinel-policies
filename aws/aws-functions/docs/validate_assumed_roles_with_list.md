@@ -5,7 +5,7 @@ This function checks whether all roles assumed by all instances of the AWS provi
 This function is contained in the [aws-functions.sentinel](../aws-functions.sentinel) module.
 
 ## Declaration
-`validate_assumed_roles_with_list = func(allowed_roles)`
+`func validate_assumed_roles_with_list(allowed_roles)`
 
 ## Arguments
 * **allowed_roles**: a list of allowed AWS IAM role ARNs that can be assumed by AWS providers. If you want to a policy that calls this function to pass if a role assumed by an instance of the AWS provider contains a single non-variable reference or multiple references, include "complex" in the list.

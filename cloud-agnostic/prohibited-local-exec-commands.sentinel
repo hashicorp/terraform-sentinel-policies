@@ -7,7 +7,7 @@ import "tfconfig/v2" as tfconfig
 # List of prohibited commands for the local-exec provisioner
 prohibited_list = ["env", "sudo"]
 
-validate_command = func(prohibited) {
+func validate_command(prohibited) {
 
   validated = true
 

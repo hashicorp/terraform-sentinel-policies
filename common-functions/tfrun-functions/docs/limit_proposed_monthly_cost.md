@@ -5,7 +5,7 @@ This function validates that the proposed monthly cost from the [cost estimates]
 This function is contained in the [tfrun-functions.sentinel](../tfrun-functions.sentinel) module.
 
 ## Declaration
-`limit_proposed_monthly_cost = func(limit)`
+`func limit_proposed_monthly_cost(limit)`
 
 ## Arguments
 * **limit**: the upper limit on the allowed estimated monthly cost (in US dollars) for the resources provisioned in the workspace, given as a [decimal](https://docs.hashicorp.com/sentinel/imports/decimal/).

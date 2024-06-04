@@ -42,7 +42,7 @@ This result means that all resources have passed the policy check for the policy
 This function is contained in the [modules/report](./report.sentinel) module.
 
 ## Declaration
-`generate_policy_report = func(summary)`
+`func generate_policy_report(summary)`
 
 ## Arguments
 `summary` object similar to below.

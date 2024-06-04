@@ -5,7 +5,7 @@ This function evaluates the value of an attribute within a resource, data source
 This function is contained in the [tfplan-functions.sentinel](../tfplan-functions.sentinel) module.
 
 ## Declaration
-`evaluate_attribute = func(r, attribute)`
+`func evaluate_attribute(r, attribute)`
 
 ## Arguments
 * **r**: a single resource or block containing an attribute whose value you want to determine. The function converts a plain resource reference like `rc` tp `rc.change.after`; if you want to evaluate the previous state, pass `rc.change.before`.

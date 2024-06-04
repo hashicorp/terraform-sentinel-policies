@@ -8,11 +8,11 @@
 import "tfplan-functions" as plan
 
 # Get all Azure Security Center Pricings
-allAzureSecCenterSubPricings = plan.find_resources("azurerm_security_center_subscription_pricing")
+allAzureSecCenterSubPricings = plan.resources("azurerm_security_center_subscription_pricing")
 
 # Filter to Azure Security Center Pricings for Virtual Machines
 # Warnings will not be printed for violations since the last parameter is false
-azureSecCenterSubPricingsForVMs = plan.filter_attribute_is_value(
+azureSecCenterSubPricingsForVMs = plan.attribute_is_value(
                              allAzureSecCenterSubPricings,
                              "resource_type", "VirtualMachines", false)
 
@@ -21,7 +21,7 @@ azureSecCenterSubPricingsForVMs = plan.filter_attribute_is_value(
 # When applying a second filter, we restrict to the resources map returned from
 # the first filter.
 # Warnings will be printed for all violations since the last parameter is true
-violatingAzureSecCenterSubPricingsForVMs = plan.filter_attribute_is_value(
+violatingAzureSecCenterSubPricingsForVMs = plan.attribute_is_value(
                                            azureSecCenterSubPricingsForVMs["resources"],
                                            "tier", "Standard", true)
 

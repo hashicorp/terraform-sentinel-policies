@@ -9,11 +9,11 @@ import "tfconfig-functions" as config
 prohibited_list = ["local-exec", "remote-exec"]
 
 # Get all provisioners
-allProvisioners = config.find_all_provisioners()
+allProvisioners = config.all_provisioners()
 
 # Filter to provisioners with violations
 # Warnings will not be printed for violations since the last parameter is false
-violatingProvisioners = config.filter_attribute_in_list(allProvisioners,
+violatingProvisioners = config.attribute_in_list(allProvisioners,
                      "type", prohibited_list, false)
 
 # Print any violations

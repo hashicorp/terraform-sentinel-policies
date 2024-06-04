@@ -7,7 +7,7 @@ It can only do this when the `role_arn` of the AWS provider is set to a hard-cod
 This function is contained in the [aws-functions.sentinel](../aws-functions.sentinel) module.
 
 ## Declaration
-`determine_role_arn = func(address, data)`
+`func determine_role_arn(address, data)`
 
 ## Arguments
 * **address**: the address of the provider which has the form `module_address:provider.alias`.
@@ -25,7 +25,7 @@ This function prints warning messages if the `role_arn` attribute was not a hard
 ## Examples
 Here is an example of calling this function, assuming that the [tfconfig-functions.sentinel](../../../common-functions/tfconfig-functions/tfconfig-functions.sentinel) module has been imported with the alias `config`:
 ```
-aws_providers = config.find_providers_by_type("aws")
+aws_providers = config.providers_by_type("aws")
 for aws_providers as address, data {
   assumed_roles[address] = determine_role_arn(address, data)
 }

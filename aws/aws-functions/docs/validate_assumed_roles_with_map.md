@@ -5,7 +5,7 @@ This function validates whether all roles assumed by instances of the AWS provid
 This function is contained in the [aws-functions.sentinel](../aws-functions.sentinel) module.
 
 ## Declaration
-`validate_assumed_roles_with_map = func(roles_map, workspace_name)`
+`func validate_assumed_roles_with_map(roles_map, workspace_name)`
 
 ## Arguments
 * **roles_map**: a map that associates AWS IAM role ARNs with lists of regular expressions (regex) that select workspace names that the role can be used in. If you want to a policy that calls this function to pass if a role assumed by an instance of the AWS provider contains a single non-variable reference or multiple references, include "complex" in the list.

@@ -11,7 +11,7 @@ If the alias passed in the module call does not match the alias in the root modu
 This function is contained in the [aws-functions.sentinel](../aws-functions.sentinel) module.
 
 ## Declaration
-`validate_provider_in_allowed_regions = func(p, regions)`
+`func validate_provider_in_allowed_regions(p, regions)`
 
 ## Arguments
 * **p**: a specific alias of the AWS provider derived from `tfconfig.providers` or from the `provider_config_key` attribute of a resource derived from `tfconfig.resources`.
@@ -38,4 +38,4 @@ for aws_providers as index, p {
 }
 ```
 
-This function is used by the `filter_providers_by_regions` function of the aws-functions module.
+This function is used by the `providers_by_regions` function of the aws-functions module.

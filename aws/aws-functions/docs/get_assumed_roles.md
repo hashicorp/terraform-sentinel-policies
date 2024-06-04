@@ -7,13 +7,13 @@ The tfplan/v2 import is used by the `determine_role_arn` function that this func
 This function is contained in the [aws-functions.sentinel](../aws-functions.sentinel) module.
 
 ## Declaration
-`get_assumed_roles = func()`
+`func get_assumed_roles()`
 
 ## Arguments
 None
 
 ## Common Functions Used
-This function calls the `find_providers_by_type` function of the [tfconfig-functions.sentinel](../../../common-functions/tfconfig-functions/tfconfig-functions.sentinel) module and the `determine_role_arn` function of the [aws-functions.sentinel](../aws-functions.sentinel) module.
+This function calls the `providers_by_type` function of the [tfconfig-functions.sentinel](../../../common-functions/tfconfig-functions/tfconfig-functions.sentinel) module and the `determine_role_arn` function of the [aws-functions.sentinel](../aws-functions.sentinel) module.
 
 ## What It Returns
 This function returns a map indexed by the addresses of the provider instances contained in the workspace's Terraform configuration with values set to the actual ARNs of the AWS IAM roles assumed by those providers. However, if no role was specified for an instance of the AWS provider, it returns "none" for that instance, and if it finds finds a single non-variable reference or multiple references for an instance, it returns "complex" for that instance.

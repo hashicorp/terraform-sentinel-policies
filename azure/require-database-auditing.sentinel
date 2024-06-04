@@ -16,16 +16,16 @@ import "tfplan-functions" as plan
 import "tfconfig-functions" as config
 
 # Get all MSSQL Databases from the plan
-allMSSQLDatabases = plan.find_resources("azurerm_mssql_database")
+allMSSQLDatabases = plan.resources("azurerm_mssql_database")
 
 # Filter to Azure MSSQL Databases for which extended_auditing_policy is null
 # which includes those for which this block is missing.
 # Warnings will not be printed for violations since the last parameter is false
-MSSQLDatabasesWithoutInlineAuditingPolicies = plan.filter_attribute_is_value(
+MSSQLDatabasesWithoutInlineAuditingPolicies = plan.attribute_is_value(
                 allMSSQLDatabases, "extended_auditing_policy", "null", false)
 
 # Get all Azure MSSQL Database extended audting policies from the config
-allMSSQLDatabaseExtendedAuditingPolicies = config.find_resources_by_type(
+allMSSQLDatabaseExtendedAuditingPolicies = config.resources_by_type(
                           "azurerm_mssql_database_extended_auditing_policy")
 
 # Iterate over the databases that do not have inline auditing policies
@@ -37,7 +37,7 @@ for MSSQLDatabasesWithoutInlineAuditingPolicies["resources"] as address, db {
   # Filter to auditing policies that match db_id
   # Note that we have to include `config.` before `database_id` since the
   # database_id attribute is under the `config` map.
-  matchingMSSQLDatabaseExtendedAuditingPolicies = config.filter_attribute_in_list(
+  matchingMSSQLDatabaseExtendedAuditingPolicies = config.attribute_in_list(
       allMSSQLDatabaseExtendedAuditingPolicies, "config.database_id", [db_id], false)
 
   # Check if there were any matches

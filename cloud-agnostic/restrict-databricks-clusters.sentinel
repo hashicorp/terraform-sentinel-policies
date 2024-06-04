@@ -14,11 +14,11 @@ param max_workers default 5
 param allowed_node_type_ids default ["Standard_A1", "Standard_A2", "Standard_D1_v2", "Standard_D2_v2", "null"]
 
 # Get all Databricks clusters
-allClusters = plan.find_resources("databricks_cluster")
+allClusters = plan.resources("databricks_cluster")
 
 # Filter to Databricks clusters with invalid max_workers
 # But don't count null max_count as invalid since autoscale is optional
-ClustersWithInvalidMaxWorkers = plan.filter_attribute_greater_than_value(allClusters,
+ClustersWithInvalidMaxWorkers = plan.attribute_greater_than_value(allClusters,
                 "autoscale.0.max_workers", max_workers, false)
 clusters_with_invalid_max_workers = 0
 for ClustersWithInvalidMaxWorkers["messages"] as address, message {
@@ -30,7 +30,7 @@ for ClustersWithInvalidMaxWorkers["messages"] as address, message {
 
 # Filter to Databricks clusters with invalid node_type_id
 # Warnings will be printed for all violations since the last parameter is true
-ClustersWithInvalidNodeTypeID = plan.filter_attribute_not_in_list(allClusters,
+ClustersWithInvalidNodeTypeID = plan.attribute_not_in_list(allClusters,
                     "node_type_id", allowed_node_type_ids, true)
 clusters_with_invalid_node_type_id = length(ClustersWithInvalidNodeTypeID["messages"])
 

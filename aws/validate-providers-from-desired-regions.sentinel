@@ -1,7 +1,7 @@
 # This policy uses the Sentinel tfconfig/v2 and tfplan/v2 imports to require that
 # all AWS provider aliases are in specified regions
 
-# See the documentation for the [filter_providers_by_regions](./aws-functions/docs/filter_providers_by_regions.md)
+# See the documentation for the [providers_by_regions](./aws-functions/docs/providers_by_regions.md)
 # and [validate_provider_in_allowed_regions](./aws-functions/docs/validate_provider_in_allowed_regions.md) functions for details on
 # how this is done.
 
@@ -26,11 +26,11 @@ import "aws-functions" as aws
 param allowed_regions default ["us-east-1", "us-west-1"]
 
 # Get all AWS providers
-all_aws_providers = config.find_providers_by_type("aws")
+all_aws_providers = config.providers_by_type("aws")
 
 # Process all AWS providers
 validated_providers =
-            aws.filter_providers_by_regions(all_aws_providers, allowed_regions)
+            aws.providers_by_regions(all_aws_providers, allowed_regions)
 
 # Compare numbers and print messages
 num_all_aws_providers = length(all_aws_providers)

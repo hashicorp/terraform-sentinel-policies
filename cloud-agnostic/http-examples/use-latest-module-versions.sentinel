@@ -58,7 +58,7 @@ param token
 ##### Functions #####
 
 # Retrieve modules from a module registry and give their paths and latest versions
-retrieve_latest_module_versions = func() {
+func retrieve_latest_module_versions() {
 
   modules = {}
 
@@ -78,7 +78,7 @@ retrieve_latest_module_versions = func() {
 
 # Get up to `limit` verified modules from the public registry for a namespace
 # But pass the organization parameter
-get_public_registry_modules = func() {
+func get_public_registry_modules() {
   req = http.request("https://" + address + "/v1/modules/"  +
                      organization + "?limit=" + limit + "&verified=true")
 
@@ -99,7 +99,7 @@ get_public_registry_modules = func() {
 
 # Get all modules from the private registry by calling itself recursively
 # Start by calling with modules = {}, and offset = 0
-get_private_registry_modules = func(modules, offset) {
+func get_private_registry_modules(modules, offset) {
   req = http.request("https://" + address + "/api/registry/v1/modules/"  +
                     organization + "?limit=" + string(limit) +
                     "&offset=" + string(offset))
@@ -123,7 +123,7 @@ get_private_registry_modules = func(modules, offset) {
 }
 
 # Validate sources of modules in the registry
-validate_modules = func() {
+func validate_modules() {
 
   validated = true
 
@@ -131,11 +131,11 @@ validate_modules = func() {
   discovered_modules = retrieve_latest_module_versions()
 
   # Get all module addresses
-  allModuleAddresses = config.find_descendant_modules("")
+  allModuleAddresses = config.descendant_modules("")
 
   # Iterate over all modules in the tfconfig/v2 import
   for allModuleAddresses as module_address {
-    moduleCalls = config.find_module_calls_in_module(module_address)
+    moduleCalls = config.module_calls_in_module(module_address)
     # Iterate over modules of the current module
     for moduleCalls as index, m {
       # Check if module is in the PMR

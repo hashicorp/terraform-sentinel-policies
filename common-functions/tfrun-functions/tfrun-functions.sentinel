@@ -8,8 +8,7 @@ import "decimal"
 
 ### limit_proposed_monthly_cost ###
 # Validate that the proposed monthly cost is less than the limit
-limit_proposed_monthly_cost = func(limit) {
-
+func limit_proposed_monthly_cost(limit) {
   # Check whether cost estimate is available
   # It should be for Terraform 0.12.x
   # It should not be for Terraform 0.11.x
@@ -38,8 +37,7 @@ limit_proposed_monthly_cost = func(limit) {
 # Validate that the proposed cost is less than the given limit and
 # that the percentage increase in the monthly cost
 # is less than a given percentage
-limit_cost_and_percentage_increase = func(limit, max_percent) {
-
+func limit_cost_and_percentage_increase(limit, max_percent) {
   validated = true
 
   # Check whether cost estimate is available
@@ -78,7 +76,6 @@ limit_cost_and_percentage_increase = func(limit, max_percent) {
   }
 
   return validated
-
 }
 
 ### limit_cost_by_workspace_name ###
@@ -89,8 +86,7 @@ limit_cost_and_percentage_increase = func(limit, max_percent) {
 # The keys are treated as allowed workspace name prefixes and suffixes.
 # If a workspace does not have one of the keys as a prefix or suffix, it will
 # fail the policy.
-limit_cost_by_workspace_name = func(limits) {
-
+func limit_cost_by_workspace_name(limits) {
   # Check whether cost estimate is available
   # It should be for Terraform 0.12.x
   # It should not be for Terraform 0.11.x

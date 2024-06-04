@@ -7,11 +7,11 @@
 import "tfplan-functions" as plan
 
 # Get all Azure app services
-allAzureAppServices = plan.find_resources("azurerm_app_service")
+allAzureAppServices = plan.resources("azurerm_app_service")
 
 # Filter to Azure app services with violations
 # Warnings will be printed for all violations since the last parameter is true
-violatingAzureAppServices = plan.filter_attribute_is_not_value(allAzureAppServices,
+violatingAzureAppServices = plan.attribute_is_not_value(allAzureAppServices,
                             "https_only", true, true)
 
 # Main rule

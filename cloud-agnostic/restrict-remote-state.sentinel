@@ -60,10 +60,10 @@ if not matching_env_found {
 }
 
 # Find instances of remote state data sources
-remoteStates = state.find_datasources("terraform_remote_state")
+remoteStates = state.datasources("terraform_remote_state")
 
 # Filter remote state data sources to violations
-violatingRemoteStates = state.filter_attribute_not_in_list(remoteStates,
+violatingRemoteStates = state.attribute_not_in_list(remoteStates,
                         "config.workspaces.name",
                         allowed_workspaces[workspace_env], false)
 

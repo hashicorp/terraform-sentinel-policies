@@ -45,7 +45,7 @@ param token
 param version_limit default 3
 
 # Validate sources of modules in the registry
-validate_modules = func() {
+func validate_modules() {
 
   # Initialize variables
   validated = true
@@ -76,11 +76,11 @@ validate_modules = func() {
   }
 
   # Get all module addresses in current configuration from the tfconfig/v2 import
-  allModuleAddresses = config.find_descendant_modules("")
+  allModuleAddresses = config.descendant_modules("")
 
   # Iterate over all modules in the tfconfig/v2 import
   for allModuleAddresses as module_address {
-    moduleCalls = config.find_module_calls_in_module(module_address)
+    moduleCalls = config.module_calls_in_module(module_address)
     # Iterate over modules of the current module
     for moduleCalls as index, m {
       # Check if module is a private module in the PMR

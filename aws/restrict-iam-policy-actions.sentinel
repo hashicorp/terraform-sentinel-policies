@@ -9,17 +9,17 @@ import "tfstate-functions" as state
 param forbidden_actions default ["iam:Create*", "iam:Delete*"]
 
 # Get all IAM policy document data sources
-allIAMPolicyDocs = state.find_datasources("aws_iam_policy_document")
+allIAMPolicyDocs = state.datasources("aws_iam_policy_document")
 
 # Filter to IAM policy documents with violations
 validated = true
 for allIAMPolicyDocs as address, d {
 
 	# Find the statements of the current policy doc
-	statements = state.find_blocks(d, "statement")
+	statements = state.blocks(d, "statement")
 
 	# Filter to violating statements of current policy doc
-	violatingStatements = state.case_insensitive_filter_attribute_contains_items_from_list(
+	violatingStatements = state.case_insensitive_attribute_contains_items_from_list(
 		statements, "actions", forbidden_actions, false)
 
 	# Print warnings if any violating statements

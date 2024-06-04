@@ -9,8 +9,8 @@ import "tfconfig-functions" as config
 import "strings"
 
 # Get all S3 buckets resources
-allS3BucketsEncryptionConfig = config.find_resources_by_type("aws_s3_bucket_server_side_encryption_configuration")
-allS3Buckets = plan.find_resources("aws_s3_bucket")
+allS3BucketsEncryptionConfig = config.resources_by_type("aws_s3_bucket_server_side_encryption_configuration")
+allS3Buckets = plan.resources("aws_s3_bucket")
 
 #Variables to support check of legacy S3 syntax vs new Seperate S3 Resources being used
 legacy = false
@@ -30,7 +30,7 @@ for allS3Buckets as address, S3Buckets {
 	if legacy is true {
 		# Legacy check of S3 buckets to validate they are protected my KMS
 		# Warnings will be printed for all violations since the last parameter is true
-		nonEncryptedS3Buckets = plan.filter_attribute_is_not_value(allS3Buckets, "server_side_encryption_configuration.0.rule.0.apply_server_side_encryption_by_default.0.sse_algorithm", "aws:kms", true)
+		nonEncryptedS3Buckets = plan.attribute_is_not_value(allS3Buckets, "server_side_encryption_configuration.0.rule.0.apply_server_side_encryption_by_default.0.sse_algorithm", "aws:kms", true)
 		match = true
 		# Main rule
 		validated = length(nonEncryptedS3Buckets["messages"]) is 0 and match is true
@@ -52,7 +52,7 @@ for allS3Buckets as address, S3Buckets {
 
 				# Check if the bucket name matches the bucket attribute on the server_side_encryption_configuration resource, else there is not an server_side_encryption_configuration assigned
 				if bucket matches test {
-					allS3BucketsEncryptedplan = plan.find_resources_with_name("aws_s3_bucket_server_side_encryption_configuration", encrypt_name)
+					allS3BucketsEncryptedplan = plan.resources_with_name("aws_s3_bucket_server_side_encryption_configuration", encrypt_name)
 					for allS3BucketsEncryptedplan as address, algos {
 						algs = algos.change.after.rule[0].apply_server_side_encryption_by_default[0].sse_algorithm
 						print(algs)

@@ -9,8 +9,8 @@ import "tfconfig-functions" as config
 import "strings"
 
 # Get all S3 buckets resources
-allS3BucketsACL = config.find_resources_by_type("aws_s3_bucket_acl")
-allS3Buckets = plan.find_resources("aws_s3_bucket")
+allS3BucketsACL = config.resources_by_type("aws_s3_bucket_acl")
+allS3Buckets = plan.resources("aws_s3_bucket")
 
 #Variables to support check of legacy S3 syntax vs new Seperate S3 Resources being used
 legacy = false
@@ -28,7 +28,7 @@ for allS3Buckets as address, S3Buckets {
 	# Filter S3 buckets that do not have private ACL attribute (legacy syntax)
 	# Warnings will be printed for all violations since the last parameter is true
 	if legacy is true {
-		nonPrivateS3Buckets = plan.filter_attribute_is_not_value(allS3Buckets, "acl", "private", true)
+		nonPrivateS3Buckets = plan.attribute_is_not_value(allS3Buckets, "acl", "private", true)
 		# Mailn rule - Checks if any legacy S3 buckets have ACL not set to private.
 		validated = length(nonPrivateS3Buckets["messages"]) is 0
 	}
@@ -52,8 +52,8 @@ for allS3Buckets as address, S3Buckets {
 
 				# Check if the bucket name matches the bucket attribute on the ACL resource, else there is not an ACL assigned
 				if bucket matches test {
-					allS3BucketsACLplan = plan.find_resources_with_name("aws_s3_bucket_acl", acl_name)
-					nonPrivateS3Buckets = plan.filter_attribute_is_not_value(allS3BucketsACLplan, "acl", "private", true)
+					allS3BucketsACLplan = plan.resources_with_name("aws_s3_bucket_acl", acl_name)
+					nonPrivateS3Buckets = plan.attribute_is_not_value(allS3BucketsACLplan, "acl", "private", true)
 					nomatch = true
 				}
 

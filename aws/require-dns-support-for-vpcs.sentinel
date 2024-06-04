@@ -7,15 +7,15 @@
 import "tfplan-functions" as plan
 
 # Get all VPCs
-allVPCs = plan.find_resources("aws_vpc")
+allVPCs = plan.resources("aws_vpc")
 
 # Filter to VPCs with violations
 # Warnings will be printed for all violations since the last parameter is true
 # The first finds VPCs with enable_dns_support not set to true
 # The second finds VPCs with enable_dns_hostnames not set to true
-violatingSupportVPCs = plan.filter_attribute_is_not_value(allVPCs,
+violatingSupportVPCs = plan.attribute_is_not_value(allVPCs,
                         "enable_dns_support", true, true)
-violatingHostnameVPCs = plan.filter_attribute_is_not_value(allVPCs,
+violatingHostnameVPCs = plan.attribute_is_not_value(allVPCs,
                         "enable_dns_hostnames", true, true)
 
 # Main rule

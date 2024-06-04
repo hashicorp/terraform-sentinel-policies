@@ -6,16 +6,16 @@
 import "tfplan-functions" as plan
 
 # Get all NAS Datastores
-allDatastores = plan.find_resources("vsphere_nas_datastore")
+allDatastores = plan.resources("vsphere_nas_datastore")
 
 # Filter to Datastores that are not NFS
 # Warnings will be printed for all violations since the last parameter is true
-nonNFSDatastores = plan.filter_attribute_is_not_value(allDatastores,
+nonNFSDatastores = plan.attribute_is_not_value(allDatastores,
              "type", "NFS41", true)
 
 # Filter to Datastores that do not use Kerberos
 # Warnings will be printed for all violations since the last parameter is true
-nonKerberosDatastores = plan.filter_attribute_not_in_list(allDatastores,
+nonKerberosDatastores = plan.attribute_not_in_list(allDatastores,
                 "security_type", ["SEC_KRB5", "SEC_KRB5I"] , true)
 
 # Main rule

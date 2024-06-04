@@ -19,7 +19,7 @@ This function is contained in the [registry-functions.sentinel](../registry-func
 * **page**: an integer indicating the page of results to return.  This should always be set to `1` except by the function itself when calling itself recursively.
 
 ## Common Functions Used
-This function calls the [find_most_recent_version](./find_most_recent_version.md) function.
+This function calls the [most_recent_version](./most_recent_version.md) function.
 
 ## What It Returns
 This function returns a map indexed by the namespace/organization, name, and provider of the module with values set to lists of the `version_limit` most recent versions for each module.

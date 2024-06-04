@@ -69,11 +69,11 @@ The `report` module contains necessary logic to pretty print policy evaluation r
 We discuss these two modules together because they are essentially identical except for their use of the tfplan/v2 and tfstate/v2 imports. (But note that the tfplan-functions module has some filter functions that the tfstate-functions module does not.)
 
 Each of these modules has several types of functions:
-  * `find_resources` and `find_datasources` functions that find resources or data sources of a specific type. Note that the tfplan versions of these functions only find resources that are being created or changed and data sources that are being created, changed, or read.
-  * `find_resources_by_provider` and `find_datasources_by_provider` functions that find resources or data sources for a specific provider. Note that the tfplan versions of these functions only find resources that are being created or changed and data sources that are being created, changed, or read. Also note that the string that should be passed to these functions varies between Terraform 0.12 and 0.13.
-  * `find_resources_being_destroyed` and `find_datasources_being_destroyed` function that find resources or data sources that are being destroyed but not re-created.
-  * The `find_blocks` function finds all blocks of a specific type in a single resource.
-  * `filter_*` functions that filter a collection of resources, data sources, or blocks to a sub-collection that violates some condition. (When we say resources below, we are including data sources which are really just read-only resources.) The filter functions all accept a collection of resource changes (for tfplan/v2) or resources (for tfstate/v2), an attribute, a value or a list of values, and a boolean, `prtmsg`, which can be `true` or `false` and indicates whether the filter function should print violation messages. The filter functions return a map consisting of 2 items:
+  * `resources` and `datasources` functions that find resources or data sources of a specific type. Note that the tfplan versions of these functions only find resources that are being created or changed and data sources that are being created, changed, or read.
+  * `resources_by_provider` and `datasources_by_provider` functions that find resources or data sources for a specific provider. Note that the tfplan versions of these functions only find resources that are being created or changed and data sources that are being created, changed, or read. Also note that the string that should be passed to these functions varies between Terraform 0.12 and 0.13.
+  * `resources_being_destroyed` and `datasources_being_destroyed` function that find resources or data sources that are being destroyed but not re-created.
+  * The `blocks` function finds all blocks of a specific type in a single resource.
+  * `filter` functions that filter a collection of resources, data sources, or blocks to a sub-collection that violates some condition. (When we say resources below, we are including data sources which are really just read-only resources.) The filter functions all accept a collection of resource changes (for tfplan/v2) or resources (for tfstate/v2), an attribute, a value or a list of values, and a boolean, `prtmsg`, which can be `true` or `false` and indicates whether the filter function should print violation messages. The filter functions return a map consisting of 2 items:
     * `resources`: a map consisting of resource changes (for tfplan/v2) or resources (for tfstate/v2) or blocks that violate a condition.
     * `messages`: a map of violation messages associated with the resource changes, resources, or blocks.
   Note that both the `resources` and `messages` collections are indexed by the address of the resources, so they will have the same order and length. The filter functions all call the `evaluate_attribute` function to evaluate attributes of resources even if nested deep within them. After calling a filter function and assigning the results to a variable like `violatingResources`, you can test if there are any violations with this condition: `length(violatingResources["messages"]) is 0`.
@@ -87,13 +87,13 @@ Documentation for each individual function can be found in these directories:
 
 ### The Functions of the tfconfig-functions Module
 The `tfconfig-functions` module has several types of functions:
-  * `find_all_*` functions find all resources, data sources, provisioners, providers, variables, outputs, and module calls of all types.
-  * `find_*_by_type` functions that find resources, data sources, provisioners, or providers of a specific type.
-  * `find_*_in_module` functions that find resources, data sources, variables, providers, outputs, or module calls in a specific module.
-  * `find_*_by_provider` functions that find resources or data sources created by a specific provider.
-  * The `find_outputs_by_sensitivity` function that finds outputs based on their `sensitive` setting.
-  * The `find_descendant_modules` function that finds all module addresses called directly or indirectly by a specific module including that module itself. Calling `find_descendant_modules("")` will return all module addresses within the Terraform configuration.
-  * Various filter functions such as `filter_attribute_not_in_list` and `filter_attribute_in_list` that are similar to the filter functions in the tfplan-functions module. However, these can only be used against top-level attributes of the items in the collection passed to them or against items directly under the `config` map of items. Those collections can be any type of entity covered by the tfconfig/v2 import including resources, data sources, providers, provisioners, variables, outputs, and module calls. The filter functions return a map consisting of 2 items:
+  * `all_*` functions find all resources, data sources, provisioners, providers, variables, outputs, and module calls of all types.
+  * `*_by_type` functions that find resources, data sources, provisioners, or providers of a specific type.
+  * `*_in_module` functions that find resources, data sources, variables, providers, outputs, or module calls in a specific module.
+  * `*_by_provider` functions that find resources or data sources created by a specific provider.
+  * The `outputs_by_sensitivity` function that finds outputs based on their `sensitive` setting.
+  * The `descendant_modules` function that finds all module addresses called directly or indirectly by a specific module including that module itself. Calling `descendant_modules("")` will return all module addresses within the Terraform configuration.
+  * Various filter functions such as `attribute_not_in_list` and `attribute_in_list` that are similar to the filter functions in the tfplan-functions module. However, these can only be used against top-level attributes of the items in the collection passed to them or against items directly under the `config` map of items. Those collections can be any type of entity covered by the tfconfig/v2 import including resources, data sources, providers, provisioners, variables, outputs, and module calls. The filter functions return a map consisting of 2 items:
     * `items`: a map consisting of items that violate a condition.
     * `messages`: a map of violation messages associated with the items.
   * The same `to_string` and `print_violations` functions that are in the tfplan-functions module.
@@ -119,7 +119,7 @@ The `report` module has the following functions:
 
 ### The Functions of the aws-functions Module
 The `aws-functions` module (which is located in the aws/aws-functions directory) has the following functions:
-  * The `find_resources_with_standard_tags` function finds all AWS resources of specified types that should have tags in the current plan that are not being permanently deleted.
+  * The `resources_with_standard_tags` function finds all AWS resources of specified types that should have tags in the current plan that are not being permanently deleted.
   * The `determine_role_arn` function determines the ARN of a role set in the `role_arn` parameter of an AWS provider. It can only determine the role_arn if it is set to either a hard-coded value or to a reference to a single Terraform variable. It sets the role to "complex" if it finds a single non-variable reference or if it finds multiple references. It sets the role to "none" if no role arn is found.
   * The `get_assumed_roles` function gets all roles assumed by AWS providers in the current Terraform configuration. It calls the `determine_role_arn` function.
   * The `validate_assumed_roles_with_list` function validates assumed roles found by the `get_assumed_roles` function against a list of role ARNs.
@@ -130,7 +130,7 @@ Documentation for each individual function can be found in this directory:
 
 ### The Functions of the azure-functions Module
 The `azure-functions` module (which is located in the azure/azure-functions directory) has the following functions:
-  * The `find_resources_with_standard_tags` function finds all Azure resources of specified types that should have tags in the current plan that are not being permanently deleted.
+  * The `resources_with_standard_tags` function finds all Azure resources of specified types that should have tags in the current plan that are not being permanently deleted.
 
 Documentation for each individual function can be found in this directory:
   * [azure-functions](./azure/azure-functions/docs)
@@ -139,7 +139,7 @@ Documentation for each individual function can be found in this directory:
 The `registry-functions` module (which is located in the cloud-agnostic/http-examples/registry-functions directory) has the following functions:
   * The `get_recent_module_versions` function finds recent versions for private or public modules from a private module registry (PMR).
   * The `get_recent_module_versions_by_page` function finds recent versions for private or public modules from a private module registry (PMR) one page at a time. It is called by the `get_recent_module_versions` function. Having a separate function that deals with pagination keeps the interface for the `get_recent_module_versions` function cleaner.
-  * The `find_most_recent_version` function finds the most recent versing string from a map of version strings.
+  * The `most_recent_version` function finds the most recent versing string from a map of version strings.
   * The `is_module_in_public_registry` function determines if a module is in the public module registry.
 
 Documentation for each individual function can be found in this directory:

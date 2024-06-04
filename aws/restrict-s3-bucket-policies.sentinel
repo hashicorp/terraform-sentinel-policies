@@ -18,18 +18,18 @@ restricted_s3_actions = ["s3:ListBucket", "s3:GetObject", "s3:PutObject"]
 allowed_vpc_endpoints = ["vpce-111111", "vpce-222222", "vpce-333333"]
 
 # Get all S3 buckets in configuration
-allS3Buckets = config.find_resources_by_type("aws_s3_bucket")
+allS3Buckets = config.resources_by_type("aws_s3_bucket")
 
 # Filter to S3 buckets with the policy argument set since it is not mandatory.
 # Don't print violation messages
-S3BucketsWithPolicy = config.filter_attribute_not_in_list(
+S3BucketsWithPolicy = config.attribute_not_in_list(
   allS3Buckets, "config.policy", ["null"], false)
 
 # Filter to S3 buckets that set policy but do not set it to an instance of
 # the aws_iam_policy_document data source.
 # Print violation messages which will now only be for those buckets that
 # set policy to something other than an instance of aws_iam_policy_document
-S3BucketsWithInvalidPolicy = config.filter_attribute_does_not_match_regex(
+S3BucketsWithInvalidPolicy = config.attribute_does_not_match_regex(
                              S3BucketsWithPolicy["items"], "config.policy",
                              "^data\\.aws_iam_policy_document\\.(.*)$", true)
 if length(S3BucketsWithInvalidPolicy["messages"]) > 0 {
@@ -38,7 +38,7 @@ if length(S3BucketsWithInvalidPolicy["messages"]) > 0 {
 }
 
 # Get all S3 bucket policies in configuration
-allS3BucketPolicies = config.find_resources_by_type("aws_s3_bucket_policy")
+allS3BucketPolicies = config.resources_by_type("aws_s3_bucket_policy")
 
 # Filter to S3 bucket policies that set policy but do not set it to an instance
 # of the aws_iam_policy_document data source.
@@ -46,7 +46,7 @@ allS3BucketPolicies = config.find_resources_by_type("aws_s3_bucket_policy")
 # other than an instance of aws_iam_policy_document
 # Note that we do not need to screen out instances of aws_s3_bucket_policy that
 # are missing the policy argument because it is mandatory.
-S3BucketPoliciesWithInvalidPolicy = config.filter_attribute_does_not_match_regex(
+S3BucketPoliciesWithInvalidPolicy = config.attribute_does_not_match_regex(
                                 allS3BucketPolicies, "config.policy",
                                 "^data\\.aws_iam_policy_document\\.(.*)$", true)
 if length(S3BucketPoliciesWithInvalidPolicy["messages"]) > 0 {
@@ -55,17 +55,17 @@ if length(S3BucketPoliciesWithInvalidPolicy["messages"]) > 0 {
 }
 
 # Find instances of aws_iam_policy_document
-allIAMPolicyDocuments = plan.find_datasources("aws_iam_policy_document")
+allIAMPolicyDocuments = plan.datasources("aws_iam_policy_document")
 
 # Validate IAM Policy Documents
 policyDocumentsValidated = true
 for allIAMPolicyDocuments as address, pd {
 
   # Find the statements of the current policy document
-  statements = plan.find_blocks(pd, "statement")
+  statements = plan.blocks(pd, "statement")
 
   # Determine if any statements include restricted S3 actions
-  statementsWithS3actions = plan.filter_attribute_contains_items_from_list(
+  statementsWithS3actions = plan.attribute_contains_items_from_list(
                             statements, "actions", restricted_s3_actions, false)
   if length(statementsWithS3actions["resources"]) is 0 {
     # No statements included restricted S3 actions, so policy document is ok.
@@ -76,7 +76,7 @@ for allIAMPolicyDocuments as address, pd {
   # in the current policy document has the desired conditions.
   for restricted_s3_actions as s3_action {
     # Filter to statements of the current policy document that have an S3 action
-    statementsWithS3action = plan.filter_attribute_contains_items_from_list(
+    statementsWithS3action = plan.attribute_contains_items_from_list(
           statements, "actions", [s3_action], false)
 
     # Search for deny statement with aws:SecureTransport set to false

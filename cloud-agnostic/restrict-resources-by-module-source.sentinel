@@ -63,7 +63,7 @@ validated = true
 # Iterate over restricted resource types
 for restricted_resources as _, type {
   # Find all resources of the given type
-  all_resources = config.find_resources_by_type(type)
+  all_resources = config.resources_by_type(type)
 
   # Iterate over the resources to find module source
   for all_resources as address, r {

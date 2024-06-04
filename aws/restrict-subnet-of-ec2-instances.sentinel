@@ -8,7 +8,7 @@ import "tfconfig/v2" as tfconfig
 import "strings"
 
 # Function to validate subnet_id of EC2 instances
-validate_subnet_ids = func(instances, allowed) {
+func validate_subnet_ids(instances, allowed) {
 
   # Set validated
   validated = true

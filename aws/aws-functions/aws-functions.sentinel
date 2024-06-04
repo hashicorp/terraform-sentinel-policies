@@ -9,8 +9,8 @@ import "types"
 
 ##### Functions #####
 
-### find_resources_with_standard_tags ###
-find_resources_with_standard_tags = func(resource_types) {
+### resources_with_standard_tags ###
+func resources_with_standard_tags(resource_types) {
   resources = filter tfplan.resource_changes as address, rc {
     rc.provider_name matches "(.*)aws$" and
     rc.type in resource_types and
@@ -28,7 +28,7 @@ find_resources_with_standard_tags = func(resource_types) {
 # It sets the role to "complex" if it finds a single non-variable reference
 # or if it finds multiple references.
 # It sets the role to "none" if no role arn is found.
-determine_role_arn = func(address, data) {
+func determine_role_arn(address, data) {
 
   # Return empty string if provider does not assume a role
   role_arn_value = "none"
@@ -81,13 +81,13 @@ determine_role_arn = func(address, data) {
 # Get assumed roles from all AWS providers
 # Please note that the assumed roles returned could include "none" or "complex";
 # See the comments for the determine_role_arn function above.
-get_assumed_roles = func() {
+func get_assumed_roles() {
 
   # Initialize empty map of roles indexed by aliases
   assumed_roles = {}
 
   # Get all AWS provider aliases
-  aws_providers = config.find_providers_by_type("aws")
+  aws_providers = config.providers_by_type("aws")
 
   # Iterate through all AWS provider aliases
   for aws_providers as address, data {
@@ -103,7 +103,7 @@ get_assumed_roles = func() {
 # If you want to the policy to pass if an assumed role contains a single
 # non-variable reference or if it finds multiple references, then include a role
 # called "complex" in the allowed_roles list.
-validate_assumed_roles_with_list = func(allowed_roles) {
+func validate_assumed_roles_with_list(allowed_roles) {
 
   validated = true
 
@@ -126,7 +126,7 @@ validate_assumed_roles_with_list = func(allowed_roles) {
 # non-variable reference or if it finds multiple references, then include a role
 # called "complex" in the map passed to this function and associate it
 # with workspaces.
-validate_assumed_roles_with_map = func(roles_map, workspace_name) {
+func validate_assumed_roles_with_map(roles_map, workspace_name) {
 
   validated = true
 
@@ -158,7 +158,7 @@ validate_assumed_roles_with_map = func(roles_map, workspace_name) {
   return validated
 }
 
-### filter_providers_by_regions ###
+### providers_by_regions ###
 # Filter instances of the AWS provider to those in a specific region using the
 # tfconfig/v2 and tfplan/v2 imports.
 # See the comments on the validate_provider_in_allowed_regions() function below
@@ -167,7 +167,7 @@ validate_assumed_roles_with_map = func(roles_map, workspace_name) {
 # derived from tfconfig.providers.
 # The parameter, allowed_regions, should be given as a list of AWS regions
 # such as `["us-east-1" and "eu-west-2"]`.
-filter_providers_by_regions = func(aws_providers, allowed_regions) {
+func providers_by_regions(aws_providers, allowed_regions) {
 
   # Initialize empty list of validated AWS provider instances
   validated_providers = {}
@@ -238,7 +238,7 @@ filter_providers_by_regions = func(aws_providers, allowed_regions) {
 # since all providers that do specify regions will be restricted and since
 # provider alias proxies must point to other provider aliases in ancestor modules,
 # all provider aliases should be restricted by this policy.
-validate_provider_in_allowed_regions = func(p, regions) {
+func validate_provider_in_allowed_regions(p, regions) {
   if "config" in keys(p) and "region" in keys(p.config) {
     # provider has its own region
     if "constant_value" in keys(p.config.region) {

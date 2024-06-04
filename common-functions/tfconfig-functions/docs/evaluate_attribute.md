@@ -5,7 +5,7 @@ This function evaluates an attribute within an item in the Terraform configurati
 This function is contained in the [tfconfig-functions.sentinel](../tfconfig-functions.sentinel) module.
 
 ## Declaration
-`evaluate_attribute = func(item, attribute)`
+`func evaluate_attribute(item, attribute)`
 
 ## Arguments
 * **item**: a single item containing an attribute whose value you want to determine.
@@ -23,7 +23,7 @@ This function returns the attribute as it occurred within the Terraform configur
 This function does not print anything.
 
 ## Examples
-This function is called by the `filter_attribute_does_not_match_regex` and `filter_attribute_matches_regex` filter functions in the tfconfig-functions.sentinel module like this:
+This function is called by the `attribute_does_not_match_regex` and `attribute_matches_regex` filter functions in the tfconfig-functions.sentinel module like this:
 ```
 val = evaluate_attribute(item, attr) else null
 ```

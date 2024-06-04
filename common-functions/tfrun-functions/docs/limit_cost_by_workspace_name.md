@@ -7,7 +7,7 @@ The idea is that you might set different limits for Dev, QA, and Production work
 This function is contained in the [tfrun-functions.sentinel](../tfrun-functions.sentinel) module.
 
 ## Declaration
-`limit_cost_by_workspace_name = func(limits)`
+`func limit_cost_by_workspace_name(limits)`
 
 ## Arguments
 * **limits**: a map associating strings (the keys of the map) with different upper limits (the values of the map) for the allowed estimated monthly costs (in US dollars) for the resources provisioned in the workspace. The strings are treated as workspace name prefixes and suffixes. In other words, the limit associated with the string "dev" will be applied to workspaces whose names start with "dev-" or end with "-dev". The limits assigned to each string in the map must be given as [decimals](https://docs.hashicorp.com/sentinel/imports/decimal/). Of course, you must coordinate the naming of your workspaces with the keys of the `limits` map.

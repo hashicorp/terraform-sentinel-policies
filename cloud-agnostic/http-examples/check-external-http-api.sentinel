@@ -22,7 +22,7 @@ import "json"
 ##### Functions #####
 
 # Validate that the external system returns yes or maybe
-check_external_approval_system = func() {
+func check_external_approval_system() {
   req = http.request("https://yesno.wtf/api")
   res = json.unmarshal(http.get(req).body)
   answer = res.answer

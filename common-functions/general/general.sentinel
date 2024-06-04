@@ -1,0 +1,64 @@
+import "tfplan/v2" as tfplan
+import "tfstate/v2" as tfstate
+import "strings"
+import "types"
+
+### print_violations ###
+# Prints violations returned by any of the filter functions defined below.
+# This would normally only be called if the filter function had been called
+# with prtmsg set to false, which is sometimes done when processing resources
+# and their blocks.
+# If the result of a filter function is assigned to a map like violatingIRs,
+# then you should pass violatingIRs["message"] as the first argument.
+# The prefix argument is printed before the message of each resource.
+func print_violations(messages, prefix) {
+  for messages as address, message {
+    print(prefix, message)
+  }
+  
+  return true
+}
+
+### to_string ###
+# Convert objects of unknown type to string
+# It is used to build messages added to the messages map returned by the
+# filter functions
+func to_string(obj) {
+  case types.type_of(obj) {
+    when "string":
+      return obj
+    when "int", "float", "bool":
+      return string(obj)
+    when "null":
+      return "null"
+    when "undefined":
+      return "undefined"
+    when "list":
+      output = "["
+      lastIndex = length(obj) - 1
+      for obj as index, value {
+        if index < lastIndex {
+          output += to_string(value) + ", "
+        } else {
+          output += to_string(value)
+        }
+      }
+      output += "]"
+      return output
+    when "map":
+      output = "{"
+      theKeys = keys(obj)
+      lastIndex = length(theKeys) - 1
+      for theKeys as index, key {
+        if index < lastIndex {
+          output += to_string(key) + ": " + to_string(obj[key]) + ", "
+        } else {
+          output += to_string(key) + ": " + to_string(obj[key])
+        }
+      }
+      output += "}"
+      return output
+    else:
+      return ""
+  }
+}

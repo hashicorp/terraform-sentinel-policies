@@ -5,7 +5,7 @@ This function prints the violation messages that were previously returned by one
 This function is contained in the [tfconfig-functions.sentinel](../../tfconfig-functions.sentinel) module.
 
 ## Declaration
-`print_violations = func(messages, prefix)`
+`func print_violations(messages, prefix)`
 
 ## Arguments
 * **messages**: a map of messages returned by one of the filter functions.

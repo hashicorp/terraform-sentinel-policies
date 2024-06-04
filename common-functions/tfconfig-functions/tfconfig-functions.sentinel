@@ -7,9 +7,9 @@ import "types"
 
 ##### Functions #####
 
-### find_all_resources ###
+### all_resources ###
 # Find all resources of all types using the tfconfig/v2 import.
-find_all_resources = func() {
+func all_resources() {
   resources = filter tfconfig.resources as address, r {
   	r.mode is "managed"
   }
@@ -17,10 +17,10 @@ find_all_resources = func() {
   return resources
 }
 
-### find_resources_by_type ###
+### resources_by_type ###
 # Find all resources of a specific type using the tfconfig/v2 import.
 # The parameter, type, should be a string like "aws_instance".
-find_resources_by_type = func(type) {
+func resources_by_type(type) {
   resources = filter tfconfig.resources as address, r {
   	r.type is type and
   	r.mode is "managed"
@@ -29,9 +29,9 @@ find_resources_by_type = func(type) {
   return resources
 }
 
-### find_resources_in_module ###
+### resources_in_module ###
 # Find all resources from a specific module using the tfconfig/v2 import.
-find_resources_in_module = func(module_address) {
+func resources_in_module(module_address) {
   resources = filter tfconfig.resources as address, r {
   	r.module_address is module_address and
   	r.mode is "managed"
@@ -40,10 +40,10 @@ find_resources_in_module = func(module_address) {
   return resources
 }
 
-### find_resources_by_provider ###
+### resources_by_provider ###
 # Find all resources from a specific provider using the tfconfig/v2 import.
 # The parameter, provider, should be given as a string such as "aws".
-find_resources_by_provider = func(provider) {
+func resources_by_provider(provider) {
   resources = filter tfconfig.resources as address, r {
   	r.provider_config_key matches "(.*:)?" + provider + "(\\..*)?" and
   	r.mode is "managed"
@@ -52,9 +52,9 @@ find_resources_by_provider = func(provider) {
   return resources
 }
 
-### find_all_datasources ###
+### all_datasources ###
 # Find all data sources of all types using the tfconfig/v2 import.
-find_all_datasources = func() {
+func all_datasources() {
   datasources = filter tfconfig.resources as address, d {
   	d.mode is "data"
   }
@@ -62,10 +62,10 @@ find_all_datasources = func() {
   return datasources
 }
 
-### find_datasources_by_type ###
+### datasources_by_type ###
 # Find all data sources of a specific type using the tfconfig/v2 import.
 # The parameter, type, should be a string like "aws_ami".
-find_datasources_by_type = func(type) {
+func datasources_by_type(type) {
   datasources = filter tfconfig.resources as address, d {
   	d.type is type and
   	d.mode is "data"
@@ -74,9 +74,9 @@ find_datasources_by_type = func(type) {
   return datasources
 }
 
-### find_datasources_in_module ###
+### datasources_in_module ###
 # Find all data sources from a specific module using the tfconfig/v2 import.
-find_datasources_in_module = func(module_address) {
+func datasources_in_module(module_address) {
   datasources = filter tfconfig.resources as address, d {
   	d.module_address is module_address and
   	d.mode is "data"
@@ -85,10 +85,10 @@ find_datasources_in_module = func(module_address) {
   return datasources
 }
 
-### find_datasources_by_provider ###
+### datasources_by_provider ###
 # Find all data sources from a specific provider using the tfconfig/v2 import.
 # The parameter, provider, should be given as a string such as "aws".
-find_datasources_by_provider = func(provider) {
+func datasources_by_provider(provider) {
   datasources = filter tfconfig.resources as address, d {
   	d.provider_config_key matches "(.*:)?" + provider + "(\\..*)?" and
   	d.mode is "data"
@@ -97,16 +97,16 @@ find_datasources_by_provider = func(provider) {
   return datasources
 }
 
-### find_all_provisioners ###
+### all_provisioners ###
 # Find all provisioners using the tfconfig/v2 import.
-find_all_provisioners = func() {
+func all_provisioners() {
   return tfconfig.provisioners
 }
 
-### find_provisioners_by_type ###
+### provisioners_by_type ###
 # Find all provisioners of a specific type using the tfconfig/v2 import.
 # The parameter, type, should be a string like "local_exec".
-find_provisioners_by_type = func(type) {
+func provisioners_by_type(type) {
   provisioners = filter tfconfig.provisioners as address, p {
   	p.type is type
   }
@@ -114,16 +114,16 @@ find_provisioners_by_type = func(type) {
   return provisioners
 }
 
-### find_all_providers ###
+### all_providers ###
 # Find all providers using the tfconfig/v2 import.
-find_all_providers = func() {
+func all_providers() {
   return tfconfig.providers
 }
 
-### find_providers_by_type ###
+### providers_by_type ###
 # Find all providers of a specific type using the tfconfig/v2 import.
 # The parameter, provider, should be given as a string such as "aws".
-find_providers_by_type = func(type) {
+func providers_by_type(type) {
   providers = filter tfconfig.providers as address, p {
   	p.provider_config_key matches "(.*:)?" + type + "(\\..*)?"
   }
@@ -131,9 +131,9 @@ find_providers_by_type = func(type) {
   return providers
 }
 
-### find_providers_in_module ###
+### providers_in_module ###
 # Find all providers from a specific module using the tfconfig/v2 import.
-find_providers_in_module = func(module_address) {
+func providers_in_module(module_address) {
   providers = filter tfconfig.providers as address, p {
   	p.module_address is module_address
   }
@@ -141,15 +141,15 @@ find_providers_in_module = func(module_address) {
   return providers
 }
 
-### find_all_variables ###
+### all_variables ###
 # Find all variables using the tfconfig/v2 import.
-find_all_variables = func() {
+func all_variables() {
   return tfconfig.variables
 }
 
-### find_variables_in_module ###
+### variables_in_module ###
 # Find all variables from a specific module using the tfconfig/v2 import.
-find_variables_in_module = func(module_address) {
+func variables_in_module(module_address) {
   variables = filter tfconfig.variables as address, v {
   	v.module_address is module_address
   }
@@ -157,15 +157,15 @@ find_variables_in_module = func(module_address) {
   return variables
 }
 
-### find_all_outputs ###
+### all_outputs ###
 # Find all outputs using the tfconfig/v2 import.
-find_all_outputs = func() {
+func all_outputs() {
   return tfconfig.outputs
 }
 
-### find_outputs_in_module ###
+### outputs_in_module ###
 # Find all providers from a specific module using the tfconfig/v2 import.
-find_outputs_in_module = func(module_address) {
+func outputs_in_module(module_address) {
   outputs = filter tfconfig.outputs as address, o {
   	o.module_address is module_address
   }
@@ -173,10 +173,10 @@ find_outputs_in_module = func(module_address) {
   return outputs
 }
 
-### find_outputs_by_sensitivity ###
+### outputs_by_sensitivity ###
 # Find all providers of specific sensitivity using the tfconfig/v2 import.
 # The parameter, sensitive, should be true or false (without quotes)
-find_outputs_by_sensitivity = func(sensitive) {
+func outputs_by_sensitivity(sensitive) {
   outputs = filter tfconfig.outputs as address, o {
   	o.sensitive is sensitive
   }
@@ -184,20 +184,20 @@ find_outputs_by_sensitivity = func(sensitive) {
   return outputs
 }
 
-### find_all_module_calls ###
+### all_module_calls ###
 # Find all module calls using the tfconfig/v2 import.
-find_all_module_calls = func() {
+func all_module_calls() {
   return tfconfig.module_calls
 }
 
-### find_module_calls_in_module ###
+### module_calls_in_module ###
 # Find all direct module calls made from a specific module
 # using the tfconfig/v2 import.
 # The parameter, module_address, should be "" for the root module,
 # "module.A" for a module A called by the root module,
 # "module.A.module.B" for module B called by module A called by the root module,
 # and so on.
-find_module_calls_in_module = func(module_address) {
+func module_calls_in_module(module_address) {
   module_calls = filter tfconfig.module_calls as address, mc {
   	mc.module_address is module_address
   }
@@ -205,15 +205,16 @@ find_module_calls_in_module = func(module_address) {
   return module_calls
 }
 
-### find_descendant_modules ###
+### descendant_modules ###
 # Find addresses of all modules called directly or indirectly by a module.
 # The provided module address is included.
-# To find all module addresses, call find_descendant_modules("")
-# After calling this function against "", you can call find_module_calls_in_module
+# To find all module addresses, call descendant_modules("")
+# After calling this function against "", you can call module_calls_in_module
 # against any item in the list that is returned.
-find_descendant_modules = func(module_address) {
+func descendant_modules(module_address) {
   module_addresses = [module_address]
-  mcs = find_module_calls_in_module(module_address)
+  mcs = module_calls_in_module(module_address)
+  
   if length(mcs) > 0 {
     for mcs as ma, mc {
       if mc.module_address is "" {
@@ -221,69 +222,11 @@ find_descendant_modules = func(module_address) {
       } else {
         new_module_address = mc.module_address + ".module." + mc.name
       }
-      module_addresses += find_descendant_modules(new_module_address)
+      module_addresses += descendant_modules(new_module_address)
     }
   }
+
   return module_addresses
-}
-
-### print_violations ###
-# Prints violations returned by any of the filter functions defined below.
-# This would normally only be called if the filter function had been called
-# with prtmsg set to false, which is sometimes done when processing resources
-# and their blocks.
-# If the result of a filter function is assigned to a map like violatingIRs,
-# then you should pass violatingIRs["message"] as the first argument.
-# The prefix argument is printed before the message of each resource.
-print_violations = func(messages, prefix) {
-  for messages as address, message {
-    print(prefix, message)
-  }
-  return true
-}
-
-### to_string ###
-# Convert objects of unknown type to string
-# It is used to build messages added to the messages map returned by the
-# filter functions
-to_string = func(obj) {
-  case types.type_of(obj) {
-    when "string":
-      return obj
-    when "int", "float", "bool":
-      return string(obj)
-    when "null":
-      return "null"
-    when "undefined":
-      return "undefined"
-    when "list":
-      output = "["
-      lastIndex = length(obj) - 1
-      for obj as index, value {
-        if index < lastIndex {
-          output += to_string(value) + ", "
-        } else {
-          output += to_string(value)
-        }
-      }
-      output += "]"
-      return output
-    when "map":
-      output = "{"
-      theKeys = keys(obj)
-      lastIndex = length(theKeys) - 1
-      for theKeys as index, key {
-        if index < lastIndex {
-          output += to_string(key) + ": " + to_string(obj[key]) + ", "
-        } else {
-          output += to_string(key) + ": " + to_string(obj[key])
-        }
-      }
-      output += "}"
-      return output
-    else:
-      return ""
-  }
 }
 
 ### evaluate_attribute ###
@@ -292,13 +235,15 @@ to_string = func(obj) {
 # we do special processing for attributes with form "config.x"
 # `item` is the item with the attribute
 # `attribute` is the attribute
-evaluate_attribute = func(item, attribute) {
+func evaluate_attribute(item, attribute) {
   # Split the attribute into a list, using "." as the separator
   attributes = strings.split(attribute, ".")
+
   if length(attributes) > 2 {
     print("An attribute passed to evaluate_attribute can only have 1 or 2 fields")
     return null
   }
+
   if attributes[0] is "config" {
     config = item.config[attributes[1]] else {}
     if "constant_value" in config {
@@ -317,13 +262,13 @@ evaluate_attribute = func(item, attribute) {
   }
 }
 
-### filter_attribute_not_in_list ###
+### attribute_not_in_list ###
 # Filter a list of items such as providers to those with a specified
 # attribute (attr) that is not in a given list of allowed values (allowed).
 # The parameter, attr, can only be a top-level attribute of the collection, items.
 # Set prtmsg to `true` (without quotes) if you want to print violation messages.
 # If you want to disallow null, include "null" in the list (forbidden).
-filter_attribute_not_in_list = func(items, attr, allowed, prtmsg) {
+func attribute_not_in_list(items, attr, allowed, prtmsg) {
   violators = {}
   messages = {}
 
@@ -370,16 +315,17 @@ filter_attribute_not_in_list = func(items, attr, allowed, prtmsg) {
       } // end if single item not matches
     } // end single item
   } // end for items
-  return {"items":violators,"messages":messages}
+
+  return {"items": violators, "messages": messages}
 }
 
-### filter_attribute_in_list ###
+### attribute_in_list ###
 # Filter a list of items such as providers to those with a specified
 # attribute (attr) that is in a given list of forbidden values (forbidden).
 # The parameter, attr, can only be a top-level attribute of the collection, items.
 # Set prtmsg to `true` (without quotes) if you want to print violation messages.
 # If you want to disallow null, include "null" in the list (forbidden).
-filter_attribute_in_list = func(items, attr, forbidden, prtmsg) {
+func attribute_in_list(items, attr, forbidden, prtmsg) {
   violators = {}
   messages = {}
 
@@ -427,18 +373,19 @@ filter_attribute_in_list = func(items, attr, forbidden, prtmsg) {
     } // end single item
   } // end for items
 
-  return {"items":violators,"messages":messages}
+  return {"items": violators, "messages": messages}
 }
 
-### filter_attribute_does_not_match_regex ###
+### attribute_does_not_match_regex ###
 # Filter a list of items such as resources to those with a specified
 # attribute (attr) that does not match a regular expression (expr).
 # The parameter, attr, can only be a top-level attribute of items or
 # an attribute in the form "config.x".
 # Set prtmsg to `true` (without quotes) if you want to print violation messages.
-filter_attribute_does_not_match_regex = func(items, attr, expr, prtmsg) {
+func attribute_does_not_match_regex(items, attr, expr, prtmsg) {
   violators = {}
 	messages = {}
+
   for items as index, item {
     val = evaluate_attribute(item, attr) else null
     if val is null {
@@ -488,19 +435,21 @@ filter_attribute_does_not_match_regex = func(items, attr, expr, prtmsg) {
       } // end single item
     } // end not null
   } // end for items
-  return {"items":violators,"messages":messages}
+
+  return {"items": violators, "messages": messages}
 }
 
-### filter_attribute_matches_regex ###
+### attribute_matches_regex ###
 # Filter a list of items such as resources to those with a specified
 # attribute (attr) that matches a regular expression (expr).
 # The parameter, attr, can only be a top-level attribute of items or
 # an attribute in the form "config.x".
 # Set prtmsg to `true` (without quotes) if you want to print violation messages.
 # If you want to match null, set expr to "null".
-filter_attribute_matches_regex = func(items, attr, expr, prtmsg) {
+func attribute_matches_regex(items, attr, expr, prtmsg) {
   violators = {}
 	messages = {}
+
   for items as index, item {
     val = evaluate_attribute(item, attr) else null
     if val is null {
@@ -541,7 +490,8 @@ filter_attribute_matches_regex = func(items, attr, expr, prtmsg) {
       } // end if single item not matches
     } // end single item
   } // end for items
-  return {"items":violators,"messages":messages}
+
+  return {"items": violators, "messages": messages}
 }
 
 ### get_module_source ###
@@ -553,7 +503,7 @@ filter_attribute_matches_regex = func(items, attr, expr, prtmsg) {
 # does not give you the source the module labeled "B".
 # But if you want to limit creation of resources to specific modules based on
 # their source, you need the module source.  This function computes it.
-get_module_source = func(module_address) {
+func get_module_source(module_address) {
   # Check for root module
   if module_address is "" {
     return "root"
@@ -591,7 +541,7 @@ get_module_source = func(module_address) {
 # But if you want to limit creation of resources to specific modules based on
 # their source, you need the module source.  This function computes it for
 # the first ancestor module that is not a local module.
-get_ancestor_module_source = func(module_address) {
+func get_ancestor_module_source(module_address) {
   # Check for root module
   if module_address is "" {
     return "root"
@@ -620,14 +570,13 @@ get_ancestor_module_source = func(module_address) {
     } else {
       return module_source
     }
-
   }
 }
 
 ### get_parent_module_address ###
 # Get the address of the parent module of a module from the module address
 # return "root" if the given module_address is "" (the root module).
-get_parent_module_address = func(module_address) {
+func get_parent_module_address(module_address) {
   # Check for root module
   if module_address is "" {
     return "root"

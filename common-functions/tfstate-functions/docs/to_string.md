@@ -5,7 +5,7 @@ This function converts any Sentinel object including complex compositions of pri
 This function is contained in the [tfstate-functions.sentinel](../tfstate-functions.sentinel) module.
 
 ## Declaration
-`to_string = func(obj)`
+`func to_string(obj)`
 
 ## Arguments
 * **obj**: a Sentinel object of any type

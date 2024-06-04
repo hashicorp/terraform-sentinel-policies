@@ -25,12 +25,12 @@ param mandatory_labels default [
 
 # Get all GCP Resources with standard labels
 allGCPResourcesWithStandardLabels =
-                        gcp.find_resources_with_standard_labels(resource_types)
+                        gcp.resources_with_standard_labels(resource_types)
 
 # Filter to GCP resources with violations using list of resources
 # Warnings will be printed for all violations since the last parameter is true
 violatingGCPResources =
-      plan.filter_attribute_not_contains_list(allGCPResourcesWithStandardLabels,
+      plan.attribute_not_contains_list(allGCPResourcesWithStandardLabels,
                     "labels", mandatory_labels, true)
 
 

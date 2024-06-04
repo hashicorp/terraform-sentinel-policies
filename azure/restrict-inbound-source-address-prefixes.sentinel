@@ -27,24 +27,24 @@ SGInboundAllowRules = filter tfplan.resource_changes as address, rc {
 # Filter to Inbound Allow Security Group Rules with violations
 # based on use of source_address_prefix (that specify a single prefix)
 # Warnings will be printed for all violations since the last parameter is true
-violatingSinglePrefixSGRules = plan.filter_attribute_in_list(
+violatingSinglePrefixSGRules = plan.attribute_in_list(
     SGInboundAllowRules, "source_address_prefix", forbidden_cidrs, true)
 
 # Filter to Inbound Allow Security Group Rules with violations
 # based on use of source_address_prefixes (that specify multiple prefixes)
 # Warnings will be printed for all violations since the last parameter is true
-violatingMultiPrefixSGRules = plan.filter_attribute_contains_items_from_list(
+violatingMultiPrefixSGRules = plan.attribute_contains_items_from_list(
     SGInboundAllowRules, "source_address_prefixes", forbidden_cidrs, true)
 
 # Get all Security Groups
-allSGs = plan.find_resources("azurerm_network_security_group")
+allSGs = plan.resources("azurerm_network_security_group")
 
 # Validate Security Groups
 violatingSGsCount = 0
 for allSGs as address, sg {
 
   # Find the security rules of the current SG
-  securityRules = plan.find_blocks(sg, "security_rule")
+  securityRules = plan.blocks(sg, "security_rule")
 
   # Filter to inbound allow rules from the current SG
   inboundAllowRules = filter securityRules as index, sgr {
@@ -53,12 +53,12 @@ for allSGs as address, sg {
 
   # Filter to violating CIDR blocks based on use of source_address_prefix
   # Warnings will not be printed for violations since the last parameter is false
-  violatingSinglePrefixSRs = plan.filter_attribute_in_list(
+  violatingSinglePrefixSRs = plan.attribute_in_list(
     inboundAllowRules, "source_address_prefix", forbidden_cidrs, false)
 
   # Filter to violating CIDR blocks based on use of source_address_prefixes
   # Warnings will not be printed for violations since the last parameter is false
-  violatingMultiPrefixSRs = plan.filter_attribute_contains_items_from_list(
+  violatingMultiPrefixSRs = plan.attribute_contains_items_from_list(
       inboundAllowRules, "source_address_prefixes", forbidden_cidrs, false)
 
   # Print violation messages

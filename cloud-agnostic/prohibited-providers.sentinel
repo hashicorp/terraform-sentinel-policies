@@ -15,11 +15,11 @@ import "tfconfig-functions" as config
 prohibited_list = ["external", "http", "null"]
 
 # Get all providers from providers collection
-allProviders = config.find_all_providers()
+allProviders = config.all_providers()
 
 # Filter to providers with violations
 # Warnings will not be printed for violations since the last parameter is false
-violatingProviders = config.filter_attribute_in_list(allProviders,
+violatingProviders = config.attribute_in_list(allProviders,
                      "name", prohibited_list, false)
 
 # Print any violations
@@ -36,7 +36,7 @@ prohibitedDataSourcesCount = 0
 for prohibited_list as p {
 
   # Process resources for current provider
-  prohibitedResources = config.find_resources_by_provider(p)
+  prohibitedResources = config.resources_by_provider(p)
   if length(prohibitedResources) > 0 {
     print("Resources from provider", p, "are not allowed.")
     prohibitedResourcesCount += length(prohibitedResources)
@@ -47,7 +47,7 @@ for prohibited_list as p {
 
   # Process data sources for current provider
 
-  prohibitedDataSources = config.find_datasources_by_provider(p)
+  prohibitedDataSources = config.datasources_by_provider(p)
   if length(prohibitedDataSources) > 0 {
     print("Data sources from provider", p, "are not allowed.")
     prohibitedDataSourcesCount += length(prohibitedDataSources)

@@ -5,8 +5,8 @@ import "tfplan/v2" as tfplan
 
 ##### Functions #####
 
-### find_resources_with_standard_tags ###
-find_resources_with_standard_tags = func(resource_types) {
+### resources_with_standard_tags ###
+func resources_with_standard_tags(resource_types) {
   resources = filter tfplan.resource_changes as address, rc {
     rc.provider_name matches "(.*)azurerm$" and
     rc.type in resource_types and

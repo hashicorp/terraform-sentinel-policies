@@ -5,7 +5,7 @@ This function evaluates the value of an attribute within a resource, data source
 This function is contained in the [tfstate-functions.sentinel](../tfstate-functions.sentinel) module.
 
 ## Declaration
-`evaluate_attribute = func(r, attribute)`
+`func evaluate_attribute(r, attribute)`
 
 ## Arguments
 * **r**: a single resource or block containing an attribute whose value you want to determine.

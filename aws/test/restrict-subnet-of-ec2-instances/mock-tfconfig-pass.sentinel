@@ -273,7 +273,7 @@ module_calls = {
 	},
 }
 
-strip_index = func(addr) {
+func strip_index(addr) {
 	s = strings.split(addr, ".")
 	for s as i, v {
 		s[i] = strings.split(v, "[")[0]

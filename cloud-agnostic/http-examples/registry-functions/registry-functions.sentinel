@@ -81,7 +81,7 @@ get_recent_module_versions_by_page = func(address, organization, token,
     module_versions[module] = []
     for range(version_limit) as rank {
       if length(versions_map) > 0 {
-        most_recent_version = find_most_recent_version(versions_map)
+        most_recent_version = most_recent_version(versions_map)
         for most_recent_version as index, v {
           append(module_versions[module], most_recent_version[index])
           delete(versions_map, keys(most_recent_version)[0])
@@ -95,13 +95,13 @@ get_recent_module_versions_by_page = func(address, organization, token,
   return module_versions
 }
 
-### find_most_recent_version ###
+### most_recent_version ###
 # Finds the most recent version from a map of version strings.
 # The `versions_map` parameter should contain strings, not actual versions
 # from the version import.
 # The keys of the map should be integers ranging from 0 to N-1
 # where the map has N versions.
-find_most_recent_version = func(versions_map) {
+func most_recent_version(versions_map) {
 
   # Initialize newest_version to first version of map
   newest_index = 0
@@ -122,7 +122,7 @@ find_most_recent_version = func(versions_map) {
 ### is_module_in_public_registry ###
 # Determine if a module is in the public registry.
 # The `module` parameter is derived from the m.source of a module call.
-is_module_in_public_registry = func(module) {
+func is_module_in_public_registry(module) {
 
   # Build URL to call public registry API
   req = http.request("https://registry.terraform.io/v1/modules/"  +

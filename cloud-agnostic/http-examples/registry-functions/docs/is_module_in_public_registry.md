@@ -5,7 +5,7 @@ This function determines if a module is in the public registry.
 This function is contained in the [registry-functions.sentinel](../registry-functions.sentinel) module.
 
 ## Declaration
-`is_module_in_public_registry = func(module)`
+`func is_module_in_public_registry(module)`
 
 ## Arguments
 * **module**: the source of a module call.

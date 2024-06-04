@@ -101,28 +101,28 @@ for aws_security_group_rules as address, sgr {
 } // end of SG Rules
 
 # Get all Security Groups
-allSGs = plan.find_resources("aws_security_group")
+allSGs = plan.resources("aws_security_group")
 
 # Validate Security Groups
 violatingSGsCount = 0
 for allSGs as address, sg {
 
 	# Find the ingress rules of the current SG
-	ingressRules = plan.find_blocks(sg, "ingress")
+	ingressRules = plan.blocks(sg, "ingress")
 
 	# Filter to violating CIDR blocks
 	# Warnings will not be printed for violations since the last parameter is false
-	violatingCidr = plan.filter_attribute_contains_items_from_list(ingressRules,
+	violatingCidr = plan.attribute_contains_items_from_list(ingressRules,
 					"cidr_blocks", forbidden_cidrs, false)
 
 	# Filter to violating Service port
 	# Warnings will not be printed for violations since the last parameter is false
-	violatingFromPortLess = plan.filter_attribute_less_than_equal_to_value(ingressRules,
+	violatingFromPortLess = plan.attribute_less_than_equal_to_value(ingressRules,
 							"from_port", forbidden_from_port, false)
 
 	# Filter to violating Service port
 	# Warnings will not be printed for violations since the last parameter is false
-	violatingToPortGreater = plan.filter_attribute_greater_than_equal_to_value(ingressRules,
+	violatingToPortGreater = plan.attribute_greater_than_equal_to_value(ingressRules,
 								"to_port", forbidden_to_port, false)
 
 	# Print violation messages

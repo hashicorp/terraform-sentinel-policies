@@ -9,18 +9,18 @@ import "tfplan-functions" as plan
 maxDiskSize = 100
 
 # Get all VMs
-allVMs = plan.find_resources("vsphere_virtual_machine")
+allVMs = plan.resources("vsphere_virtual_machine")
 
 # Validate VM Disks
 disksValidated = true
 for allVMs as address, vm {
 
   # Find the disks of the current VM
-  disks = plan.find_blocks(vm, "disk")
+  disks = plan.blocks(vm, "disk")
 
   # Filter to violating disks of the current VM
   # Warnings will not be printed for violations since the last parameter is false
-  violatingDisks = plan.filter_attribute_greater_than_value(disks,
+  violatingDisks = plan.attribute_greater_than_value(disks,
                    "size", maxDiskSize, false)
 
   # Print warnings if any violating disks

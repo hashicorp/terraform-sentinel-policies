@@ -9,11 +9,11 @@ import "tfconfig-functions" as config
 prohibited_list = ["external", "http"]
 
 # Get all Data Sources
-allDatasources = config.find_all_datasources()
+allDatasources = config.all_datasources()
 
 # Filter to data sources with violations
 # Warnings will be printed for all violations since the last parameter is true
-violatingDatasources = config.filter_attribute_in_list(allDatasources,
+violatingDatasources = config.attribute_in_list(allDatasources,
                      "type", prohibited_list, true)
 
 # Main rule

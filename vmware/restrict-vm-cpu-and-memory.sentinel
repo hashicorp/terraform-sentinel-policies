@@ -10,16 +10,16 @@ maxCPUs = 4
 maxMemory = 8192
 
 # Get all VMs
-allVMs = plan.find_resources("vsphere_virtual_machine")
+allVMs = plan.resources("vsphere_virtual_machine")
 
 # Filter to VMs with high CPU
 # Warnings will be printed for all violations since the last parameter is true
-highCPUVMs = plan.filter_attribute_greater_than_value(allVMs,
+highCPUVMs = plan.attribute_greater_than_value(allVMs,
              "num_cpus", maxCPUs, true)
 
 # Filter to VMs with high memory
 # Warnings will be printed for all violations since the last parameter is true
-highMemoryVMs = plan.filter_attribute_greater_than_value(allVMs,
+highMemoryVMs = plan.attribute_greater_than_value(allVMs,
                 "memory", maxMemory, true)
 
 # Main rule

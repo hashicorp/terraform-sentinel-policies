@@ -10,12 +10,12 @@ import "tfstate-functions" as state
 allowed_owners = ["self", "099720109477", "099720109478"]
 
 # Get all AMIs
-allAMIs = state.find_datasources("aws_ami")
+allAMIs = state.datasources("aws_ami")
 
 # Filter to AMIs with violations
 # Warnings will be printed for all violations since the last parameter is true
 violatingAMIs =
-  state.filter_attribute_contains_items_not_in_list(allAMIs, "owners", allowed_owners, true)
+  state.attribute_contains_items_not_in_list(allAMIs, "owners", allowed_owners, true)
 
 # Main rule
 main = rule {

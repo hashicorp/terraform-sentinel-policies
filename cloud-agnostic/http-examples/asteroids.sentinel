@@ -29,7 +29,7 @@ start_query = "start_date=" + today
 api_query = "&api_key=" + api_token
 full_url = base_url + start_query + api_query
 
-no_close_hazardous_asteroids = func(asteroids, danger_distance) {
+func no_close_hazardous_asteroids(asteroids, danger_distance) {
   is_safe = true
   for asteroids else [] as asteroid {
     hazardous = asteroid["is_potentially_hazardous_asteroid"]

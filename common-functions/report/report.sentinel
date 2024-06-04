@@ -31,9 +31,8 @@ module_header = "Module name: "
 resource_address = "Resource Address: "
 failed = "failed"
 
-generate_policy_report = func(summary) {
-
-	generate_success_summary_string = func(summary) {
+func generate_policy_report(summary) {
+	func generate_success_summary_string(summary) {
 		report = green + overall_result + "true" + reset
 		report += new_line
 		report += new_line
@@ -44,7 +43,7 @@ generate_policy_report = func(summary) {
 		return report
 	}
 
-	generate_failure_summary_string = func(summary) {
+	func generate_failure_summary_string(summary) {
 		report = red + overall_result + "false" + reset
 		report += new_line
 		report += new_line
@@ -73,7 +72,7 @@ generate_policy_report = func(summary) {
 		return report
 	}
 
-	get_module_violations_map = func(summary) {
+	func get_module_violations_map(summary) {
 		module_map = {}
 		for summary.violations as _, v {
 			module_addr = v.module_address

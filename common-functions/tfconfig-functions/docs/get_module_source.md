@@ -7,7 +7,7 @@ It does this by parsing `module_address` which will look like "module.A.module.B
 This function is contained in the [tfconfig-functions.sentinel](../../tfconfig-functions.sentinel) module.
 
 ## Declaration
-`get_module_source = func(module_address)`
+`func get_module_source(module_address)`
 
 ## Arguments
 * **module_address**: the address of the module containing some item, given as a string. The root module is represented by "". A module with label `network` called by the root module is represented by "module.network". if that module contained a module with label `subnets`, it would be represented by "module.network.module.subnets".

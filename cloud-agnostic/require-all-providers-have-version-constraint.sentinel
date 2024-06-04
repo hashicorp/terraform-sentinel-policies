@@ -6,7 +6,7 @@
 import "tfconfig-functions" as config
 
 # Get all providers
-allProviders = config.find_all_providers()
+allProviders = config.all_providers()
 
 #Get all providers tht has version_constraint as undefined or empty.
 #think it as : (mc.version_constrain else "") is ""
