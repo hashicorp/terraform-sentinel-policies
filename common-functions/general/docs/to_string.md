@@ -1,8 +1,8 @@
-# [to_string](../tfplan-functions.sentinel#L210)
+# [to_string](../general.sentinel#L22)
 This function converts any Sentinel object including complex compositions of primitive types (string, int, float, and bool), null, undefined, lists, and maps to a string.
 
 ## Sentinel Module
-This function is contained in the [tfplan-functions.sentinel](../tfplan-functions.sentinel) module.
+This function is contained in the [general.sentinel](../../general.sentinel) module.
 
 ## Declaration
 `func to_string(obj)`
@@ -20,9 +20,9 @@ This function returns a single string.
 This function does not print anything.
 
 ## Examples
-This function is called by all of the filter functions in the tfplan-functions.sentinel module. Here is a typical example:
+This function is called by all of the filter functions in the tfconfig-functions.sentinel module. Here is a typical example:
 ```
-message = to_string(address) + " has " + to_string(attr) + " with value " +
-          to_string(v) + " that is not in the allowed list: " +
+message = to_string(index) + " has " + to_string(attr) + " with value " +
+          to_string(val) + " that is not in the allowed list: " +
           to_string(allowed)
 ```
