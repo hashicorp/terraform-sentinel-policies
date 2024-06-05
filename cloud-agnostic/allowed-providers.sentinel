@@ -10,6 +10,7 @@
 # Import common-functions/tfconfig-functions/tfconfig-functions.sentinel
 # with alias "config"
 import "tfconfig-functions" as config
+import "general-functions" as general
 
 # Standard strings import
 import "strings"

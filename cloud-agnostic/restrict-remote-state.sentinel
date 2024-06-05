@@ -21,6 +21,7 @@
 # Import common-functions/tfstate-functions/tfstate-functions.sentinel
 # with alias "state"
 import "tfstate-functions" as state
+import "general-functions" as general
 
 # Use standard tfrun import
 import "tfrun"

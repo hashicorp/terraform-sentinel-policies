@@ -62,12 +62,12 @@ func resources_by_provider(provider) {
 ### datasources ###
 # Find all data sources of a specific type using the tfstate/v2 import.
 func datasources(type) {
-  datasources = filter tfstate.resources as address, d {
+  datasources_list = filter tfstate.resources as address, d {
   	d.type is type and
   	d.mode is "data"
   }
 
-  return datasources
+  return datasources_list
 }
 
 ### datasources_by_provider ###

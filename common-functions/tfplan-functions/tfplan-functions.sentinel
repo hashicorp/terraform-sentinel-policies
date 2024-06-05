@@ -130,13 +130,13 @@ func datasources_by_provider(provider) {
 # Find all resources being destroyed but not recreated using the tfplan/v2 import.
 # Technically, this returns a map of resource changes.
 func resources_being_destroyed() {
-  resources = filter tfplan.resource_changes as address, rc {
+  resources_map = filter tfplan.resource_changes as address, rc {
   	rc.mode is "managed" and
   	rc.change.actions contains "delete" and
     not (rc.change.actions contains "create" or rc.change.actions contains "update")
   }
 
-  return resources
+  return resources_map
 }
 
 ### datasources_being_destroyed ###
