@@ -10,6 +10,7 @@ import "tfplan/v2" as tfplan
 # Import common-functions/tfplan-functions/tfplan-functions.sentinel
 # with alias "plan"
 import "tfplan-functions" as plan
+import "general-functions" as general
 
 # Forbidden CIDRs
 forbidden_cidrs = ["0.0.0.0/0", "0.0.0.0", "*", "Internet"]
@@ -68,11 +69,11 @@ for allSGs as address, sg {
     print("Security group", address, "has at least one inbound allow rule",
           "with forbidden cidr blocks")
     if length(violatingSinglePrefixSRs["messages"]) > 0 {
-      plan.print_violations(violatingSinglePrefixSRs["messages"],
+      general.print_violations(violatingSinglePrefixSRs["messages"],
            "Inbound Rule")
     }
     if length(violatingMultiPrefixSRs["messages"]) > 0 {
-      plan.print_violations(violatingMultiPrefixSRs["messages"],
+      general.print_violations(violatingMultiPrefixSRs["messages"],
           "Inbound Rule")
     }
   }  // end if

@@ -7,7 +7,7 @@ import "tfplan/v2" as tfplan
 
 ### resources_with_standard_labels ###
 func resources_with_standard_labels(resource_types) {
-  resources = filter tfplan.resource_changes as address, rc {
+  resources_list = filter tfplan.resource_changes as address, rc {
     rc.provider_name matches "(.*)google$" and
     rc.type in resource_types and
   	rc.mode is "managed" and
@@ -15,5 +15,5 @@ func resources_with_standard_labels(resource_types) {
      rc.change.actions contains "read" or rc.change.actions contains "no-op")
   }
 
-  return resources
+  return resources_list
 }

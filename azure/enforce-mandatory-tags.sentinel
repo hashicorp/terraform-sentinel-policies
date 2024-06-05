@@ -4,6 +4,7 @@
 # Import common-functions/tfplan-functions/tfplan-functions.sentinel
 # with alias "plan"
 import "tfplan-functions" as plan
+import "general-functions" as general
 
 # Import azure-functions/azure-functions.sentinel
 # with alias "azure"

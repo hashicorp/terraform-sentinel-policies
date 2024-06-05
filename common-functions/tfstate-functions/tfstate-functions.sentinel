@@ -22,12 +22,12 @@ import "types"
 ### resources ###
 # Find all resources of a specific type using the tfstate/v2 import.
 func resources(type) {
-  resources = filter tfstate.resources as address, r {
+  resources_list = filter tfstate.resources as address, r {
   	r.type is type and
   	r.mode is "managed"
   }
 
-  return resources
+  return resources_list
 }
 
 ### resources_by_provider ###

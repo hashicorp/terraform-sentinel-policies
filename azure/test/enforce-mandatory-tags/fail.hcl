@@ -1,3 +1,7 @@
+module "general-functions" {
+  source = "../../../common-functions/general-functions/general-functions.sentinel"
+}
+
 module "azure-functions" {
   source = "../../azure-functions/azure-functions.sentinel"
 }
