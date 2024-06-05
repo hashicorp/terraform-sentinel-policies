@@ -17,6 +17,10 @@ module "registry-functions" {
       source = "../../registry-functions/registry-functions.sentinel"
 }
 
+module "general-functions" {
+    source = "../../../common-functions/general-functions/general-functions.sentinel"
+}
+
 module "tfconfig-functions" {
       source = "../../../../common-functions/tfconfig-functions/tfconfig-functions.sentinel"
 }

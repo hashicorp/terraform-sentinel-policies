@@ -26,7 +26,7 @@ for allSRGs as address, srg {
     violatingSRGsCount += 1
     print("SRG Rule Violation:", address, "has at least one rule",
           "with destination_addresses containing \"any\".")
-    plan.print_violations(violatingRules["messages"], "Rule")
+    general.print_violations(violatingRules["messages"], "Rule")
   }  // end if
   
 } // end for SRGs

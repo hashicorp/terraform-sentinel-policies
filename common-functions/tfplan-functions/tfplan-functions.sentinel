@@ -13,6 +13,7 @@
 
 ##### Imports #####
 import "tfplan/v2" as tfplan
+import "general-functions" as general
 import "strings"
 import "types"
 
@@ -23,7 +24,7 @@ import "types"
 # Include resources that are not being permanently deleted.
 # Technically, this returns a map of resource changes.
 func resources(type) {
-  resources = filter tfplan.resource_changes as address, rc {
+  resources_list = filter tfplan.resource_changes as address, rc {
   	rc.type is type and
   	rc.mode is "managed" and
   	(rc.change.actions contains "create" or rc.change.actions contains "update" or
@@ -31,7 +32,7 @@ func resources(type) {
      rc.change.after is not null))
   }
 
-  return resources
+  return resources_list
 }
 
 ### resources_by_provider ###
@@ -238,16 +239,16 @@ func attribute_not_in_list(resources, attr, allowed, prtmsg) {
   for resources as address, rc {
     # Evaluate the value (v) of the attribute
     v = evaluate_attribute(rc, attr) else null
-    # Convert null to "null"
+    # Check if the value is null
     if v is null {
       v = "null"
     }
     # Check if the value is not in the allowed list
     if v not in allowed {
       # Add the resource and a warning message to the violators list
-      message = to_string(address) + " has " + to_string(attr) + " with value " +
-                to_string(v) + " that is not in the allowed list: " +
-                to_string(allowed)
+      message = general.to_string(address) + " has " + general.to_string(attr) + " with value " +
+                general.to_string(v) + " that is not in the allowed list: " +
+                general.to_string(allowed)
       violators[address] = rc
       messages[address] = message
       if prtmsg {
@@ -279,9 +280,9 @@ func attribute_in_list(resources, attr, forbidden, prtmsg) {
     # Check if the value is in the forbidden list
     if v in forbidden {
       # Add the resource and a warning message to the violators list
-      message = to_string(address) + " has " + to_string(attr) + " with value " +
-                to_string(v) + " that is in the forbidden list: " +
-                to_string(forbidden)
+      message = general.to_string(address) + " has " + general.to_string(attr) + " with value " +
+                general.to_string(v) + " that is in the forbidden list: " +
+                general.to_string(forbidden)
       violators[address] = rc
       messages[address] = message
       if prtmsg {
@@ -309,8 +310,8 @@ func attribute_not_contains_list(resources, attr, required, prtmsg) {
     if v is null or
        not (types.type_of(v) is "list" or types.type_of(v) is "map") {
       # Add the resource and a warning message to the violators list
-      message = to_string(address) + " has " + to_string(attr) +
-                " that is missing, null, or is not a map or a list. " + "It should have had these items: " + to_string(required)
+      message = general.to_string(address) + " has " + general.to_string(attr) +
+                " that is missing, null, or is not a map or a list. " + "It should have had these items: " + general.to_string(required)
       violators[address] = rc
       messages[address] = message
       if prtmsg {
@@ -325,10 +326,10 @@ func attribute_not_contains_list(resources, attr, required, prtmsg) {
       } // end for required
       if length(missing_values) > 0 {
         # Build warning message when v is a map
-        message = to_string(address) + " has " + to_string(attr) + " with value " +
-                  to_string(v) + " that is missing the required items " +
-                  to_string(missing_values) + " from the list: " +
-                  to_string(required)
+        message = general.to_string(address) + " has " + general.to_string(attr) + " with value " +
+                  general.to_string(v) + " that is missing the required items " +
+                  general.to_string(missing_values) + " from the list: " +
+                  general.to_string(required)
         # Add the resource and warning message to the violators list
         violators[address] = rc
         messages[address] = message
@@ -360,8 +361,8 @@ func attribute_contains_items_from_list(resources, attr, forbidden, prtmsg) {
     if not (types.type_of(v) is "list" or types.type_of(v) is "map" or
             types.type_of(v) is "null") {
       # Add the resource and a warning message to the violators list
-      message = to_string(address) + " has " + to_string(attr) + " with value " +
-                to_string(v) + " that is not a map, a list, or null"
+      message = general.to_string(address) + " has " + general.to_string(attr) + " with value " +
+                general.to_string(v) + " that is not a map, a list, or null"
       violators[address] = rc
 			messages[address] = message
       if prtmsg {
@@ -370,9 +371,9 @@ func attribute_contains_items_from_list(resources, attr, forbidden, prtmsg) {
     } else if v is null {
       if "null" in forbidden {
         # Add the resource and a warning message to the violators list
-        message = to_string(address) + " has " + to_string(attr) +
+        message = general.to_string(address) + " has " + general.to_string(attr) +
                   " with value null from the forbidden list: " +
-                  to_string(forbidden)
+                  general.to_string(forbidden)
         violators[address] = rc
 				messages[address] = message
         if prtmsg {
@@ -388,9 +389,9 @@ func attribute_contains_items_from_list(resources, attr, forbidden, prtmsg) {
       } // end for forbidden
       if length(forbidden_values) > 0 {
         # Build warning message when v is a list
-        message = to_string(address) + " has " + to_string(attr) + " with value " +
-                  to_string(v) + " that has items " + to_string(forbidden_values) +
-                  " from the forbidden list: " + to_string(forbidden)
+        message = general.to_string(address) + " has " + general.to_string(attr) + " with value " +
+                  general.to_string(v) + " that has items " + general.to_string(forbidden_values) +
+                  " from the forbidden list: " + general.to_string(forbidden)
         # Add the resource and a warning message to the violators list
         violators[address] = rc
 				messages[address] = message
@@ -421,8 +422,8 @@ func attribute_contains_items_not_in_list(resources, attr, allowed, prtmsg) {
     if not (types.type_of(vals) is "list" or types.type_of(vals) is "map" or
             types.type_of(vals) is "null") {
         # Add the resource and a warning message to the violators list
-        message = to_string(address) + " has " + to_string(attr) + " with value " +
-                  to_string(vals) + " that is not a map, a list, or null"
+        message = general.to_string(address) + " has " + general.to_string(attr) + " with value " +
+                  general.to_string(vals) + " that is not a map, a list, or null"
         violators[address] = rc
         messages[address] = message
         if prtmsg {
@@ -431,9 +432,9 @@ func attribute_contains_items_not_in_list(resources, attr, allowed, prtmsg) {
     } else if vals is null {
       if "null" not in allowed {
         # Add the resource and a warning message to the violators list
-        message = to_string(address) + " has " + to_string(attr) +
+        message = general.to_string(address) + " has " + general.to_string(attr) +
                   " with value null that is not in the allowed list: " +
-                  to_string(allowed)
+                  general.to_string(allowed)
         violators[address] = rc
         messages[address] = message
         if prtmsg {
@@ -449,9 +450,9 @@ func attribute_contains_items_not_in_list(resources, attr, allowed, prtmsg) {
       } // end for vals
       if length(forbidden_values) > 0 {
         # Build warning message when vals is a map
-        message = to_string(address) + " has " + to_string(attr) + " with value " +
-                  to_string(vals) + " with items " + to_string(forbidden_values) +
-                  " that are not in the allowed list: " + to_string(allowed)
+        message = general.to_string(address) + " has " + general.to_string(attr) + " with value " +
+                  general.to_string(vals) + " with items " + general.to_string(forbidden_values) +
+                  " that are not in the allowed list: " + general.to_string(allowed)
         # Add the resource and a warning message to the violators list
         violators[address] = rc
 				messages[address] = message
@@ -478,9 +479,9 @@ func attribute_is_not_value(resources, attr, value, prtmsg) {
     v = evaluate_attribute(rc, attr) else null
     if v is null {
       # Add the resource and a warning message to the violators list
-      message = to_string(address) + " has " + to_string(attr) +
+      message = general.to_string(address) + " has " + general.to_string(attr) +
                 " that is null or undefined. " + "It is supposed to be " +
-                to_string(value)
+                general.to_string(value)
       violators[address] = rc
 			messages[address] = message
       if prtmsg {
@@ -488,8 +489,8 @@ func attribute_is_not_value(resources, attr, value, prtmsg) {
       }
     } else if v is not value {
       # Add the resource and a warning message to the violators list
-      message = to_string(address) + " has " + to_string(attr) + " with value " +
-                to_string(v) + " that is not equal to " + to_string(value)
+      message = general.to_string(address) + " has " + general.to_string(attr) + " with value " +
+                general.to_string(v) + " that is not equal to " + general.to_string(value)
       violators[address] = rc
 			messages[address] = message
       if prtmsg {
@@ -517,9 +518,9 @@ func attribute_was_not_value(resources, attr, value, prtmsg) {
     v = evaluate_attribute(rc.change.before, attr) else null
     if v is null {
       # Add the resource and a warning message to the violators list
-      message = to_string(address) + " had " + to_string(attr) +
+      message = general.to_string(address) + " had " + general.to_string(attr) +
                 " that was null or undefined. " + "It was supposed to be " +
-                to_string(value)
+                general.to_string(value)
       violators[address] = rc
 			messages[address] = message
       if prtmsg {
@@ -527,8 +528,8 @@ func attribute_was_not_value(resources, attr, value, prtmsg) {
       }
     } else if v is not value {
       # Add the resource and a warning message to the violators list
-      message = to_string(address) + " had " + to_string(attr) + " with value " +
-                to_string(v) + " that was not equal to " + to_string(value)
+      message = general.to_string(address) + " had " + general.to_string(attr) + " with value " +
+                general.to_string(v) + " that was not equal to " + general.to_string(value)
       violators[address] = rc
 			messages[address] = message
       if prtmsg {
@@ -558,8 +559,8 @@ func attribute_is_value(resources, attr, value, prtmsg) {
     }
     if v is value {
       # Add the resource and a warning message to the violators list
-      message = to_string(address) + " has " + to_string(attr) + " with value " +
-                to_string(v) + " that is not allowed."
+      message = general.to_string(address) + " has " + general.to_string(attr) + " with value " +
+                general.to_string(v) + " that is not allowed."
       violators[address] = rc
 			messages[address] = message
       if prtmsg {
@@ -590,8 +591,8 @@ func attribute_was_value(resources, attr, value, prtmsg) {
     }
     if v is value {
       # Add the resource and a warning message to the violators list
-      message = to_string(address) + " had " + to_string(attr) + " with value " +
-                to_string(v) + " that was not allowed."
+      message = general.to_string(address) + " had " + general.to_string(attr) + " with value " +
+                general.to_string(v) + " that was not allowed."
       violators[address] = rc
 			messages[address] = message
       if prtmsg {
@@ -616,9 +617,9 @@ func attribute_greater_than_value(resources, attr, value, prtmsg) {
     v = evaluate_attribute(rc, attr) else null
     if float(v) else null is null {
       # Add the resource and a warning message to the violators list
-      message = to_string(address) + " has " + to_string(attr) +
+      message = general.to_string(address) + " has " + general.to_string(attr) +
                 " that is null or undefined. " + "It is supposed to be less " +
-                "than or equal to " + to_string(value)
+                "than or equal to " + general.to_string(value)
       violators[address] = rc
 			messages[address] = message
       if prtmsg {
@@ -626,8 +627,8 @@ func attribute_greater_than_value(resources, attr, value, prtmsg) {
       }
     } else if float(v) > value {
       # Add the resource and a warning message to the violators list
-      message = to_string(address) + " has " + to_string(attr) + " with value " +
-                to_string(v) + " that is greater than " + to_string(value)
+      message = general.to_string(address) + " has " + general.to_string(attr) + " with value " +
+                general.to_string(v) + " that is greater than " + general.to_string(value)
       violators[address] = rc
 			messages[address] = message
       if prtmsg {
@@ -652,9 +653,9 @@ func attribute_greater_than_equal_to_value(resources, attr, value, prtmsg) {
     v = evaluate_attribute(rc, attr) else null
     if float(v) else null is null {
       # Add the resource and a warning message to the violators list
-      message = to_string(address) + " has " + to_string(attr) +
+      message = general.to_string(address) + " has " + general.to_string(attr) +
                 " that is null or undefined. " + "It is supposed to be less " +
-                "than " + to_string(value)
+                "than " + general.to_string(value)
       violators[address] = rc
 			messages[address] = message
       if prtmsg {
@@ -662,8 +663,8 @@ func attribute_greater_than_equal_to_value(resources, attr, value, prtmsg) {
       }
     } else if float(v) >= value {
       # Add the resource and a warning message to the violators list
-      message = to_string(address) + " has " + to_string(attr) + " with value " +
-                to_string(v) + " that is greater than or equal to " + to_string(value)
+      message = general.to_string(address) + " has " + general.to_string(attr) + " with value " +
+                general.to_string(v) + " that is greater than or equal to " + general.to_string(value)
       violators[address] = rc
 			messages[address] = message
       if prtmsg {
@@ -688,9 +689,9 @@ func attribute_less_than_value(resources, attr, value, prtmsg) {
     v = evaluate_attribute(rc, attr) else null
     if float(v) else null is null {
       # Add the resource and a warning message to the violators list
-      message = to_string(address) + " has " + to_string(attr) +
+      message = general.to_string(address) + " has " + general.to_string(attr) +
                 " that is null or undefined. " + "It is supposed to be greater " +
-                "than or equal to " + to_string(value)
+                "than or equal to " + general.to_string(value)
       violators[address] = rc
 			messages[address] = message
       if prtmsg {
@@ -698,8 +699,8 @@ func attribute_less_than_value(resources, attr, value, prtmsg) {
       }
     } else if float(v) < value {
       # Add the resource and a warning message to the violators list
-      message = to_string(address) + " has " + to_string(attr) + " with value " +
-                to_string(v) + " that is less than " + to_string(value)
+      message = general.to_string(address) + " has " + general.to_string(attr) + " with value " +
+                general.to_string(v) + " that is less than " + general.to_string(value)
       violators[address] = rc
 			messages[address] = message
       if prtmsg {
@@ -724,9 +725,9 @@ func attribute_less_than_equal_to_value(resources, attr, value, prtmsg) {
     v = evaluate_attribute(rc, attr) else null
     if float(v) else null is null {
       # Add the resource and a warning message to the violators list
-      message = to_string(address) + " has " + to_string(attr) +
+      message = general.to_string(address) + " has " + general.to_string(attr) +
                 " that is null or undefined. " + "It is supposed to be greater " +
-                "than " + to_string(value)
+                "than " + general.to_string(value)
       violators[address] = rc
 			messages[address] = message
       if prtmsg {
@@ -734,8 +735,8 @@ func attribute_less_than_equal_to_value(resources, attr, value, prtmsg) {
       }
     } else if float(v) <= value {
       # Add the resource and a warning message to the violators list
-      message = to_string(address) + " has " + to_string(attr) + " with value " +
-                to_string(v) + " that is less than or equal to " + to_string(value)
+      message = general.to_string(address) + " has " + general.to_string(attr) + " with value " +
+                general.to_string(v) + " that is less than or equal to " + general.to_string(value)
       violators[address] = rc
 			messages[address] = message
       if prtmsg {
@@ -764,8 +765,8 @@ func attribute_does_not_match_regex(resources, attr, expr, prtmsg) {
     }
     if v not matches expr {
       # Add the resource and a warning message to the violators list
-      message = to_string(address) + " has " + to_string(attr) + " with value " +
-                to_string(v) + " that does not match the regex " + to_string(expr)
+      message = general.to_string(address) + " has " + general.to_string(attr) + " with value " +
+                general.to_string(v) + " that does not match the regex " + general.to_string(expr)
       violators[address] = rc
 			messages[address] = message
       if prtmsg {
@@ -794,8 +795,8 @@ func attribute_matches_regex(resources, attr, expr, prtmsg) {
     }
     if v matches expr {
       # Add the resource and a warning message to the violators list
-      message = to_string(address) + " has " + to_string(attr) + " with value " +
-                to_string(v) + " that matches the regex " + to_string(expr)
+      message = general.to_string(address) + " has " + general.to_string(attr) + " with value " +
+                general.to_string(v) + " that matches the regex " + general.to_string(expr)
       violators[address] = rc
 			messages[address] = message
       if prtmsg {
@@ -820,9 +821,9 @@ func attribute_does_not_have_prefix(resources, attr, prefix, prtmsg) {
     v = evaluate_attribute(rc, attr) else null
     if v is null {
       # Add the resource and a warning message to the violators list
-      message = to_string(address) + " has " + to_string(attr) +
+      message = general.to_string(address) + " has " + general.to_string(attr) +
                 " that is null or undefined. " + "It must have a value that " +
-                "starts with " + to_string(prefix)
+                "starts with " + general.to_string(prefix)
       violators[address] = rc
 			messages[address] = message
       if prtmsg {
@@ -830,8 +831,8 @@ func attribute_does_not_have_prefix(resources, attr, prefix, prtmsg) {
       }
     } else if not strings.has_prefix(v, prefix) {
       # Add the resource and a warning message to the violators list
-      message = to_string(address) + " has " + to_string(attr) + " with value " +
-                to_string(v) + " that does not have the prefix " + to_string(prefix)
+      message = general.to_string(address) + " has " + general.to_string(attr) + " with value " +
+                general.to_string(v) + " that does not have the prefix " + general.to_string(prefix)
       violators[address] = rc
 			messages[address] = message
       if prtmsg {
@@ -856,9 +857,9 @@ func attribute_has_prefix(resources, attr, prefix, prtmsg) {
     v = evaluate_attribute(rc, attr) else null
     if v is null {
       # Add the resource and a warning message to the violators list
-      message = to_string(address) + " has " + to_string(attr) +
+      message = general.to_string(address) + " has " + general.to_string(attr) +
                 " that is null or undefined. " + "It must have a value that " +
-                "does not start with " + to_string(prefix)
+                "does not start with " + general.to_string(prefix)
       violators[address] = rc
 			messages[address] = message
       if prtmsg {
@@ -866,8 +867,8 @@ func attribute_has_prefix(resources, attr, prefix, prtmsg) {
       }
     } else if strings.has_prefix(v, prefix) {
       # Add the resource and a warning message to the violators list
-      message = to_string(address) + " has " + to_string(attr) + " with value " +
-                to_string(v) + " that has the prefix " + to_string(prefix)
+      message = general.to_string(address) + " has " + general.to_string(attr) + " with value " +
+                general.to_string(v) + " that has the prefix " + general.to_string(prefix)
       violators[address] = rc
 			messages[address] = message
       if prtmsg {
@@ -892,9 +893,9 @@ func attribute_does_not_have_suffix(resources, attr, suffix, prtmsg) {
     v = evaluate_attribute(rc, attr) else null
     if v is null {
       # Add the resource and a warning message to the violators list
-      message = to_string(address) + " has " + to_string(attr) +
+      message = general.to_string(address) + " has " + general.to_string(attr) +
                 " that is null or undefined. " + "It must have a value that " +
-                "ends with " + to_string(prefix)
+                "ends with " + general.to_string(prefix)
       violators[address] = rc
 			messages[address] = message
       if prtmsg {
@@ -902,8 +903,8 @@ func attribute_does_not_have_suffix(resources, attr, suffix, prtmsg) {
       }
     } else if not strings.has_suffix(v, suffix) {
       # Add the resource and a warning message to the violators list
-      message = to_string(address) + " has " + to_string(attr) + " with value " +
-                to_string(v) + " that does not have the suffix " + to_string(suffix)
+      message = general.to_string(address) + " has " + general.to_string(attr) + " with value " +
+                general.to_string(v) + " that does not have the suffix " + general.to_string(suffix)
       violators[address] = rc
 			messages[address] = message
       if prtmsg {
@@ -928,9 +929,9 @@ func attribute_has_suffix(resources, attr, suffix, prtmsg) {
     v = evaluate_attribute(rc, attr) else null
     if v is null {
       # Add the resource and a warning message to the violators list
-      message = to_string(address) + " has " + to_string(attr) +
+      message = general.to_string(address) + " has " + general.to_string(attr) +
                 " that is null or undefined. " + "It must have a value that " +
-                "does not end with " + to_string(suffix)
+                "does not end with " + general.to_string(suffix)
       violators[address] = rc
 			messages[address] = message
       if prtmsg {
@@ -938,8 +939,8 @@ func attribute_has_suffix(resources, attr, suffix, prtmsg) {
       }
     } else if strings.has_suffix(v, suffix) {
       # Add the resource and a warning message to the violators list
-      message = to_string(address) + " has " + to_string(attr) + " with value " +
-                to_string(v) + " that has the suffix " + to_string(suffix)
+      message = general.to_string(address) + " has " + general.to_string(attr) + " with value " +
+                general.to_string(v) + " that has the suffix " + general.to_string(suffix)
       violators[address] = rc
 			messages[address] = message
       if prtmsg {
@@ -969,8 +970,8 @@ func attribute_map_key_contains_items_in_list(resources, attr, key, forbidden, p
 		# Check if the attribute value is a map or is null.
 		if not (types.type_of(vals) is "map" or types.type_of(vals) is "null") {
 			# Add the resource and a warning message to the violators list
-			message = to_string(address) + " has " + to_string(attr) + " with value " +
-				to_string(vals) + " that is not a map or null"
+			message = general.to_string(address) + " has " + general.to_string(attr) + " with value " +
+				general.to_string(vals) + " that is not a map or null"
 			violators[address] = rc
 			messages[address] = message
 			if prtmsg {
@@ -999,10 +1000,10 @@ func attribute_map_key_contains_items_in_list(resources, attr, key, forbidden, p
 
 				if length(forbidden_values) > 0 {
 					# Build warning message when vals is a map
-					message = to_string(address) + " has " + to_string(attr) +
-            "with value " + to_string(vals) + " with key " + to_string(key) +
-            " containing items " + to_string(forbidden_values) +
-            " that are in the forbidden list: " + to_string(forbidden)
+					message = general.to_string(address) + " has " + general.to_string(attr) +
+            "with value " + general.to_string(vals) + " with key " + general.to_string(key) +
+            " containing items " + general.to_string(forbidden_values) +
+            " that are in the forbidden list: " + general.to_string(forbidden)
 					# Add the resource and a warning message to the violators list
 					violators[address] = rc
 					messages[address] = message
@@ -1035,8 +1036,8 @@ func attribute_map_key_contains_items_not_in_list(resources, attr, key, allowed,
 		# Check if the attribute value is a map or is null.
 		if not (types.type_of(vals) is "map" or types.type_of(vals) is "null") {
 			# Add the resource and a warning message to the violators list
-			message = to_string(address) + " has attribute " + to_string(attr) +
-        " with value " + to_string(vals) + " that is not a map or null"
+			message = general.to_string(address) + " has attribute " + general.to_string(attr) +
+        " with value " + general.to_string(vals) + " that is not a map or null"
 			violators[address] = rc
 			messages[address] = message
 			if prtmsg {
@@ -1065,10 +1066,10 @@ func attribute_map_key_contains_items_not_in_list(resources, attr, key, allowed,
 
 				if length(forbidden_values) > 0 {
 					# Build warning message when vals is a map
-					message = to_string(address) + " has attribute " + to_string(attr) +
-            " with key " + to_string(key) + " containing items " +
-						to_string(forbidden_values) + " that are not in the allowed list: " +
-						to_string(allowed)
+					message = general.to_string(address) + " has attribute " + general.to_string(attr) +
+            " with key " + general.to_string(key) + " containing items " +
+						general.to_string(forbidden_values) + " that are not in the allowed list: " +
+						general.to_string(allowed)
 					# Add the resource and a warning message to the violators list
 					violators[address] = rc
 					messages[address] = message

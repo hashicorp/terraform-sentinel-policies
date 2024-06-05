@@ -4,6 +4,7 @@
 # Import common-functions/tfconfig-functions/tfconfig-functions.sentinel
 # with alias "config"
 import "tfconfig-functions" as config
+import "general-functions" as general
 
 # List of allowed provisioners
 allowed_list = ["file", "chef"]
@@ -17,7 +18,7 @@ violatingProvisioners = config.attribute_not_in_list(allProvisioners,
                      "type", allowed_list, false)
 
 # Print any violations
-config.print_violations(violatingProvisioners["messages"], "A provisioner of")
+general.print_violations(violatingProvisioners["messages"], "A provisioner of")
 
 # Main rule
 main = rule {

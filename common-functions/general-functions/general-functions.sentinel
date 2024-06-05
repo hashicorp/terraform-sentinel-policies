@@ -1,5 +1,3 @@
-import "tfplan/v2" as tfplan
-import "tfstate/v2" as tfstate
 import "strings"
 import "types"
 

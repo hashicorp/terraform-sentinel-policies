@@ -84,7 +84,7 @@ if length(violatingRemoteStates["messages"]) is not 0 {
         "it is not allowed to access.")
   # Print specific violation messages for instances of the terraform_remote_state
   # data source
-  state.print_violations(violatingRemoteStates["messages"], "Data source")
+  general.print_violations(violatingRemoteStates["messages"], "Data source")
 }
 
 # Main rule

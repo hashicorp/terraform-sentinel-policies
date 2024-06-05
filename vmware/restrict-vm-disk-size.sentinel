@@ -4,6 +4,7 @@
 # Import common-functions/tfplan-functions/tfplan-functions.sentinel
 # with alias "plan"
 import "tfplan-functions" as plan
+import "general-functions" as general
 
 # Disk Size Limit (in GB)
 maxDiskSize = 100
@@ -27,7 +28,7 @@ for allVMs as address, vm {
   if length(violatingDisks["messages"]) > 0 {
     disksValidated = false
     print(address, "has at least one disk with size greater than", maxDiskSize)
-    plan.print_violations(violatingDisks["messages"], "Disk")
+    general.print_violations(violatingDisks["messages"], "Disk")
   } // end if
 
 } // end for VMs

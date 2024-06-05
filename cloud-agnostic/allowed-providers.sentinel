@@ -28,7 +28,7 @@ violatingProviders = config.attribute_not_in_list(allProviders,
 # Print any violations
 prohibitedProvidersCount = length(violatingProviders["messages"])
 if prohibitedProvidersCount > 0 {
-  config.print_violations(violatingProviders["messages"], "Provider")
+  general.print_violations(violatingProviders["messages"], "Provider")
 }
 
 # Initialize resource and data source counts

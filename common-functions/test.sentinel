@@ -1,0 +1,60 @@
+##### Imports #####
+import "tfconfig/v2" as tfconfig
+import "tfplan/v2" as tfplan
+import "tfstate/v2" as tfstate
+import "strings"
+import "types"
+
+func attribute_not_in_list(resources, attr, allowed, prtmsg) {
+  violators = {}
+  messages = {}
+
+  for resources as address, rc {
+    # Evaluate the value (v) of the attribute
+    v = evaluate_attribute(rc, attr) else null
+    # Check if the value is null
+    if v is null {
+      v = "null"
+    }
+    if types.type_of(v) in ["list", "map"] {
+        above_helper(v, address, attr, allowed, prtmsg)
+    } else {
+        # Check if the value is not in the allowed list
+        if v not in allowed {
+        # Add the resource and a warning message to the violators list
+        message = general.to_string(address) + " has " + general.to_string(attr) + " with value " +
+                    general.to_string(v) + " that is not in the allowed list: " +
+                    general.to_string(allowed)
+        violators[address] = rc
+        messages[address] = message
+        if prtmsg {
+            print(message)
+        }
+        } // end if
+    }
+  } // end for
+
+  return {"resources": violators, "messages": messages}
+}
+
+func above_helper(v, index, attr, allowed, prtmsg) {
+    # Process lists and maps
+    message = ""
+    # Check each item of list or map
+    for v as i, val {
+        if val not in allowed {
+            # Add the item and a warning message to the violators list
+            message = general.to_string(index) + " has " + general.to_string(attr) + " with value " +
+                    general.to_string(val) + " that is not in the allowed list: " +
+                    general.to_string(allowed)
+        }
+        if message is not "" {
+            # Add the item and warning message to the violators list
+            violators[index] = item
+            messages[index] = message
+            if prtmsg {
+            print(message)
+            }
+        } // end message not ""
+    } // end for
+}
