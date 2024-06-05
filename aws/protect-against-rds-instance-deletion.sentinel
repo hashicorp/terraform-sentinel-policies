@@ -7,6 +7,8 @@
 # Import common-functions/tfplan-functions/tfplan-functions.sentinel
 # with alias "plan"
 import "tfplan-functions" as plan
+import "general-functions" as general
+
 
 # Get all resources being destroyed
 resourcesBeingDestroyed = plan.resources_being_destroyed()
@@ -23,7 +25,7 @@ violatingRDSInstances = plan.attribute_was_value(RDSInstancesBeingDestroyed,
 
 if length(violatingRDSInstances["messages"]) > 0 {
   print("RDS instances with deletion_protection set to true cannot be destroyed.")
-  plan.print_violations(violatingRDSInstances["messages"], "")
+  general.print_violations(violatingRDSInstances["messages"], "")
 }
 
 # Main rule

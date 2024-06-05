@@ -5,6 +5,8 @@
 
 # Import the tfplan/v2 import, but use the alias "tfplan"
 import "tfplan/v2" as tfplan
+import "general-functions" as general
+
 
 # Import common-functions/tfplan-functions/tfplan-functions.sentinel
 # with alias "plan"
@@ -48,7 +50,7 @@ for allSGs as address, sg {
     violatingSGsCount += 1
     print("SG Ingress Violation:", address, "has at least one ingress rule",
           "with forbidden cidr blocks")
-    plan.print_violations(violatingIRs["messages"], "Ingress Rule")
+    general.print_violations(violatingIRs["messages"], "Ingress Rule")
   }  // end if
 
 } // end for SGs

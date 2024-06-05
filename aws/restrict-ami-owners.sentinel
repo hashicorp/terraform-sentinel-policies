@@ -4,6 +4,8 @@
 # Import common-functions/tfstate-functions/tfstate-functions.sentinel
 # with alias "state"
 import "tfstate-functions" as state
+import "general-functions" as general
+
 
 # Allowed Owners
 # Include "null" to allow missing or computed values

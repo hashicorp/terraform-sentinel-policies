@@ -1091,7 +1091,7 @@ func attribute_map_key_contains_items_not_in_list(resources, attr, key, allowed,
 # Only include resources that are being created or updated.
 # Technically, this returns a map of resource changes.
 func resources_with_name(type, name) {
-	resources = filter tfplan.resource_changes as address, rc {
+	resources_map = filter tfplan.resource_changes as address, rc {
 		rc.type is type and
     rc.name is name and 
 			rc.mode is "managed" and
@@ -1100,5 +1100,5 @@ func resources_with_name(type, name) {
 				rc.change.actions contains "no-op")
 	}
 
-	return resources
+	return resources_map
 }

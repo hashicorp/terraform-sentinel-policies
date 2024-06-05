@@ -5,6 +5,7 @@
 # Import common-functions/tfplan-functions/tfplan-functions.sentinel
 # with alias "plan"
 import "tfplan-functions" as plan
+import "general-functions" as general
 
 # Get all Lambda functions
 allLambdaFunctions = plan.resources("aws_lambda_function")

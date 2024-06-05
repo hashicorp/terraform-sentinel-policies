@@ -6,6 +6,7 @@
 # Import Functions used below
 import "tfplan-functions" as plan
 import "tfconfig-functions" as config
+import "general-functions" as general
 import "strings"
 
 # Get all S3 buckets resources

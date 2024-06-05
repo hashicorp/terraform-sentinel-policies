@@ -4,6 +4,8 @@
 # Import common-functions/tfplan-functions/tfplan-functions.sentinel
 # with alias "plan"
 import "tfplan-functions" as plan
+import "general-functions" as general
+
 
 # Get all S3 buckets
 allS3Buckets = plan.resources("aws_s3_bucket")

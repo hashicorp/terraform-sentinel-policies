@@ -9,6 +9,8 @@
 
 # Import the tfplan/v2 import, but use the alias "tfplan"
 import "tfplan/v2" as tfplan
+import "general-functions" as general
+
 
 # Import common-functions/tfplan-functions/tfplan-functions.sentinel
 # with alias "plan"
@@ -132,9 +134,9 @@ for allSGs as address, sg {
 	print("SG Ingress Violation:", address, "has port", forbidden_port,
 			"(RDP) open to", forbidden_cidrs, "that is not allowed")
 ###Uncomment below if you want to show the CIDRs as a separate message as well
-#	plan.print_violations(violatingCidr["messages"], "  Ingress Rule")
-	plan.print_violations(violatingFromPortLess["messages"], "  Ingress Rule")
-	plan.print_violations(violatingToPortGreater["messages"], "   and Ingress Rule")
+#	general.print_violations(violatingCidr["messages"], "  Ingress Rule")
+	general.print_violations(violatingFromPortLess["messages"], "  Ingress Rule")
+	general.print_violations(violatingToPortGreater["messages"], "   and Ingress Rule")
 	print("  The to_port and from_port both need to be set to an integer",
 			"range or of equal")
 	print("   value to each other that is either less than or greater than", forbidden_port)

@@ -4,6 +4,8 @@
 # Import common-functions/tfstate-functions/tfstate-functions.sentinel
 # with alias "state"
 import "tfstate-functions" as state
+import "general-functions" as general
+
 
 # Forbidden IAM actions
 param forbidden_actions default ["iam:Create*", "iam:Delete*"]
@@ -26,7 +28,7 @@ for allIAMPolicyDocs as address, d {
 	if length(violatingStatements["messages"]) > 0 {
 		validated = false
 		print(address, "has at least one statement with forbidden actions:")
-		state.print_violations(violatingStatements["messages"], "Statement")
+		general.print_violations(violatingStatements["messages"], "Statement")
 	} // end if
 
 } // end for

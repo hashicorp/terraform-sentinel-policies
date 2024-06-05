@@ -4,6 +4,8 @@
 # Import common-functions/tfplan-functions/tfplan-functions.sentinel
 # with alias "plan"
 import "tfplan-functions" as plan
+import "general-functions" as general
+
 
 # Import aws-functions/aws-functions.sentinel
 # with alias "aws"

@@ -5,6 +5,8 @@
 # Import common-functions/tfstate-functions/tfstate-functions.sentinel
 # with alias "state"
 import "tfstate-functions" as state
+import "general-functions" as general
+
 
 # Import common-functions/tfconfig-functions/tfconfig-functions.sentinel
 # with alias "config"
