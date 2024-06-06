@@ -23,9 +23,9 @@ This function prints the messages in the `messages` map prefixed with the `prefi
 ## Examples
 Here are some examples of calling this function, assuming that the tfconfig-functions.sentinel file that contains it has been imported with the alias `config`:
 ```
-config.print_violations(violatingDatasources["messages"], "Blacklisted data source:")
+general.print_violations(violatingDatasources["messages"], "Blacklisted data source:")
 
-config.print_violations(violatingProviders["messages"], "Blacklisted provider:")
+general.print_violations(violatingProviders["messages"], "Blacklisted provider:")
 ```
 
 This function is used by many of the cloud agnostic policies including [prohibited-datasources.sentinel](../../../cloud-agnostic/prohibited-datasources.sentinel) and [prohibited-providers.sentinel](../../../cloud-agnostic/prohibited-providers.sentinel).

@@ -22,12 +22,12 @@ import "types"
 ### resources ###
 # Find all resources of a specific type using the tfstate/v2 import.
 func resources(type) {
-  resources_list = filter tfstate.resources as address, r {
+  resources_map = filter tfstate.resources as address, r {
   	r.type is type and
   	r.mode is "managed"
   }
 
-  return resources_list
+  return resources_map
 }
 
 ### resources_by_provider ###
@@ -108,9 +108,7 @@ func datasources_by_provider(provider) {
 # that contains a list of objects.
 func blocks(parent, child) {
   # Use parent.values if it exists
-  if (types.type_of(parent) is "map" and
-     "values" in keys(parent)) and
-     types.type_of(parent.values) is "map" {
+  if (types.type_of(parent) is "map" and "values" in keys(parent)) and types.type_of(parent.values) is "map" {
     if types.type_of(parent.values[child] else null) is "list" {
       return parent.values[child]
     } else {
@@ -158,8 +156,7 @@ func evaluate_attribute(r, attribute) {
   # is really a resource from the tfstate/v2 resources collection rather than
   # some block which just happens to have a key called `values`.
   # An example of such a block is the `filters` block of the `aws_ami` data source.
-  if types.type_of(r) is "map" and "values" in keys(r) and
-     types.type_of(r.values) is "map" and "module_address" in keys(r) {
+  if types.type_of(r) is "map" and "values" in keys(r) and types.type_of(r.values) is "map" and "module_address" in keys(r) {
     new_r = r.values[a] else null
   } else {
     new_r = r[a] else null
@@ -180,7 +177,6 @@ func evaluate_attribute(r, attribute) {
     # We reached the end of the attribute and can stop the
     # recursive calls and return the value of the attribute
     return new_r
-
   }
 }
 
@@ -265,8 +261,7 @@ func attribute_not_contains_list(resources, attr, required, prtmsg) {
     # Evaluate the value (v) of the attribute
     v = evaluate_attribute(r, attr) else null
     # Check if the value contains the desired allowed list
-    if v is null or
-       not (types.type_of(v) is "list" or types.type_of(v) is "map") {
+    if v is null or not (types.type_of(v) is "list" or types.type_of(v) is "map") {
       # Add the resource and a warning message to the violators list
       message = general.to_string(address) + " has " + general.to_string(attr) +
                 " that is missing, null, or is not a map or a list. " + "It should have had these items: " + general.to_string(required)
@@ -316,8 +311,7 @@ func attribute_contains_items_from_list(resources, attr, forbidden, prtmsg) {
     # Evaluate the value (v) of the attribute
     v = evaluate_attribute(r, attr) else null
     # Check if the value contains the desired allowed list
-    if not (types.type_of(v) is "list" or types.type_of(v) is "map" or
-            types.type_of(v) is "null") {
+    if not (types.type_of(v) is "list" or types.type_of(v) is "map" or types.type_of(v) is "null") {
       # Add the resource and a warning message to the violators list
       message = general.to_string(address) + " has " + general.to_string(attr) + " " +
                 general.to_string(v) + " that is not a map, a list, or null"
@@ -392,8 +386,7 @@ func case_insensitive_attribute_contains_items_from_list(resources, attr, forbid
     # Evaluate the value (v) of the attribute
     v = evaluate_attribute(r, attr) else null
     # Check if the value contains the desired allowed list
-    if not (types.type_of(v) is "list" or types.type_of(v) is "map" or
-            types.type_of(v) is "null") {
+    if not (types.type_of(v) is "list" or types.type_of(v) is "map" or types.type_of(v) is "null") {
       # Add the resource and a warning message to the violators list
       message = general.to_string(address) + " has " + general.to_string(attr) + " " +
                 general.to_string(v) + " that is not a map, a list, or null"
@@ -454,8 +447,7 @@ func attribute_contains_items_not_in_list(resources, attr, allowed, prtmsg) {
     # Evaluate the value (vals) of the attribute
     vals = evaluate_attribute(r, attr) else null
     # Check if the value contains items not in allowed list
-    if not (types.type_of(vals) is "list" or types.type_of(vals) is "map" or
-            types.type_of(vals) is "null") {
+    if not (types.type_of(vals) is "list" or types.type_of(vals) is "map" or types.type_of(vals) is "null") {
         # Add the resource and a warning message to the violators list
         message = general.to_string(address) + " has " + general.to_string(attr) + " " +
                   general.to_string(vals) + " that is not a map, a list, or null"

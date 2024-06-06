@@ -24,7 +24,7 @@ import "types"
 # Include resources that are not being permanently deleted.
 # Technically, this returns a map of resource changes.
 func resources(type) {
-  resources_list = filter tfplan.resource_changes as address, rc {
+  resources_map = filter tfplan.resource_changes as address, rc {
   	rc.type is type and
   	rc.mode is "managed" and
   	(rc.change.actions contains "create" or rc.change.actions contains "update" or
@@ -32,7 +32,7 @@ func resources(type) {
      rc.change.after is not null))
   }
 
-  return resources_list
+  return resources_map
 }
 
 ### resources_by_provider ###
@@ -161,10 +161,7 @@ func datasources_being_destroyed() {
 # that contains a list of objects.
 func blocks(parent, child) {
   # Use parent.change.after if it exists
-  if (types.type_of(parent) is "map" and
-     "change" in keys(parent)) and
-     (types.type_of(parent.change) is "map" and
-     "after" in keys(parent.change)) {
+  if (types.type_of(parent) is "map" and "change" in keys(parent)) and (types.type_of(parent.change) is "map" and "after" in keys(parent.change)) {
     if types.type_of(parent.change.after[child] else null) is "list" {
       return parent.change.after[child]
     } else {
@@ -203,8 +200,7 @@ func evaluate_attribute(r, attribute) {
   }
 
   # Append the current attribute to the resource instance
-  if (types.type_of(r) is "map" and "change" in keys(r)) and
-     (types.type_of(r.change) is "map" and "after" in keys(r.change)) {
+  if (types.type_of(r) is "map" and "change" in keys(r)) and (types.type_of(r.change) is "map" and "after" in keys(r.change)) {
     new_r = r.change.after[a] else null
   } else {
     new_r = r[a] else null
@@ -307,8 +303,7 @@ func attribute_not_contains_list(resources, attr, required, prtmsg) {
     # Evaluate the value (v) of the attribute
     v = evaluate_attribute(rc, attr) else null
     # Check if the value contains the desired allowed list
-    if v is null or
-       not (types.type_of(v) is "list" or types.type_of(v) is "map") {
+    if v is null or not (types.type_of(v) is "list" or types.type_of(v) is "map") {
       # Add the resource and a warning message to the violators list
       message = general.to_string(address) + " has " + general.to_string(attr) +
                 " that is missing, null, or is not a map or a list. " + "It should have had these items: " + general.to_string(required)
@@ -358,8 +353,7 @@ func attribute_contains_items_from_list(resources, attr, forbidden, prtmsg) {
     # Evaluate the value (v) of the attribute
     v = evaluate_attribute(rc, attr) else null
     # Check if the value contains the desired allowed list
-    if not (types.type_of(v) is "list" or types.type_of(v) is "map" or
-            types.type_of(v) is "null") {
+    if not (types.type_of(v) is "list" or types.type_of(v) is "map" or types.type_of(v) is "null") {
       # Add the resource and a warning message to the violators list
       message = general.to_string(address) + " has " + general.to_string(attr) + " with value " +
                 general.to_string(v) + " that is not a map, a list, or null"
@@ -419,8 +413,7 @@ func attribute_contains_items_not_in_list(resources, attr, allowed, prtmsg) {
     # Evaluate the value (vals) of the attribute
     vals = evaluate_attribute(rc, attr) else null
     # Check if the value contains items not in allowed list
-    if not (types.type_of(vals) is "list" or types.type_of(vals) is "map" or
-            types.type_of(vals) is "null") {
+    if not (types.type_of(vals) is "list" or types.type_of(vals) is "map" or types.type_of(vals) is "null") {
         # Add the resource and a warning message to the violators list
         message = general.to_string(address) + " has " + general.to_string(attr) + " with value " +
                   general.to_string(vals) + " that is not a map, a list, or null"
@@ -1012,7 +1005,6 @@ func attribute_map_key_contains_items_in_list(resources, attr, key, forbidden, p
 					}
 				} // end length(forbidden_values)
 			}
-
 		} // end if not null
 	} // end for
 
@@ -1078,7 +1070,6 @@ func attribute_map_key_contains_items_not_in_list(resources, attr, key, allowed,
 					}
 				} // end length(forbidden_values)
 			}
-
 		} // end if not null
 	} // end for
 
