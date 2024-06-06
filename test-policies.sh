@@ -1,0 +1,9 @@
+cd aws 
+sentinel test 
+cd ../azure 
+sentinel test 
+cd ../cloud-agnostic 
+sentinel test 
+cd ../gcp 
+sentinel test
+cd ..

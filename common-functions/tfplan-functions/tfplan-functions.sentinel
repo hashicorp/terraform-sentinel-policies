@@ -24,15 +24,13 @@ import "types"
 # Include resources that are not being permanently deleted.
 # Technically, this returns a map of resource changes.
 func resources(type) {
-  resources_map = filter tfplan.resource_changes as address, rc {
+  return filter tfplan.resource_changes as address, rc {
   	rc.type is type and
   	rc.mode is "managed" and
   	(rc.change.actions contains "create" or rc.change.actions contains "update" or
      rc.change.actions contains "read" or (rc.change.actions contains "no-op" and
      rc.change.after is not null))
   }
-
-  return resources_map
 }
 
 ### resources_by_provider ###
@@ -77,7 +75,7 @@ func resources_by_provider(provider) {
 # Include data sources that are not being permanently deleted.
 # Technically, this returns a map of resource changes.
 func datasources(type) {
-  datasources = filter tfplan.resource_changes as address, rc {
+  return filter tfplan.resource_changes as address, rc {
   	rc.type is type and
   	rc.mode is "data" and
   	(rc.change.actions contains "create" or
@@ -85,8 +83,6 @@ func datasources(type) {
     rc.change.actions contains "read" or
     (rc.change.actions contains "no-op" and rc.change.after is not null))
   }
-
-  return datasources
 }
 
 ### datasources_by_provider ###
@@ -130,26 +126,22 @@ func datasources_by_provider(provider) {
 # Find all resources being destroyed but not recreated using the tfplan/v2 import.
 # Technically, this returns a map of resource changes.
 func resources_being_destroyed() {
-  resources_map = filter tfplan.resource_changes as address, rc {
+  return filter tfplan.resource_changes as address, rc {
   	rc.mode is "managed" and
   	rc.change.actions contains "delete" and
     not (rc.change.actions contains "create" or rc.change.actions contains "update")
   }
-
-  return resources_map
 }
 
 ### datasources_being_destroyed ###
 # Find all data sources being destroyed but not recreated using the tfplan/v2 import.
 # Technically, this returns a map of resource changes.
 func datasources_being_destroyed() {
-  datasources = filter tfplan.resource_changes as address, rc {
+  return filter tfplan.resource_changes as address, rc {
   	rc.mode is "data" and
     rc.change.actions contains "delete" and
   	not (rc.change.actions contains "create" or rc.change.actions contains "update")
   }
-
-  return datasources
 }
 
 ### blocks ###
@@ -1082,7 +1074,7 @@ func attribute_map_key_contains_items_not_in_list(resources, attr, key, allowed,
 # Only include resources that are being created or updated.
 # Technically, this returns a map of resource changes.
 func resources_with_name(type, name) {
-	resources_map = filter tfplan.resource_changes as address, rc {
+	return filter tfplan.resource_changes as address, rc {
 		rc.type is type and
     rc.name is name and 
 			rc.mode is "managed" and
@@ -1090,6 +1082,4 @@ func resources_with_name(type, name) {
 				rc.change.actions contains "read" or
 				rc.change.actions contains "no-op")
 	}
-
-	return resources_map
 }

@@ -22,12 +22,10 @@ import "types"
 ### resources ###
 # Find all resources of a specific type using the tfstate/v2 import.
 func resources(type) {
-  resources_map = filter tfstate.resources as address, r {
+  return filter tfstate.resources as address, r {
   	r.type is type and
   	r.mode is "managed"
   }
-
-  return resources_map
 }
 
 ### resources_by_provider ###
@@ -62,12 +60,10 @@ func resources_by_provider(provider) {
 ### datasources ###
 # Find all data sources of a specific type using the tfstate/v2 import.
 func datasources(type) {
-  datasources_list = filter tfstate.resources as address, d {
+  return filter tfstate.resources as address, d {
   	d.type is type and
   	d.mode is "data"
   }
-
-  return datasources_list
 }
 
 ### datasources_by_provider ###

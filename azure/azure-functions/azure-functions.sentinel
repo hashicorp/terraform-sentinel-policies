@@ -7,7 +7,7 @@ import "tfplan/v2" as tfplan
 
 ### resources_with_standard_tags ###
 func resources_with_standard_tags(resource_types) {
-  resources_map = filter tfplan.resource_changes as address, rc {
+  return filter tfplan.resource_changes as address, rc {
     rc.provider_name matches "(.*)azurerm$" and
     rc.type in resource_types and
   	rc.mode is "managed" and
@@ -15,6 +15,4 @@ func resources_with_standard_tags(resource_types) {
      rc.change.actions contains "read" or (rc.change.actions contains "no-op" and
      rc.change.after is not null))
   }
-
-  return resources_map
 }
