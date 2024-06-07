@@ -23,7 +23,7 @@ This function returns the ARN of the AWS IAM role of the provider. However, if n
 This function prints warning messages if the `role_arn` attribute was not a hard-coded string or a reference to a single variable.
 
 ## Examples
-Here is an example of calling this function, assuming that the [tfconfig-functions.sentinel](../../../common-functions/tfconfig-functions/tfconfig-functions.sentinel) module has been imported with the alias `config`:
+Here is an example of calling this function, assuming that the [tfconfig-functions.sentinel](../../../../common-functions/tfconfig-functions/tfconfig-functions.sentinel) module has been imported with the alias `config`:
 ```
 aws_providers = config.providers_by_type("aws")
 for aws_providers as address, data {

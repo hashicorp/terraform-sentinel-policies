@@ -3,20 +3,20 @@
 #------------------------------------------------------------------------------
 mock "tfplan-functions" {
   module {
-    source = "../../../common-functions/tfplan-functions/tfplan-functions.sentinel"
+    source = "../../../../common-functions/tfplan-functions/tfplan-functions.sentinel"
   }
 }
 
 
 mock "general-functions" {
   module {
-    source = "../../../common-functions/general-functions/general-functions.sentinel"
+    source = "../../../../common-functions/general-functions/general-functions.sentinel"
   }
 }
 
 mock "tfconfig-functions" {
   module {
-    source = "../../../common-functions/tfconfig-functions/tfconfig-functions.sentinel"
+    source = "../../../../common-functions/tfconfig-functions/tfconfig-functions.sentinel"
   }
 }
 

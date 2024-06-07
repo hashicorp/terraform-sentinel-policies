@@ -1,5 +1,5 @@
 module "general-functions" {
-  source = "../../../common-functions/general-functions/general-functions.sentinel"
+  source = "../../../../common-functions/general-functions/general-functions.sentinel"
 }
 
 module "azure-functions" {
@@ -7,7 +7,7 @@ module "azure-functions" {
 }
 
 module "tfplan-functions" {
-  source = "../../../common-functions/tfplan-functions/tfplan-functions.sentinel"
+  source = "../../../../common-functions/tfplan-functions/tfplan-functions.sentinel"
 }
 
 mock "tfplan/v2" {

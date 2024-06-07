@@ -1,17 +1,17 @@
 module "tfplan-functions" {
-  source = "../common-functions/tfplan-functions/tfplan-functions.sentinel"
+  source = "../../common-functions/tfplan-functions/tfplan-functions.sentinel"
 }
 
 module "tfstate-functions" {
-  source = "../common-functions/tfstate-functions/tfstate-functions.sentinel"
+  source = "../../common-functions/tfstate-functions/tfstate-functions.sentinel"
 }
 
 module "tfconfig-functions" {
-  source = "../common-functions/tfconfig-functions/tfconfig-functions.sentinel"
+  source = "../../common-functions/tfconfig-functions/tfconfig-functions.sentinel"
 }
 
 module "general-functions" {
-  source = "../common-functions/general-functions/general-functions.sentinel"
+  source = "../../common-functions/general-functions/general-functions.sentinel"
 }
 
 module "aws-functions" {

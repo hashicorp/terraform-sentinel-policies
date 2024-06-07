@@ -18,11 +18,11 @@ module "registry-functions" {
 }
 
 module "general-functions" {
-    source = "../../../common-functions/general-functions/general-functions.sentinel"
+    source = "../../../../common-functions/general-functions/general-functions.sentinel"
 }
 
 module "tfconfig-functions" {
-      source = "../../../../common-functions/tfconfig-functions/tfconfig-functions.sentinel"
+      source = "../../../../../common-functions/tfconfig-functions/tfconfig-functions.sentinel"
 }
 
 mock "tfconfig/v2" {
