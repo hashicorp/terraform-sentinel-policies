@@ -6,4 +6,6 @@ cd ../cloud-agnostic
 sentinel test 
 cd ../gcp 
 sentinel test
+cd ../vmware
+sentinel test
 cd ..
