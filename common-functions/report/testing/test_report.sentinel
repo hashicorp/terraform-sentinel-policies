@@ -1,0 +1,29 @@
+import "report"
+
+const = {
+	"policy_name": "test_report",
+	"message": "In order to comply with this control all values should be set to 'bar'. For more information, visit https://choosebar.com.",
+	"action": "Set value to 'bar'",
+}
+
+summary = {
+	"policy_name": const.policy_name,
+	"message": const.message,
+	"violations": map violations.resources as _, v {
+		{
+			"address":        v.address,
+			"module_address": v.module_address,
+			"action":        const.action,
+		}
+	},
+}
+
+# Outputs
+
+print(report.generate_policy_report(summary))
+
+# Rules
+
+main = rule {
+	true
+}
