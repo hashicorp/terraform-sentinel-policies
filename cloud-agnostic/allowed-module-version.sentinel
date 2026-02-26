@@ -1,0 +1,32 @@
+# This policy uses the tfconfig/v2 import to require approved module versions
+# Note: There are more advanced versions of this in http-examples
+# that allow you to query versions from the PMR
+
+# Import common-functions/tfconfig-functions/tfconfig-functions.sentinel
+# with alias "config" and version with alias "ver"
+import "tfconfig-functions" as config
+
+# Allowed list of modules and minimum required version
+# AWS examples used but will work with any module
+allowed_modules = { 
+    "vpc": "3.14.1",
+    "s3_bucket": "3.6.0",
+    "security-group": "4.14.2",
+}
+
+# Get all modules from our configuration
+allModuleCalls = config.find_all_module_calls()
+
+# Call function passing in our configuration module map and our 
+# allowed_modules map from above
+violatingModuleCalls = config.get_module_violations(allModuleCalls, allowed_modules)
+
+# Violation message output
+for violatingModuleCalls as k, v {
+ print("Module", k+":v"+ v[k], "does not have the minimum allowed version")
+}
+
+# Main rule
+main = rule {
+  length(violatingModuleCalls) is 0
+}
