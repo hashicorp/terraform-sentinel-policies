@@ -22,9 +22,10 @@ down_arrow = "\u21b3"
 
 // Strings
 root_module = "root"
+title_overview = "Overview: "
 overall_result = arrow_icon + space + arrow_icon + space + "Overall Result: "
-success_message = "This result means that all resources have passed the policy check for the policy "
-failure_message = "This result means that not all resources passed the policy check and the protected behavior is not allowed for the policy "
+success_message = "All resources have successfully passed."
+failure_message = "Not all resources passed, so the protected behavior is not allowed."
 found_zero_resource_violations = "Found 0 resource violations"
 resource_violations = "resource violations"
 module_header = "Module name: "
@@ -34,10 +35,13 @@ failed = "failed"
 generate_policy_report = func(summary) {
 
 	generate_success_summary_string = func(summary) {
-		report = green + overall_result + "true" + reset
+		report = title_overview + new_line + summary.message
 		report += new_line
 		report += new_line
-		report += success_message + summary.policy_name + dot
+		report += green + overall_result + "true" + reset
+		report += new_line
+		report += new_line
+		report += success_message
 		report += new_line
 		report += new_line
 		report += check_icon + space + found_zero_resource_violations
@@ -45,10 +49,13 @@ generate_policy_report = func(summary) {
 	}
 
 	generate_failure_summary_string = func(summary) {
-		report = red + overall_result + "false" + reset
+		report = title_overview + new_line + summary.message
 		report += new_line
 		report += new_line
-		report += failure_message + summary.policy_name + dot
+		report += red + overall_result + "false" + reset
+		report += new_line
+		report += new_line
+		report += failure_message
 		report += new_line
 		report += new_line
 		report += "Found " + string(length(summary.violations)) + space + resource_violations
@@ -66,7 +73,7 @@ generate_policy_report = func(summary) {
 				report += new_line
 				report += tab + tab + space + pipe + space + cross_icon + space + failed
 				report += new_line
-				report += tab + tab + space + pipe + space + v.message
+				report += tab + tab + space + pipe + space + v.action
 				report += new_line
 			}
 		}
