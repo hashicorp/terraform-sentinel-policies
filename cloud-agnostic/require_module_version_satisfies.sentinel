@@ -1,0 +1,35 @@
+# This policy uses the tfconfig/v2 import to require modules to 
+# compare a map of modules to their version reuqirements.
+# This uses the version.satisfy function.
+# Note this is DRAFT only, so don't use without test.
+
+import "tfconfig-functions" as config
+import "version"
+
+module_versions = {
+  "terraform-azure-wibblywobbly", ">2.0"
+  "terraform-aws-moneyburn", ">~0.9"
+}
+
+# Get all modules
+
+allModuleCalls = config.find_all_module_calls()
+
+#Get all module calls tht have version_constraint as undefined or empty.
+violatingModuleCalls = filter allModuleCalls as address, mc {
+    mc.address in module_versions
+}
+
+# Print any violations
+for violatingModuleCalls as address, mc {
+    if not mc.version.satisfies(module_versions[mc.address])
+    print("Module", address, "does not meet version requirement: ", module_versions[mc.address])
+}
+
+# Main rule
+main = rule {
+    length(violatingModuleCalls) is 0
+}
+
+
+                            
