@@ -1,3 +1,5 @@
+# Copyright IBM Corp. 2022, 2026
+
 param "public_registry" {
   value = true
 }

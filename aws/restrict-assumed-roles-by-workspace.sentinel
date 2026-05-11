@@ -2,6 +2,8 @@
 # It includes a map that maps roles to lists of regex expressions
 # that match one or more workspace names
 
+# Copyright IBM Corp. 2022, 2026
+
 # It can only determine the role_arn if it is set to either a hard-coded value
 # or to a reference to a single Terraform variable.
 # If you want to the policy to pass if the assumed role contains a single

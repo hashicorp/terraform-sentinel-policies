@@ -4,6 +4,8 @@
 # `rc.change.before` instead of `rc` to the `evaluate_attribute()` function
 # which converts `rc` to `rc.change.after`.
 
+# Copyright IBM Corp. 2022, 2026
+
 # Import common-functions/tfplan-functions/tfplan-functions.sentinel
 # with alias "plan"
 import "tfplan-functions" as plan

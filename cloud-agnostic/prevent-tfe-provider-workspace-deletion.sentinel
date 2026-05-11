@@ -1,6 +1,8 @@
 # This policy uses the Sentinel tfplan/v2 import to validate that no terraform
 # cloud/enterprise workspaces are deleted with the tfe provider.
 
+# Copyright IBM Corp. 2022, 2026
+
 # Import the tfplan/v2 import, but use the alias "tfplan"
 import "tfplan/v2" as tfplan
 

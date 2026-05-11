@@ -7,3 +7,5 @@
 // Any data fetched using this import will return undefined. To
 // effectively use tfstate, please generate the mock data off of a
 // plan with existing state.
+# Copyright IBM Corp. 2022, 2026
+

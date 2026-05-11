@@ -2,6 +2,8 @@
 # all EC2 instances have the Environment key in the tags attribute
 # and that it has a value from an allowed list
 
+# Copyright IBM Corp. 2022, 2026
+
 # Import common-functions/tfplan-functions/tfplan-functions.sentinel
 # with alias "plan"
 import "tfplan-functions" as plan

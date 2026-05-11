@@ -1,5 +1,7 @@
 # Common functions that use the tfstate/v2 import
 
+# Copyright IBM Corp. 2022, 2026
+
 # The filter functions all accept a collection of resources, an attribute,
 # a value or a list of values, and a boolean, prtmsg, which can be true or false
 # and indicates whether the filter function should print violation messages.

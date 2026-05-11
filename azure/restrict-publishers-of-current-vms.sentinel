@@ -1,6 +1,8 @@
 # This policy uses the Sentinel tfstate/v2 import to require that
 # all existing Azure VMs have publishers from a specified list
 
+# Copyright IBM Corp. 2022, 2026
+
 # Import common-functions/tfstate-functions/tfstate-functions.sentinel
 # with alias "state"
 import "tfstate-functions" as state

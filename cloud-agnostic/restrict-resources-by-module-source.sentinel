@@ -9,6 +9,8 @@
 # point directly against a sub-directory of a module with a reference like
 # "app.terraform.io/Cloud-Operations/s3-bucket/aws//modules/notification".
 
+# Copyright IBM Corp. 2022, 2026
+
 ##### Imports #####
 
 # Import common-functions/tfconfig-functions/tfconfig-functions.sentinel

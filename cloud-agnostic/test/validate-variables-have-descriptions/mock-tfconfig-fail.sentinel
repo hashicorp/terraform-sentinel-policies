@@ -1,3 +1,5 @@
+# Copyright IBM Corp. 2022, 2026
+
 variables = {
 	"ami_id": {
 		"default":        "ami-2e1ef954",

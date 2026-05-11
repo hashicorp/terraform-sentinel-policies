@@ -2,6 +2,8 @@
 # all VPCs support DNS so that EC2 instances created in them
 # will have public DNS if they have public IPs
 
+# Copyright IBM Corp. 2022, 2026
+
 # Import common-functions/tfplan-functions/tfplan-functions.sentinel
 # with alias "plan"
 import "tfplan-functions" as plan

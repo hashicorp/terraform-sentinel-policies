@@ -4,6 +4,8 @@
 # prefixes and suffixes of names of workspaces that want to read remote state
 # and specific workspaces from which they can read it.
 
+# Copyright IBM Corp. 2022, 2026
+
 # IMPORTANT CAVEAT: Since this policy would be run AFTER the `terraform plan`
 # has already been run, it can really only be used to report violations of
 # remote state access. It does not fully address the security concern of

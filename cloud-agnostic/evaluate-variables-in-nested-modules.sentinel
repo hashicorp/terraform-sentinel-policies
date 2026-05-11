@@ -3,6 +3,8 @@
 # they are set as constant values. For module variables
 # that are set to references, it just prints the references.
 
+# Copyright IBM Corp. 2022, 2026
+
 # Import common-functions/tfconfig-functions/tfconfig-functions.sentinel
 # with alias "config"
 import "tfconfig-functions" as config

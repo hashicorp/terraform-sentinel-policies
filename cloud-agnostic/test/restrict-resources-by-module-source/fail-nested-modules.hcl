@@ -1,3 +1,5 @@
+# Copyright IBM Corp. 2022, 2026
+
 module "tfconfig-functions" {
   source = "../../../common-functions/tfconfig-functions/tfconfig-functions.sentinel"
 }

@@ -2,6 +2,8 @@
 # set to an aws_ami datasource (using data.aws_ami.<name>.id)
 # and that all aws_ami data sources have most_recent set to true
 
+# Copyright IBM Corp. 2022, 2026
+
 # Import common-functions/tfstate-functions/tfstate-functions.sentinel
 # with alias "state"
 import "tfstate-functions" as state

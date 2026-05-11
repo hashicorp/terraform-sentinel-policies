@@ -1,6 +1,8 @@
 # This policy uses the tfconfig/v2 import to restrict providers to those
 # in an allowed list.
 
+# Copyright IBM Corp. 2022, 2026
+
 # It used to only use the providers collection of the tfconfig/v2 import, but
 # that did not process resources and data sources from allowed providers
 # when no provider block was included in the Terraform configuration. So, it now

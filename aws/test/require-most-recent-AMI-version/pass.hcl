@@ -1,3 +1,5 @@
+# Copyright IBM Corp. 2022, 2026
+
 module "tfstate-functions" {
   source = "../../../common-functions/tfstate-functions/tfstate-functions.sentinel"
 }

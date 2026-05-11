@@ -2,6 +2,8 @@
 // Other functions were introduced to make code modular are scoped within this
 // function to avoid getting invoked from outside
 
+# Copyright IBM Corp. 2022, 2026
+
 // Colors
 green = "\033[32m"
 red = "\033[31m"

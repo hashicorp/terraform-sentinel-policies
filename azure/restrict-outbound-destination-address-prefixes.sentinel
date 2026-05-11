@@ -4,6 +4,8 @@
 # It covers both the azurerm_network_security_group and the
 # azurerm_network_security_rule resources which can both define rules.
 
+# Copyright IBM Corp. 2022, 2026
+
 # Import the tfplan/v2 import, but use the alias "tfplan"
 import "tfplan/v2" as tfplan
 

@@ -1,3 +1,5 @@
+# Copyright IBM Corp. 2022, 2026
+
 module "aws-functions" {
   source = "../../aws-functions/aws-functions.sentinel"
 }
