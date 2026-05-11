@@ -1,5 +1,7 @@
 # Common functions for use with the AWS provider
 
+# Copyright IBM Corp. 2022, 2026
+
 ##### Imports #####
 import "tfconfig-functions" as config
 import "tfplan/v2" as tfplan

@@ -1,6 +1,8 @@
 # This policy uses the tfconfig/v2 import to force EC2
 # instances to have subnet_id set to a specific reference
 
+# Copyright IBM Corp. 2022, 2026
+
 # Standard tfconfig/v2 import
 import "tfconfig/v2" as tfconfig
 

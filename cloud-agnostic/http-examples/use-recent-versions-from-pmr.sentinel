@@ -10,6 +10,8 @@
 # use of public registry modules that are not curated and non-registry modules
 # except for local sources starting with "./" and ".//".
 
+# Copyright IBM Corp. 2022, 2026
+
 # This policy requires the Sentinel runtime 0.16.0 or higher since the
 # registry-functions module it calls uses the Sentinel
 # [version](https://docs.hashicorp.com/sentinel/imports/version) import.

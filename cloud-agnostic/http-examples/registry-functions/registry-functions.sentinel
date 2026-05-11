@@ -1,6 +1,8 @@
 # Functions to retrive public and private modules from a private module registry
 # and determine recent versions
 
+# Copyright IBM Corp. 2022, 2026
+
 ##### Imports #####
 import "http"
 import "json"

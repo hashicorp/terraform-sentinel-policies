@@ -1,5 +1,7 @@
 # Common functions that use the tfrun import
 
+# Copyright IBM Corp. 2022, 2026
+
 ##### Imports #####
 import "tfrun"
 import "decimal"

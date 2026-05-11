@@ -2,6 +2,8 @@
 # size of the pool of GKE clusters and the types of their VMs
 # Restrict both the default node pool of clusters and additional node pools
 
+# Copyright IBM Corp. 2022, 2026
+
 # Import common-functions/tfplan-functions/tfplan-functions.sentinel
 # with alias "plan"
 import "tfplan-functions" as plan

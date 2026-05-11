@@ -2,6 +2,8 @@
 # created in non-root modules. Only provider proxy configuration blocks
 # that do not have any config are allowed.
 
+# Copyright IBM Corp. 2022, 2026
+
 # Import tfconfig/v2 with alias "tfconfig"
 import "tfconfig/v2" as tfconfig
 

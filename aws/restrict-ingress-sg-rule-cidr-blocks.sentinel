@@ -3,6 +3,8 @@
 # aws_security_group and the aws_security_group_rule resources which can both
 # define rules.
 
+# Copyright IBM Corp. 2022, 2026
+
 # Import the tfplan/v2 import, but use the alias "tfplan"
 import "tfplan/v2" as tfplan
 

@@ -1,5 +1,7 @@
 # Common functions that use the tfconfig/v2 import
 
+# Copyright IBM Corp. 2022, 2026
+
 ##### Imports #####
 import "tfconfig/v2" as tfconfig
 import "strings"

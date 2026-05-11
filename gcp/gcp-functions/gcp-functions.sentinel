@@ -1,5 +1,7 @@
 # Common functions for use with the GCP provider
 
+# Copyright IBM Corp. 2022, 2026
+
 ##### Imports #####
 import "tfplan/v2" as tfplan
 

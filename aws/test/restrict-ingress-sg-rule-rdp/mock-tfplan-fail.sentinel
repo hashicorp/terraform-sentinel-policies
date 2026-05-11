@@ -1,3 +1,5 @@
+# Copyright IBM Corp. 2022, 2026
+
 resource_changes = {
 	"aws_security_group.bar": {
 		"address": "aws_security_group.bar",

@@ -6,6 +6,8 @@
 # the most recent version allowed by a version constraint, this ensures that
 # the most recent version of the module will be used.
 
+# Copyright IBM Corp. 2022, 2026
+
 # This policy does not prevent use of non-versioned modules from other
 # sources such as local modules, GitHub, Bitbucket, etc. If you want to ensure
 # that all non-root modules come from your private module registry (PMR) use the

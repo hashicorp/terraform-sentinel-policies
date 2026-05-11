@@ -1,5 +1,7 @@
 #The policy uses the tfplan import to enforce the usage of Terraform version 0.12 or higher
 
+# Copyright IBM Corp. 2022, 2026
+
 import "tfplan/v2" as tfplan
 
 #Minimum allowed version variable

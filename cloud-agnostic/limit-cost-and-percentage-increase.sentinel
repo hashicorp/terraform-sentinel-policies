@@ -3,6 +3,8 @@
 # the monthly cost that would be incurred if the current plan
 # were applied
 
+# Copyright IBM Corp. 2022, 2026
+
 # Import common-functions/tfrun-functions/tfrun-functions.sentinel
 # with alias "run"
 import "tfrun-functions" as run

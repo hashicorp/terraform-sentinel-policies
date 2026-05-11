@@ -1,6 +1,8 @@
 # This policy prevents the destruction without re-creation of resources
 # of prohibited types.
 
+# Copyright IBM Corp. 2022, 2026
+
 # Import common-functions/tfplan-functions/tfplan-functions.sentinel
 # with alias "plan"
 import "tfplan-functions" as plan

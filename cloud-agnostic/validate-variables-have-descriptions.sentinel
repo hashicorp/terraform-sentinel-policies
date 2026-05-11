@@ -1,6 +1,8 @@
 # This policy uses the tfconfig/v2 import to validate that all variables
 # have descriptions
 
+# Copyright IBM Corp. 2022, 2026
+
 # Import the tfconfig/v2 import, but use the alias "tfconfig"
 import "tfconfig/v2" as tfconfig
 

@@ -7,6 +7,8 @@
 # A more robust policy would also examine the servers of the databases and
 # server-level auditing policies.
 
+# Copyright IBM Corp. 2022, 2026
+
 # Import common-functions/tfplan-functions/tfplan-functions.sentinel
 # with alias "plan"
 import "tfplan-functions" as plan

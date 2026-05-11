@@ -1,6 +1,8 @@
 # This policy uses the Sentinel tfconfig/v2 and tfplan/v2 imports to require that
 # all AWS provider aliases are in specified regions
 
+# Copyright IBM Corp. 2022, 2026
+
 # See the documentation for the [filter_providers_by_regions](./aws-functions/docs/filter_providers_by_regions.md)
 # and [validate_provider_in_allowed_regions](./aws-functions/docs/validate_provider_in_allowed_regions.md) functions for details on
 # how this is done.

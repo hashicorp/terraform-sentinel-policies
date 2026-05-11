@@ -2,6 +2,8 @@
 # modules come from the Private Module Registry and that no resources
 # or data sources are created in the root module.
 
+# Copyright IBM Corp. 2022, 2026
+
 # Import the tfconfig/v2 import, but use the alias "tfconfig"
 import "tfconfig/v2" as tfconfig
 

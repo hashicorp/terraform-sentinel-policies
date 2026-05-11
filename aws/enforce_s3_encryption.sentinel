@@ -3,6 +3,8 @@
 # Written to support AWS Provider 4.x where S3 Bucket and S3 Server_side_encryption_configuration are seperate resources
 # Note: it is possible to use the legacy S3 bucket attributes using version 4.x provider therefore refer to that syntax as "legacy"
 
+# Copyright IBM Corp. 2022, 2026
+
 # Import Functions used below
 import "tfplan-functions" as plan
 import "tfconfig-functions" as config
